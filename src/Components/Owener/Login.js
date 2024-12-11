@@ -21,7 +21,7 @@ const CustomInputField = ({ id, type, value, onChange, label, error, name }) => 
     };
 
     return (
-        <div className="Login_register_input_group">
+        <div className="Login_register_input_group_Owener">
             <input 
                 type={isPasswordVisible ? 'text' : type} 
                 id={id} 
@@ -55,14 +55,6 @@ const CustomInputField = ({ id, type, value, onChange, label, error, name }) => 
         </div>
     );
 };
-
-
-
-const text_lines = [
-  "Enter your credentials to get started",
-  "this is line 2 for new user"
-];
-
 
 function Login() {
   const [is_show_animation,set_is_show_animation] = useState(true);
