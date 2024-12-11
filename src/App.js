@@ -1,7 +1,7 @@
 // import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Login from "./Components/Owener/Login.js";
+import Login from "./Components/Owener/Login_Register.js";
 import LoginRegister from './Components/Client/login_register.js'
 
 function App() {

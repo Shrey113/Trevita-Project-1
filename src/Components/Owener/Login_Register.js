@@ -1,12 +1,11 @@
-import React, { useState,useEffect  } from "react";
+import React, { useState  } from "react";
 // import CustomInputField from './sub_components/CustomInputField.js'
 import eye_visible from './../../Assets/Login/eye_visible.png';
 import eye_hide from './../../Assets/Login/eye_hide.png';
-import Register_page_ from './../../Assets/Owener/Register_page_.jpg';
 
-import { useNavigate } from 'react-router-dom';
+
 import './css/LoginRegister.css'
-import { TypeAnimation } from 'react-type-animation';
+
 import travel from "./../../Assets/Owener/download.jpg";
 
 
@@ -88,23 +87,7 @@ function Login() {
   };
 
 
-  const navigate = useNavigate();
-
-  function go_to_admin_page(){
-    navigate('/admin_pass_with_id_admin_id_tjSFS1f21s1fSF');
-  }
-
-
-  // validate login  - function 
   const handle_login_submit = (event) => {
-    console.log("sss");
-    
-    // if (login_email === Admin_page_password_key){
-    //   if(login_password === Admin_page_user_key){
-    //     go_to_admin_page()
-    //     return;
-    //   }
-    // }
     event.preventDefault();
     let is_valid = true;
 

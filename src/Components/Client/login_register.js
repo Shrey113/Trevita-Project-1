@@ -67,8 +67,16 @@ function LoginRegister() {
     if (validate_email(login_email)) {
       set_login_email_error("");
     } else {
-      set_login_email_error("Invalid email");
+      set_login_email_error("Invalid credentials");
+      set_login_password_error("Invalid credentials");
       is_valid = false;
+    }
+
+    if (login_password){
+
+    }else{
+      set_login_email_error("Invalid credentials");
+      set_login_password_error("Invalid credentials");
     }
 
     if (!termsChecked) {
