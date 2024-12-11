@@ -1,0 +1,381 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  user-select: none;
+  /* font-family: monospace; */
+   
+}
+:root{
+  --color_1:#000C20;
+  --color_2:#01316F;
+  --color_3:#6FAFDB;
+  --color_4:#E2E2B7;
+
+
+  --input_font_size:.9rem;
+}
+
+.full_blur_bg_1 {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background: rgba(177, 177, 177, 0.036);
+  backdrop-filter: blur(4px);
+}
+
+.user_login_con {
+  height: fit-content;
+  max-height: 85vh;
+  height: 100vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 996;
+  background: white;
+  border-radius: 12px;
+  padding: 10px 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+.login_part,
+.register_part {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+  padding: 20px 0px;
+  opacity: 100%;
+  transition: all 0.5s;
+}
+
+.register_part {
+  gap: 35px;
+  justify-content: flex-start;
+  overflow-y: scroll;
+}
+@keyframes set_form_animation {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+@keyframes reverse_form_animation {
+  0%{
+    opacity: 1;
+  }
+  50%{opacity: 0;}
+  100%{
+
+    opacity: 0;
+    
+  }
+}
+/* .set_form_animation{
+  transition: all 0.5s;
+  animation:  set_form_animation 1s ease;
+}
+.reverse_form_animation{
+  transition: all 0.5s;
+  animation:  reverse_form_animation 1s ease;
+} */
+
+.register_part::-webkit-scrollbar {
+  background: #00000000;
+  width: 2px;
+}
+
+.register_part span:has(label) {
+  width: 95%;
+}
+
+.user_login_con .forgot_password{
+  color:var(--color_3);
+  cursor: pointer;
+  align-self: flex-end;
+  margin-right: 20px;
+  /* this is fix for -20 */
+  margin-top: -20px;
+}
+
+
+/* title */
+.login_part .title,
+.register_part .title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: var(--color_2);
+}
+
+.register_part .title {
+  margin-bottom: 15px;
+}
+
+
+
+
+.other_login {
+  width: 50px;
+  cursor: pointer;
+}
+
+#go_to_register,
+#go_to_login {
+  color: var(--color_3);
+  cursor: pointer;
+
+  &:hover {
+    color: rgb(91, 91, 255);
+  }
+}
+
+
+
+
+.switch_con {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  transform: translate(0%);
+  
+  overflow: hidden;
+  z-index: 0;
+  cursor: pointer;
+
+  transition: all 1s ease-in-out;
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: transform;
+
+
+
+  /* background: red; */
+}
+
+/* .switch_con .top_switch_con {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  z-index: 10;
+  transition: all 0.5s;
+}
+.switch_con:hover .top_switch_con {
+  background: rgba(41, 39, 44, 0.21);
+} */
+
+.travel_login_img {
+  height: 95%;
+  width: 95%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.travel_login_img img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+
+.Custom_support{
+  color:black;
+  font-size: 1.15rem;
+}
+.Custom_support span{
+  color: blue;
+  cursor: pointer;
+}
+
+.all_error_for_input {
+  color: red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* form styles input */
+.Login_register_input_group {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.Login_register_input_group input[type="text"],
+.Login_register_input_group input[type="password"],
+.Login_register_input_group input[type="email"] {
+  font-size: var(--input_font_size);
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 300px;
+  border: none;
+  border-bottom: 1px solid #757575;
+}
+
+.Login_register_input_group input:focus {
+  outline: none;
+}
+
+
+
+/* form styles input-lable*/
+.Login_register_input_group label {
+  color: #434343;
+  font-size: var(--input_font_size);
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  will-change: top;
+}
+
+.Login_register_input_group input[type="text"]:focus~label,
+.Login_register_input_group input[type="password"]:focus~label,
+.Login_register_input_group input[type="email"]:focus~label,
+ 
+.Login_register_input_group input[type="text"]:valid~label,
+.Login_register_input_group input[type="password"]:valid~label,
+.Login_register_input_group input[type="email"]:valid~label {
+  will-change: top;
+  top: -20px;
+  font-size: var(--input_font_size);
+  color: var(--color_3);
+}
+
+.Login_register_input_group .bar {
+  position: relative;
+  display: block;
+  width: 300px;
+}
+
+.Login_register_input_group .bar:before,
+.Login_register_input_group .bar:after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 0;
+  /* bottom: 1px; */
+  background: var(--color_3);
+  transition: 0.2s ease all;
+  will-change: width;
+}
+
+.Login_register_input_group .bar:before {
+  left: 50%;
+}
+
+.Login_register_input_group .bar:after {
+  right: 50%;
+}
+
+.Login_register_input_group input:focus~.bar:before,
+.Login_register_input_group input:focus~.bar:after {
+  will-change: width;
+  width: 50%;
+}
+
+.Login_register_input_group .label_custom_check_box {
+  display: contents;
+  pointer-events: fill;
+  cursor: pointer;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/*  */
+.show_password_button{
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+
+
+#custom_button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding: 0.9rem 2rem;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  font-size: 17px;
+  border-radius: 500px;
+  overflow: hidden;
+  background: var(--color_2);
+  color: ghostwhite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#custom_button span {
+  position: relative;
+  z-index: 10;
+  transition: color 0.4s ease;
+}
+
+
+
+#custom_button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.289);
+}
+
+
+#custom_button:hover span {
+  color: rgba(255, 255, 255, 0.85);
+}
+
