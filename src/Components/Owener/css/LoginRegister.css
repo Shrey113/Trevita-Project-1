@@ -12,8 +12,6 @@
   --color_2:#01316F;
   --color_3:#6FAFDB;
   --color_4:#E2E2B7;
-
-
   --input_font_size:.9rem;
 }
 
@@ -35,7 +33,7 @@
   transform: translate(-50%, -50%);
   z-index: 996;
   background: white;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 10px 20px;
 
   display: flex;
@@ -56,12 +54,11 @@
   flex-direction: column;
   gap: 25px;
   padding: 20px 0px;
-  opacity: 100%;
-  transition: all 0.5s;
 }
 
 .register_part {
-  gap: 35px;
+  /* background: rebeccapurple; */
+  gap: 25px;
   justify-content: flex-start;
   overflow-y: scroll;
 }
@@ -147,15 +144,13 @@
 
 
 .switch_con {
+  padding: 15px;
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 50%;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
 
   transform: translate(0%);
@@ -167,30 +162,17 @@
   transition: all 1s ease-in-out;
   transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
   will-change: transform;
-
-
-
-  /* background: red; */
+  background: rgb(255, 255, 255);
 }
 
-/* .switch_con .top_switch_con {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: transparent;
-  z-index: 10;
-  transition: all 0.5s;
-}
-.switch_con:hover .top_switch_con {
-  background: rgba(41, 39, 44, 0.21);
-} */
 
 .travel_login_img {
-  height: 95%;
-  width: 95%;
+  height: 100%;
+  width: 100%;
   position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -218,6 +200,25 @@
   color: red;
 }
 
+.top_switch_con{
+  z-index: 10;
+  position: absolute;
+  bottom: 65px;
+  width: 80%;
+  margin-left: 15px;
+  background-color: rgba(255, 255, 255, 0.074);
+  backdrop-filter: blur(1px);
+  padding: 10px;
+  border-radius: 10px;
+}
+.top_switch_con .title{
+font-size: 1.5rem;
+margin-bottom: 10px;
+}
+.top_switch_con .message{
+  font-size: 1.1rem;
+}
+
 
 
 
@@ -239,7 +240,6 @@
 .Login_register_input_group_Owener {
   position: relative;
   margin-bottom: 12px;
-  background: #000;
 }
 
 .Login_register_input_group_Owener input[type="text"],
@@ -339,7 +339,12 @@
   align-items: center;
 }
 
-
+/* button-0 s */
+.button_con_register_part{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
 
 #custom_button {
   outline: none;
@@ -380,3 +385,29 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
+
+
+.swiper-pagination {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  opacity: 0.6;
+  border-radius: 50%;
+  margin: 0 5px;
+  transition: opacity 0.3s, background-color 0.3s;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--color_2);
+  opacity: 1;
+}

@@ -7,7 +7,10 @@ import eye_hide from './../../Assets/Login/eye_hide.png';
 import './css/LoginRegister.css'
 
 import travel from "./../../Assets/Owener/download.jpg";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/autoplay";
 
 
 
@@ -55,6 +58,8 @@ const CustomInputField = ({ id, type, value, onChange, label, error, name }) => 
     );
 };
 
+const Server_url = 'http://localhost:4000'
+
 function Login() {
   const [is_show_animation,set_is_show_animation] = useState(true);
   //  Login part -- 
@@ -64,7 +69,8 @@ function Login() {
   const [login_password_error, set_login_password_error] = useState("");
 
   const [is_register, toggle_register_login] = useState(false);
-  // register part --
+  const [is_page_1register, toggle_is_page_1register] = useState(true);
+  // register part 1 --
   const [register_user_name, set_register_user_name] = useState("");
   const [register_user_name_error, set_register_user_name_error] = useState("");
   const [register_email, set_register_email] = useState("");
@@ -75,6 +81,16 @@ function Login() {
   const [register_confirm_password_password_error, set_register_confirm_password_password_error] = useState("");
   const [terms_and_conditions, set_terms_and_conditions] = useState(false);
   const [terms_and_conditions_error, set_terms_and_conditions_error] = useState("");
+
+ // register part 1 --
+ const [register_business_name, set_register_business_name] = useState("");
+ const [register_business_name_error, set_register_business_name_error] = useState("");
+ const [register_business_address, set_register_business_address] = useState("");
+ const [register_business_address_error, set_register_business_address_error] = useState("");
+ const [register_business_mobile_number, set_register_business_mobile_number] = useState("");
+ const [register_business_mobile_number_error, set_register_business_mobile_number_error] = useState("");
+ const [register_business_GST_number, set_register_business_GST_number] = useState("");
+ const [register_business_GST_number_error, set_register_business_GST_number_error] = useState("");
 
   // toggle page --
   const [show_verify_page,set_show_verify_page] = useState(false)
@@ -142,90 +158,141 @@ function Login() {
     }
   };
 
+
+
+  function register_page_1_valide(e){
+    e.preventDefault();
+    let is_valid_page_1 = true;
+
+  if (register_user_name.length < 4) {
+    set_register_user_name_error("Length must be 4 characters");
+    is_valid_page_1 = false;
+  } else {
+    set_register_user_name_error("");
+  }
+
+  if (validate_email(register_email)) {
+    set_register_email_error("");
+  } else {
+    set_register_email_error("Invalid email");
+    is_valid_page_1 = false;
+  }
+
+  const temp_password = register_password;
+  if (temp_password.length < 4) {
+    set_register_password_error("Length must be at least 4 characters");
+    is_valid_page_1 = false;
+  } else if (!/\d/.test(temp_password)) {
+    set_register_password_error("Must contain at least one digit");
+    is_valid_page_1 = false;
+  } else if (!/[a-zA-Z]/.test(temp_password)) {
+    set_register_password_error("Must contain at least one letter");
+    is_valid_page_1 = false;
+  } else if (!/[A-Z]/.test(temp_password)) {
+    set_register_password_error("Must contain at least one uppercase letter");
+    is_valid_page_1 = false;
+  } else {
+    set_register_password_error("");
+  }
+  
+
+  if (register_password !== register_confirm_password_password) {
+    set_register_confirm_password_password_error("Passwords must match");
+    is_valid_page_1 = false;
+  } else {
+    set_register_confirm_password_password_error("");
+  }
+
+  if (!terms_and_conditions) {
+    set_terms_and_conditions_error("Terms and conditions must be checked");
+    is_valid_page_1 = false;
+  } else {
+    set_terms_and_conditions_error("");
+  }
+
+
+  if(is_valid_page_1){
+    toggle_is_page_1register(false)
+    console.log("sss - 1");
+  }
+}
   // validate register - function 
-  const handle_register_submit = (event) => {
+  const handle_register_submit = async (event) => {
     event.preventDefault();
     let is_valid = true;
 
-    if (register_user_name.length < 4) {
-      set_register_user_name_error("Length must be 4 characters");
+    if (register_business_name.trim() === "") {
+      set_register_business_name_error("Business Name is required.");
       is_valid = false;
     } else {
-      set_register_user_name_error("");
+      set_register_business_name_error("");
     }
 
-    if (validate_email(register_email)) {
-      set_register_email_error("");
-    } else {
-      set_register_email_error("Invalid email");
+    if (register_business_address.trim() === "") {
+      set_register_business_address_error("Business Address is required.");
       is_valid = false;
+    } else {
+      set_register_business_address_error("");
     }
 
-    const temp_password = register_password;
-    if (temp_password.length < 4) {
-      set_register_password_error("Length must be at least 4 characters");
+    // const mobileRegex = /^[0-9]\d{9}$/;
+    if (register_business_mobile_number.length !== 10) {
+      set_register_business_mobile_number_error("Mobile number must be exactly 10 digits.")
       is_valid = false;
-    } else if (!/\d/.test(temp_password)) {
-      set_register_password_error("Must contain at least one digit");
-      is_valid = false;
-    } else if (!/[a-zA-Z]/.test(temp_password)) {
-      set_register_password_error("Must contain at least one letter");
-      is_valid = false;
-    } else if (!/[A-Z]/.test(temp_password)) {
-      set_register_password_error("Must contain at least one uppercase letter");
-      is_valid = false;
-    } else {
-      set_register_password_error("");
+    }else{
+      set_register_business_mobile_number_error("");
     }
+ 
+    if (!/^[0-9]{10}$/.test(register_business_mobile_number)) {
+      set_register_business_mobile_number_error("Enter a valid 10-digit mobile number.");
+      is_valid = false;
+    }else{
+      set_register_business_mobile_number_error("");
+    }
+ 
     
 
-    if (register_password !== register_confirm_password_password) {
-      set_register_confirm_password_password_error("Passwords must match");
+    const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[Z]{1}[A-Z0-9]{1}$/; 
+    if (!gstRegex.test(register_business_GST_number)) {
+      set_register_business_GST_number_error("GST number must be exactly 15 characters long.And GST validation");
       is_valid = false;
     } else {
-      set_register_confirm_password_password_error("");
+      set_register_business_GST_number_error("");
     }
 
-    if (!terms_and_conditions) {
-      set_terms_and_conditions_error("Terms and conditions must be checked");
-      is_valid = false;
-    } else {
-      set_terms_and_conditions_error("");
-    }
+
 
     if (is_valid) {
-      fetch('http://localhost:4000/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          register_user_name: register_user_name,
-          register_email: register_email,
-          register_password: register_password,
-        }),
-      })
-        .then(response => {
+  
+        const Data = {
+          user_name: register_user_name,
+          user_email: register_email,
+          user_password:register_password ,
+          business_name: register_business_name,
+          business_address: register_business_address,
+          mobile_number: register_business_mobile_number,
+          GST_number: register_business_GST_number
+        };
+      
+        try {
+          const response = await fetch(`${Server_url}/owener/add_owener`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(Data),
+          });
+      
+          const data = await response.json();
           if (response.ok) {
-            return response.json();
+            console.log('Client added successfully:', data);
           } else {
-            console.log("server say : Not-ok\n\nmessage : 'server response was not ok(Not a 200).' ");
+            console.log('Error adding client:', data.error);
           }
-        })
-
-        .then(data => {
-          console.log(data);          
-          if (data.status === 'failed-exist') {
-            set_register_email_error("Enter Email is already exist");
-          } else if (data.status === 'success') {
-            set_register_email_error("");
-            set_is_show_animation(!is_show_animation)
-            set_show_verify_page(!show_verify_page)
-          } else {
-            alert('Not valid data send by server');
-          }
-        })
-        .catch(error => {
-          console.log("html say : Not-ok\n\nmessage : 'while run java script error'\n\nError :", error);
-        });
+        } catch (error) {
+          console.error('Error making fetch request:', error);
+        }
+   
     }
   };
 
@@ -256,16 +323,42 @@ function Login() {
           {/* form - 2 Register */}
           <form className={`register_part ${!is_register ? "reverse_form_animation" : "set_form_animation" }`} action="go.html" id="register_part" onSubmit={handle_register_submit}>
                 <div className="title">Register</div>
+                {is_page_1register ? <>
                 <CustomInputField type="text" value={register_user_name} onChange={(e)=>set_register_user_name(e.target.value)} label="User Name" error={register_user_name_error} id="register_user_name"/>
                 <CustomInputField type="text" value={register_email} onChange={(e)=>set_register_email(e.target.value)} label="Email" error={register_email_error} id="register_email"/>
                 <CustomInputField type="password" value={register_password} onChange={(e)=> set_register_password(e.target.value)} label="Password" error={register_password_error} id="register_password"/>
                 <CustomInputField type="password" value={register_confirm_password_password} onChange={(e)=> set_register_confirm_password_password(e.target.value)} label="Confirm Password" error={register_confirm_password_password_error} id="register_confirm_password_password"/>
-                <span>
+                </>
+                :<>
+                <CustomInputField type="text" value={register_business_name} onChange={(e) => set_register_business_name(e.target.value)} label="Business Name" error={register_business_name_error} id="register_business_name"/>
+                <CustomInputField type="text" value={register_business_address} onChange={(e) => set_register_business_address(e.target.value)} label="Business Address" error={register_business_address_error} id="register_business_address"/>
+                <CustomInputField type="text" value={register_business_mobile_number} onChange={(e) => set_register_business_mobile_number(e.target.value)} label="Mobile Number" error={register_business_mobile_number_error} id="register_business_mobile_number"/>
+                <CustomInputField type="text" value={register_business_GST_number} onChange={(e) => set_register_business_GST_number(e.target.value)} label="GST Number" error={register_business_GST_number_error} id="register_business_GST_number"/>
+                </>}
+
+                {is_page_1register &&  <span>
                     <input type="checkbox" style={{marginleft:"10px"}} id="terms_and_conditions" checked={terms_and_conditions} onChange={(e)=> set_terms_and_conditions(e.target.checked)} />  
                     <label htmlFor="terms_and_conditions"style={{cursor:"pointer"}} className="label_custom_check_box">Agree to terms and conditions</label>
                     <div id="terms_and_conditions_error" className="all_error_for_input">{terms_and_conditions_error}</div>
                 </span>
-                <button id="custom_button">Register</button>
+}
+                
+              
+
+                <div className="button_con_register_part">
+
+                {is_page_1register ?
+                    <button id="custom_button" onClick={ (e)=>{
+                      register_page_1_valide(e);
+                      }} >Next</button> : <button id="custom_button" onClick={ (e)=>{
+                        e.preventDefault();
+                        toggle_is_page_1register(true);
+                      }} >back</button> }
+             
+
+      
+                {!is_page_1register && <button id="custom_button">Register</button>}
+                </div>
                 
                 
                 
@@ -279,12 +372,40 @@ function Login() {
           {/* switch for move on form */}
           <div className="switch_con" id="switch_con" style={{ transform: is_register ? "translate(100%)" : "translate(0%)" }}>
             
-            <div className="travel_login_img" id="travel_login_img">
-              <img src={travel} alt=""/>
-            </div>
+          <Swiper modules={[Pagination, Autoplay]} autoplay={{ delay: 3000 }} loop={true} pagination={{
+              clickable: true,
+              el: ".swiper-pagination",
+            }} className="image-swiper" style={{
+              width: "100%",
+              height: "100%",
+              position: "relative",
+            }}>
+            <SwiperSlide>
+              <div className="travel_login_img" id="travel_login_img">
+                <img src={travel} alt="" />
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="travel_login_img" id="travel_login_img">
+                <img src={travel} alt="" />
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="travel_login_img" id="travel_login_img">
+                <img src={travel} alt="" />
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="travel_login_img" id="travel_login_img">
+                <img src={travel} alt="" />
+              </div>
+            </SwiperSlide>
+            <div className="swiper-pagination" />
+          </Swiper>
 
             <div className="top_switch_con">
-                
+                <div className="title">Serene Frame</div>
+                <div className="Message"> Discover tranquility in every frame. Log in to share your peaceful captures today!</div>
             </div>
           </div>
 

@@ -51,3 +51,4 @@ export const CustomInputField = ({
     </div>
   );
 };
+export default CustomInputField;

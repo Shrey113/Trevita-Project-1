@@ -1,8 +1,23 @@
 import React, { useState } from "react";
 import "./CSS File/login_register.css";
 import { CustomInputField } from "./sub_component/CustomInputField";
-import Login_page_photo from "./../../Assets/Client/Login_page_photo.jpg";
-import Register_page_photo from "./../../Assets/Client/Register_page_photo.jpg";
+
+import ForgetPassword from "./ForgetPassword";
+
+import Login_page_photo1 from "./../../Assets/Client/Login_page_photo1.jpg";
+import Login_page_photo2 from "./../../Assets/Client/Login_page_photo2.jpg";
+import Login_page_photo3 from "./../../Assets/Client/Login_page_photo3.jpg";
+import Login_page_photo4 from "./../../Assets/Client/Login_page_photo4.jpg";
+
+import Register_page_photo1 from "./../../Assets/Client/Register_page_photo1.jpg";
+import Register_page_photo2 from "./../../Assets/Client/Register_page_photo2.jpg";
+import Register_page_photo3 from "./../../Assets/Client/Register_page_photo3.jpg";
+import Register_page_photo4 from "./../../Assets/Client/Register_page_photo4.jpg";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/autoplay";
 function LoginRegister() {
   const [isLoginVisible, setIsLoginVisible] = useState(true);
 
@@ -24,6 +39,8 @@ function LoginRegister() {
 
   const [termsChecked, setTermsChecked] = useState(false);
   const [termsError, setTermsError] = useState("");
+
+  const [show_forget_password, set_show_forget_password] = useState(false);
 
   const toggle_login_register = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -67,16 +84,8 @@ function LoginRegister() {
     if (validate_email(login_email)) {
       set_login_email_error("");
     } else {
-      set_login_email_error("Invalid credentials");
-      set_login_password_error("Invalid credentials");
+      set_login_email_error("Invalid email");
       is_valid = false;
-    }
-
-    if (login_password){
-
-    }else{
-      set_login_email_error("Invalid credentials");
-      set_login_password_error("Invalid credentials");
     }
 
     if (!termsChecked) {
@@ -150,8 +159,71 @@ function LoginRegister() {
         onSubmit={handle_register_submit}
       >
         <div className="register_form">
-          <img src={Register_page_photo} alt="" />
+          {/* <div className="swiper_contianer_wrapper"> */}
 
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            autoplay={{ delay: 2000 }}
+            loop={true}
+            pagination={{
+              clickable: true,
+              el: ".swiper-pagination",
+            }}
+            className="image-swiper"
+            style={{
+              width: "90%",
+              height: "100%",
+              position: "relative",
+            }}
+          >
+            <SwiperSlide>
+              <img
+                src={Register_page_photo1}
+                alt="Slide 1"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={Register_page_photo2}
+                alt="Slide 2"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={Register_page_photo3}
+                alt="Slide 3"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={Register_page_photo4}
+                alt="Slide 4"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </SwiperSlide>
+            <div className="swiper-pagination" />
+          </Swiper>
+
+          {/* </div> */}
           <form className="all_fields">
             <h1>Register</h1>
             <CustomInputField
@@ -231,7 +303,67 @@ function LoginRegister() {
         onSubmit={handle_login_submit}
       >
         <div className="login_form">
-          <img src={Login_page_photo} alt="" />
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            autoplay={{ delay: 2000 }}
+            loop={true}
+            pagination={{
+              clickable: true,
+              el: ".swiper-pagination",
+            }}
+            className="image-swiper"
+            style={{
+              width: "90%",
+              height: "100%",
+              position: "relative",
+            }}
+          >
+            <SwiperSlide>
+              <img
+                src={Login_page_photo1}
+                alt="Slide 1"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={Login_page_photo2}
+                alt="Slide 2"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={Login_page_photo3}
+                alt="Slide 3"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={Login_page_photo4}
+                alt="Slide 4"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </SwiperSlide>
+            <div className="swiper-pagination" />
+          </Swiper>
 
           <form className="all_fields">
             <h1>Login</h1>
@@ -253,7 +385,15 @@ function LoginRegister() {
               error={login_password_error}
               onChange={handle_login_password_change}
             />
-            <p></p>
+            <span
+              className="forgot_password"
+              onClick={() => {
+                set_show_forget_password(!show_forget_password);
+              }}
+            >
+              {" "}
+              forgot password?{" "}
+            </span>
             <button id="custom_button">Login</button>
 
             <div className="terms_conditions">
@@ -286,6 +426,13 @@ function LoginRegister() {
           </form>
         </div>
       </div>
+      {show_forget_password && (
+        <ForgetPassword
+          set_show_forget_password={() => {
+            set_show_forget_password(false);
+          }}
+        />
+      )}
     </div>
   );
 }
