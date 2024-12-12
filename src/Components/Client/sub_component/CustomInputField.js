@@ -10,6 +10,7 @@ export const CustomInputField = ({
   label,
   error,
   name,
+  width,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -25,6 +26,7 @@ export const CustomInputField = ({
         name={name}
         value={value}
         onChange={onChange}
+        style={{ width: width || "300px" }}
         required
       />
       <span className="bar"></span>

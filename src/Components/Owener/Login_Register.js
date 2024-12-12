@@ -1,4 +1,4 @@
-import React, { useState  } from "react";
+import React, { useState,useEffect  } from "react";
 // import CustomInputField from './sub_components/CustomInputField.js'
 import eye_visible from './../../Assets/Login/eye_visible.png';
 import eye_hide from './../../Assets/Login/eye_hide.png';
@@ -6,11 +6,17 @@ import eye_hide from './../../Assets/Login/eye_hide.png';
 
 import './css/LoginRegister.css'
 
-import travel from "./../../Assets/Owener/download.jpg";
+import Register_page_1 from "./../../Assets/Owener/Register_page_1.jpg";
+import Register_page_2 from "./../../Assets/Owener/Register_page_2.jpg";
+// import Register_page_3 from "./../../Assets/Owener/Register_page_3.jpg";
+import Register_page_4 from "./../../Assets/Owener/Register_page_4.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
+
+import VerifyOpt from './sub_components/VerifyOpt.js';
+import ForgetPassword from "./sub_components/ForgetPassword.js";
 
 
 
@@ -61,7 +67,6 @@ const CustomInputField = ({ id, type, value, onChange, label, error, name }) => 
 const Server_url = 'http://localhost:4000'
 
 function Login() {
-  const [is_show_animation,set_is_show_animation] = useState(true);
   //  Login part -- 
   const [login_email, set_login_email] = useState("");
   const [login_email_error, set_login_email_error] = useState("");
@@ -94,8 +99,48 @@ function Login() {
 
   // toggle page --
   const [show_verify_page,set_show_verify_page] = useState(false)
-  const [show_forget_password,set_show_forget_password] = useState(false)
+  const [show_forget_password,set_show_forget_password] = useState(true)
 
+  const [test,set_test] = useState(false)
+  
+
+
+  function go_to_register(){
+    if(window.innerWidth >= 660 ){
+      toggle_register_login(!is_register)
+    }else{
+      set_test(true);
+    }
+  }
+  function go_to_Login(){
+    if(window.innerWidth >= 660 ){
+      toggle_register_login(!is_register)
+    }else{
+      set_test(false);
+    }
+  }
+
+  useEffect(() => {
+
+    let previousWidth = window.innerWidth;
+
+    const handleResize = () => {
+      if (window.innerWidth !== previousWidth) {
+        previousWidth = window.innerWidth; 
+
+        if (window.innerWidth >= 660) {
+          set_test(true);
+        } else {
+          set_test(false);
+        }
+
+        toggle_register_login(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const validate_email = (email) => {
     const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -305,23 +350,27 @@ function Login() {
         <div className="user_login_con">
 
           {/* form - 1 Login */}
-          <form className={`login_part ${is_register ? "reverse_form_animation" : "set_form_animation" }`} id="login_part" onSubmit={handle_login_submit} action="http://localhost:4000/api/login" method="POST">
+          <form className={`login_part ${is_register ? "reverse_form_animation" : "set_form_animation" }`} id="login_part" onSubmit={handle_login_submit} action="http://localhost:4000/api/login" method="POST"
+          style={{display:window.innerWidth >= 660 ? "flex" : test ? "none" : "flex" }}
+          >
               <div className="title">Login</div>
               <CustomInputField type="text" id="login_email" name="user_html" value={login_email} onChange={(e)=>set_login_email(e.target.value)} label="Email" error={login_email_error} />
               <CustomInputField type="password" id="login_password" value={login_password} onChange={(e)=>set_login_password(e.target.value)} label="Password" error={login_password_error} />
-              <span className="forgot_password" onClick={()=>{set_show_forget_password(!show_forget_password);set_is_show_animation(!is_show_animation)}}> forgot password? </span>
+              <span className="forgot_password" onClick={()=>{set_show_forget_password(!show_forget_password); }}> forgot password? </span>
 
               
               <button id="custom_button">Login</button>
               
               {/* <img src={google_logo} className="other_login" alt="google sign" /> */}
               <p> Don't have an account?{" "} 
-                <span id="go_to_register" onClick={ ()=>{toggle_register_login(!is_register)} }> Register </span>
+                <span id="go_to_register" onClick={go_to_register}> Register </span>
               </p>
           </form>
 
           {/* form - 2 Register */}
-          <form className={`register_part ${!is_register ? "reverse_form_animation" : "set_form_animation" }`} action="go.html" id="register_part" onSubmit={handle_register_submit}>
+          <form className={`register_part ${!is_register ? "reverse_form_animation" : "set_form_animation" }`} action="go.html" id="register_part" onSubmit={handle_register_submit} 
+          style={{display:window.innerWidth >= 660 ? "flex" : test ? "flex" : "none" }}
+          >
                 <div className="title">Register</div>
                 {is_page_1register ? <>
                 <CustomInputField type="text" value={register_user_name} onChange={(e)=>set_register_user_name(e.target.value)} label="User Name" error={register_user_name_error} id="register_user_name"/>
@@ -363,7 +412,7 @@ function Login() {
                 
                 
                 <p>Have an account?{" "} 
-                  <span id="go_to_login" onClick={()=>{toggle_register_login(!is_register)}}>
+                  <span id="go_to_login" onClick={go_to_Login}>
                     Login
                   </span>
                 </p>
@@ -372,7 +421,9 @@ function Login() {
           {/* switch for move on form */}
           <div className="switch_con" id="switch_con" style={{ transform: is_register ? "translate(100%)" : "translate(0%)" }}>
             
-          <Swiper modules={[Pagination, Autoplay]} autoplay={{ delay: 3000 }} loop={true} pagination={{
+          <Swiper modules={[Pagination, Autoplay]} 
+           autoplay={{ delay: 3000 }}
+           loop={true} pagination={{
               clickable: true,
               el: ".swiper-pagination",
             }} className="image-swiper" style={{
@@ -382,36 +433,55 @@ function Login() {
             }}>
             <SwiperSlide>
               <div className="travel_login_img" id="travel_login_img">
-                <img src={travel} alt="" />
+                <img src={Register_page_1}      alt="Slide 1"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}  />
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="travel_login_img" id="travel_login_img">
-                <img src={travel} alt="" />
+                <img src={Register_page_2}      alt="Slide 1"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }} />
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="travel_login_img" id="travel_login_img">
-                <img src={travel} alt="" />
+                <img src={Register_page_1}      alt="Slide 1"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }} />
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="travel_login_img" id="travel_login_img">
-                <img src={travel} alt="" />
+                <img src={Register_page_4}      alt="Slide 1"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }} />
               </div>
             </SwiperSlide>
             <div className="swiper-pagination" />
           </Swiper>
-
-            <div className="top_switch_con">
-                <div className="title">Serene Frame</div>
-                <div className="Message"> Discover tranquility in every frame. Log in to share your peaceful captures today!</div>
-            </div>
           </div>
 
         </div>
       </div>
 
+      {show_verify_page ? <VerifyOpt user_name={register_user_name} user_email={register_email} user_password={register_password} close_function={()=>{set_show_verify_page(!show_verify_page)}} />
+                      : ''}
+      { show_forget_password ? <ForgetPassword last_enter_email={login_email} page_close_function={()=>
+         {set_show_forget_password(!show_forget_password);}} /> : ''}
    </>
   );
   

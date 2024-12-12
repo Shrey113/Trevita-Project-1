@@ -35,17 +35,17 @@
 }
 
 .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background-color: #fff;
-  opacity: 0.6;
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+  opacity: 0.8;
   border-radius: 50%;
   margin: 0 5px;
   transition: opacity 0.3s, background-color 0.3s;
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #6b6967;
+  background-color: #f69d37;
   opacity: 1;
 }
 
@@ -56,47 +56,48 @@
 .Main_Container .Register_Page,
 .Main_Container .Login_Page {
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
+  top: 50%;
+  left: 50%;
+  height: 80%;
+  width: 700px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translate(-50%, -50%);
   z-index: 1;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: rgba(76, 76, 79, 0.2) 0px 7px 29px 0px;
 }
 
 .Main_Container .Register_Page.active,
 .Login_Page.active {
   z-index: 2;
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, -50%);
 }
 .Main_Container .Register_Page:not(.active),
 .Main_Container .Login_Page:not(.active) {
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(-40%, -40%);
   z-index: 0;
 }
 
 .Main_Container .Register_Page .register_form {
-  height: 80%;
-  width: clamp(350px, 50%, 900px);
-  background-color: var(--color_4);
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  height: 95%;
+  width: 50%;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-.Main_Container .Register_Page .register_form img {
+.Main_Container .Register_Page .all_fields img {
   height: 95%;
   width: 50%;
   object-fit: cover;
   border-radius: 5px;
 }
-.Main_Container .Register_Page .register_form .all_fields {
+.Main_Container .Register_Page .all_fields {
   height: fit-content;
   width: 45%;
   display: flex;
@@ -104,42 +105,43 @@
   justify-content: space-evenly;
   flex-direction: column;
   position: relative;
-  gap: 20px;
+  gap: 25px;
 }
 
 .Main_Container .Login_Page .login_form {
-  height: 80%;
-  width: clamp(350px, 50%, 900px);
-  background-color: var(--color_4);
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.Main_Container .Login_Page .login_form img {
   height: 95%;
   width: 50%;
-  object-fit: cover;
   border-radius: 5px;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-.Main_Container .Login_Page .login_form .forgot_password {
+
+.Main_Container .Login_Page .forgot_password_container {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+}
+.Main_Container .Login_Page p.forgot_password {
   color: blue;
-  width: 85%;
-  text-align: end;
 }
-.Main_Container .Login_Page .login_form .forgot_password:hover {
+.Main_Container .Login_Page p.forgot_password:hover {
   cursor: pointer;
 }
-.Main_Container .Login_Page .login_form .all_fields {
+.Main_Container .Login_Page .all_fields {
   height: fit-content;
   width: 45%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-direction: column;
   position: relative;
-  gap: 20px;
+  gap: 25px;
 }
-
+.Main_Container .Login_Page .all_fields img {
+  height: 95%;
+  width: 50%;
+  object-fit: cover;
+}
 .all_fields #custom_button {
   outline: none;
   cursor: pointer;
@@ -278,4 +280,80 @@
 .Login_register_input_group .show_password_button img {
   width: 100%;
   object-fit: cover;
+}
+
+@media only screen and (max-width: 768px) {
+  .Main_Container .Register_Page,
+  .Main_Container .Login_Page {
+    width: 95%;
+    height: 98%;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 20px;
+  }
+
+  .Main_Container .Register_Page .all_fields,
+  .Main_Container .Login_Page .all_fields {
+    width: 100%;
+    gap: 15px;
+  }
+
+  .Main_Container .Register_Page .register_form,
+  .Main_Container .Login_Page .login_form {
+    width: 100%;
+    height: auto;
+  }
+
+  .swiper-pagination {
+    bottom: 20px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+  }
+  .forgot_password {
+    width: 250px;
+  }
+
+  #custom_button {
+    padding: 0.7rem 1.5rem;
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .Main_Container .Register_Page,
+  .Main_Container .Login_Page {
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .Main_Container .Register_Page .all_fields,
+  .Main_Container .Login_Page .all_fields {
+    gap: 15px;
+  }
+
+  .swiper-pagination {
+    bottom: 10px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 5px;
+    height: 5px;
+  }
+  .forgot_password {
+    width: 150px;
+  }
+
+  #custom_button {
+    padding: 0.5rem 1rem;
+    font-size: 13px;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .forgot_password {
+    width: 130px;
+  }
 }

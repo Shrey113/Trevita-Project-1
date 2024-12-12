@@ -1,0 +1,87 @@
+:root{
+  --color_1:#000C20;
+  --color_2:#01316F;
+  --color_3:#6FAFDB;
+  --color_4:#E2E2B7;
+  --input_font_size:.9rem;
+}
+
+.verify-opt-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 998;
+    background-color: rgba(60, 60, 60, 0.148);
+    backdrop-filter: blur(4px);
+    
+}
+.verify-opt-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  height: fit-content;
+  width: 300px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+
+
+.verify-opt-container span{
+  align-self: flex-start;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: var(--color_2);
+  font-weight: 600;
+}
+
+.verify-opt-container input[type="text"]{
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  width: 100%;
+}
+.verify-opt-container input[type="submit"]{
+  outline: 0;
+  border: 0;
+  width: fit-content;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgb(216, 216, 255);
+  &:hover{
+    background: rgb(141, 141, 165);
+  }
+}
+
+.verify-opt-container .message {
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+}
+
+.verify-opt-container .close_con{
+  padding: 0;
+  width: 25px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+.verify-opt-container .close_con img{
+  width: 100%;
+}

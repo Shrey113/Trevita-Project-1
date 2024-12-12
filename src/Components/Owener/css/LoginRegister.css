@@ -5,7 +5,7 @@
   font-family: sans-serif;
   user-select: none;
   /* font-family: monospace; */
-   
+    
 }
 :root{
   --color_1:#000C20;
@@ -62,33 +62,7 @@
   justify-content: flex-start;
   overflow-y: scroll;
 }
-@keyframes set_form_animation {
-  0%{
-    opacity: 0;
-  }
-  100%{
-    opacity: 1;
-  }
-}
-@keyframes reverse_form_animation {
-  0%{
-    opacity: 1;
-  }
-  50%{opacity: 0;}
-  100%{
 
-    opacity: 0;
-    
-  }
-}
-/* .set_form_animation{
-  transition: all 0.5s;
-  animation:  set_form_animation 1s ease;
-}
-.reverse_form_animation{
-  transition: all 0.5s;
-  animation:  reverse_form_animation 1s ease;
-} */
 
 .register_part::-webkit-scrollbar {
   background: #00000000;
@@ -200,26 +174,6 @@
   color: red;
 }
 
-.top_switch_con{
-  z-index: 10;
-  position: absolute;
-  bottom: 65px;
-  width: 80%;
-  margin-left: 15px;
-  background-color: rgba(255, 255, 255, 0.074);
-  backdrop-filter: blur(1px);
-  padding: 10px;
-  border-radius: 10px;
-}
-.top_switch_con .title{
-font-size: 1.5rem;
-margin-bottom: 10px;
-}
-.top_switch_con .message{
-  font-size: 1.1rem;
-}
-
-
 
 
 
@@ -316,7 +270,10 @@ margin-bottom: 10px;
   will-change: width;
   width: 50%;
 }
-
+#terms_and_conditions{
+  margin-right: 10px;
+  background: rebeccapurple;
+}
 .Login_register_input_group_Owener .label_custom_check_box {
   display: contents;
   pointer-events: fill;
@@ -395,6 +352,7 @@ margin-bottom: 10px;
   display: flex;
   justify-content: center;
   z-index: 10;
+  
 }
 
 .swiper-pagination-bullet {
@@ -410,4 +368,76 @@ margin-bottom: 10px;
 .swiper-pagination-bullet-active {
   background-color: var(--color_2);
   opacity: 1;
+}
+
+
+
+
+/* Responsive -- dv -1  */
+/* Responsive -- dv -1  */
+/* Responsive -- dv -1  */
+
+@media only screen and (max-width: 750px) {
+  .Login_register_input_group_Owener .bar {
+    width: 260px;
+  }
+
+  .Login_register_input_group_Owener input[type="text"],
+  .Login_register_input_group_Owener input[type="password"],
+  .Login_register_input_group_Owener input[type="email"] {
+    width: 260px;
+  }
+
+}
+
+@media only screen and (max-width: 660px) {
+  .switch_con{
+    display: none;
+  }
+
+.Login_register_input_group_Owener .bar {
+  width: 350px;
+}
+
+.Login_register_input_group_Owener input[type="text"],
+.Login_register_input_group_Owener input[type="password"],
+.Login_register_input_group_Owener input[type="email"] {
+  width: 350px;
+}
+
+}
+
+@media only screen and (max-width: 450px) {
+  .user_login_con {
+    height: 100vh;
+    max-height:100svh;
+    width: 100vw;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    transform:none;
+   
+  }
+  .login_part{
+  gap: 40px;
+}
+  .register_part {
+  gap: 15px;
+}
+
+.login_part .title,
+.register_part .title {
+  font-size: 2rem;
+}
+
+.Login_register_input_group_Owener .bar {
+  width: 280px;
+}
+
+.Login_register_input_group_Owener input[type="text"],
+.Login_register_input_group_Owener input[type="password"],
+.Login_register_input_group_Owener input[type="email"] {
+  width: 280px;
+}
+
 }

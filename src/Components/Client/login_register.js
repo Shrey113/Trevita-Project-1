@@ -145,7 +145,6 @@ function LoginRegister() {
     } else {
       set_register_confirm_password_error("");
     }
-    // set_register_confirm_password("");
     if (is_valid) {
       console.log("good in register");
     }
@@ -168,10 +167,11 @@ function LoginRegister() {
             pagination={{
               clickable: true,
               el: ".swiper-pagination",
+              display: "flex",
             }}
             className="image-swiper"
             style={{
-              width: "90%",
+              width: "100%",
               height: "100%",
               position: "relative",
             }}
@@ -222,82 +222,80 @@ function LoginRegister() {
             </SwiperSlide>
             <div className="swiper-pagination" />
           </Swiper>
-
-          {/* </div> */}
-          <form className="all_fields">
-            <h1>Register</h1>
-            <CustomInputField
-              type={"text"}
-              label={"User Name"}
-              id={"login_username"}
-              name={"register_username"}
-              value={register_username}
-              error={register_username_error}
-              onChange={handle_register_username_change}
-            />
-            <CustomInputField
-              type={"text"}
-              label={"Email"}
-              id={"register_email"}
-              name={"register_email"}
-              value={register_email}
-              error={register_email_error}
-              onChange={handle_register_email_change}
-            />
-            <CustomInputField
-              type={"password"}
-              label={"Password"}
-              id={"register_password"}
-              name={"register_password"}
-              value={register_password}
-              error={register_password_error}
-              onChange={handle_register_password_change}
-            />
-            <CustomInputField
-              type={"password"}
-              label={"Confirm Password"}
-              id={"register_conf_password"}
-              name={"register_conf_password"}
-              value={register_confirm_password}
-              error={register_confirm_password_error}
-              onChange={handle_register_conf_password_change}
-            />
-
-            <button id="custom_button">Register</button>
-
-            <div className="terms_conditions">
-              <input
-                type="checkbox"
-                id="terms_register"
-                checked={termsChecked}
-                onChange={(e) => setTermsChecked(e.target.checked)}
-              />
-              <label htmlFor="terms_register">
-                I agree to the terms and conditions
-              </label>
-              {termsError && (
-                <p className="error" style={{ color: "red" }}>
-                  {termsError}
-                </p>
-              )}
-            </div>
-
-            <p>
-              Already have an account?
-              <span
-                onClick={toggle_login_register}
-                style={{ cursor: "pointer", color: "blue" }}
-              >
-                {" "}
-                Login
-              </span>
-            </p>
-          </form>
         </div>
+
+        <form className="all_fields">
+          <h1>Register</h1>
+          <CustomInputField
+            type={"text"}
+            label={"User Name"}
+            id={"login_username"}
+            name={"register_username"}
+            value={register_username}
+            error={register_username_error}
+            onChange={handle_register_username_change}
+          />
+          <CustomInputField
+            type={"text"}
+            label={"Email"}
+            id={"register_email"}
+            name={"register_email"}
+            value={register_email}
+            error={register_email_error}
+            onChange={handle_register_email_change}
+          />
+          <CustomInputField
+            type={"password"}
+            label={"Password"}
+            id={"register_password"}
+            name={"register_password"}
+            value={register_password}
+            error={register_password_error}
+            onChange={handle_register_password_change}
+          />
+          <CustomInputField
+            type={"password"}
+            label={"Confirm Password"}
+            id={"register_conf_password"}
+            name={"register_conf_password"}
+            value={register_confirm_password}
+            error={register_confirm_password_error}
+            onChange={handle_register_conf_password_change}
+          />
+
+          <button id="custom_button">Register</button>
+
+          <div className="terms_conditions">
+            <input
+              type="checkbox"
+              id="terms_register"
+              checked={termsChecked}
+              onChange={(e) => setTermsChecked(e.target.checked)}
+            />
+            <label htmlFor="terms_register">
+              I agree to the terms and conditions
+            </label>
+            {termsError && (
+              <p className="error" style={{ color: "red" }}>
+                {termsError}
+              </p>
+            )}
+          </div>
+
+          <p>
+            Already have an account?
+            <span
+              onClick={toggle_login_register}
+              style={{ cursor: "pointer", color: "blue" }}
+            >
+              {" "}
+              Login
+            </span>
+          </p>
+        </form>
       </div>
 
       {/* for login page */}
-
       <div
         className={`Login_Page ${isLoginVisible ? "active" : ""}`}
         onSubmit={handle_login_submit}
@@ -313,7 +311,7 @@ function LoginRegister() {
             }}
             className="image-swiper"
             style={{
-              width: "90%",
+              width: "100%",
               height: "100%",
               position: "relative",
             }}
@@ -364,28 +362,29 @@ function LoginRegister() {
             </SwiperSlide>
             <div className="swiper-pagination" />
           </Swiper>
-
-          <form className="all_fields">
-            <h1>Login</h1>
-            <CustomInputField
-              type={"text"}
-              label={"Email"}
-              id={"login_email"}
-              name={"login_email"}
-              value={login_email}
-              error={login_email_error}
-              onChange={handle_login_email_change}
-            />
-            <CustomInputField
-              type={"password"}
-              label={"Password"}
-              id={"login_password"}
-              name={"login_password"}
-              value={login_password}
-              error={login_password_error}
-              onChange={handle_login_password_change}
-            />
-            <span
+        </div>
+        <form className="all_fields">
+          <h1>Login</h1>
+          <CustomInputField
+            type={"text"}
+            label={"Email"}
+            id={"login_email"}
+            name={"login_email"}
+            value={login_email}
+            error={login_email_error}
+            onChange={handle_login_email_change}
+          />
+          <CustomInputField
+            type={"password"}
+            label={"Password"}
+            id={"login_password"}
+            name={"login_password"}
+            value={login_password}
+            error={login_password_error}
+            onChange={handle_login_password_change}
+          />
+          <span className="forgot_password_container">
+            <p
               className="forgot_password"
               onClick={() => {
                 set_show_forget_password(!show_forget_password);
@@ -393,38 +392,40 @@ function LoginRegister() {
             >
               {" "}
               forgot password?{" "}
-            </span>
-            <button id="custom_button">Login</button>
-
-            <div className="terms_conditions">
-              <input
-                type="checkbox"
-                id="terms_login"
-                checked={termsChecked}
-                onChange={(e) => setTermsChecked(e.target.checked)}
-              />
-              <label htmlFor="terms_login">
-                I agree to the terms and conditions
-              </label>
-              {termsError && (
-                <p className="error" style={{ color: "red" }}>
-                  {termsError}
-                </p>
-              )}
-            </div>
-
-            <p>
-              New user?
-              <span
-                onClick={toggle_login_register}
-                style={{ cursor: "pointer", color: "blue" }}
-              >
-                {" "}
-                Register
-              </span>
             </p>
-          </form>
-        </div>
+          </span>
+          <button id="custom_button">Login</button>
+
+          <div className="terms_conditions">
+            <input
+              type="checkbox"
+              id="terms_login"
+              checked={termsChecked}
+              onChange={(e) => setTermsChecked(e.target.checked)}
+            />
+            {"  "}
+            <label htmlFor="terms_login">
+              I agree to the terms and conditions
+            </label>
+            {termsError && (
+              <p className="error" style={{ color: "red" }}>
+                {termsError}
+              </p>
+            )}
+          </div>
+
+          <p>
+            Are you new user?
+            <span
+              onClick={toggle_login_register}
+              style={{ cursor: "pointer", color: "blue" }}
+            >
+              {" "}
+              Register
+            </span>
+          </p>
+        </form>
+        {/* </div> */}
       </div>
       {show_forget_password && (
         <ForgetPassword
