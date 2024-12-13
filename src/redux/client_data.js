@@ -3,22 +3,18 @@ const initialState = {
     user_name: '',
     user_email: '',
     user_password: '',
-    business_name: '',
-    business_address: '',
-    mobile_number: '',
-    gst_number: '',
   };
   
-  const user_data = (state = initialState, action) => {
+  const Client_data = (state = initialState, action) => {
     switch (action.type) {
-      case 'SET_USER_Owner':
+      case 'SET_USER_Client':
         return { ...state, ...action.payload };
-      case 'RESET_USER_Owner':
+      case 'RESET_USER_Client':
         return initialState;
       default:
         return state;
     }
   };
   
-  export default user_data;
+  export default Client_data;
   

@@ -1,23 +1,33 @@
 const crypto = require('crypto');
 
 // Store OTPs for users
-let otp_storage = {};
+let otp_storage_owener = {};
+let otp_storage_Client = {};
 
-// Function to generate an OTP and store it with the user's email
-function generate_otp(user_email) {
-  const otp = crypto.randomInt(100000, 999999).toString(); // Generate a 6-digit OTP
-  otp_storage[user_email] = otp; // Store the OTP with the user's email
+function generate_otp(user_email,type) {
+  const otp = crypto.randomInt(100000, 999999).toString();
+  if(type == "owener"){
+    otp_storage_owener[user_email] = otp;
+  }else{
+    otp_storage_Client[user_email] = otp;
+  }
   return otp;
 }
 
-// Function to get the OTP for a specific user
-function get_otp(user_email) {
-  return otp_storage[user_email]; // Retrieve the OTP for the given email
+function get_otp(user_email,type) {
+  if(type == "owener"){
+    return otp_storage_owener[user_email];
+  }else{
+    return otp_storage_Client[user_email];
+  }
 }
 
-// Function to clear OTP after verification
-function clear_otp(user_email) {
-  delete otp_storage[user_email]; // Remove the OTP from storage
+function clear_otp(user_email,type) {
+  if(type == "owener"){
+    delete otp_storage_owener[user_email]; 
+  }else{
+    delete otp_storage_Client[user_email];
+  }
 }
 
 module.exports = { generate_otp, get_otp, clear_otp };

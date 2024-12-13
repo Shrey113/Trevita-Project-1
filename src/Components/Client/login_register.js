@@ -3,7 +3,6 @@ import "./CSS File/login_register.css";
 import { CustomInputField } from "./sub_component/CustomInputField";
 
 import ForgetPassword from "./ForgetPassword";
-import { useNavigate } from "react-router-dom";
 
 import Login_page_photo1 from "./../../Assets/Client/Login_page_photo1.jpg";
 import Login_page_photo2 from "./../../Assets/Client/Login_page_photo2.jpg";
@@ -15,12 +14,16 @@ import Register_page_photo2 from "./../../Assets/Client/Register_page_photo2.jpg
 import Register_page_photo3 from "./../../Assets/Client/Register_page_photo3.jpg";
 import Register_page_photo4 from "./../../Assets/Client/Register_page_photo4.jpg";
 
+import close from "./../../Assets/Client/close.png";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
-import { data } from "react-router-dom";
-function LoginRegister() {
+
+import {localstorage_key_for_client} from "./../../redux/AllData"
+
+function LoginRegisterClient() {
   const [isLoginVisible, setIsLoginVisible] = useState(true);
 
   const [login_password, set_login_password] = useState("");
@@ -44,16 +47,15 @@ function LoginRegister() {
 
   const [show_forget_password, set_show_forget_password] = useState(false);
 
+
   // for otp send verification
-  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [showOtpModal, setShowOtpModal] = useState(true);
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
-  const [userRegistered, setUserRegistered] = useState(false);
+
+
 
   const Server_url = "http://localhost:4000";
-
-  const navigate = useNavigate();
 
   const toggle_login_register = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -126,7 +128,8 @@ function LoginRegister() {
           // Perform actions after successful login
           set_login_password_error("");
           set_login_email_error("");
-          navigate("/user_home");
+          localStorage.setItem(localstorage_key_for_client, data.jwt_token);
+          window.location.reload();
           // Redirect to another page or store token/user info
         } else if (response.status === 401) {
           set_login_password_error("Invalid email or password");
@@ -208,17 +211,15 @@ function LoginRegister() {
 
         if (response.ok) {
           console.log("Client added successfully", data);
-
-          setOtpSent(true);
+          setShowOtpModal(true);
           // Send OTP email to the user
-          await fetch(`${Server_url}/send-otp`, {
+          await fetch(`${Server_url}/send_otp_email`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email: register_email }),
+            body: JSON.stringify({ email: register_email, type: "client" }),
           });
-          setShowOtpModal(true); // Show OTP modal
         } else {
           console.log("Error adding client: ", data.error);
           if (data.error === "Email already exists") {
@@ -242,14 +243,17 @@ function LoginRegister() {
     }
 
     try {
-      const response = await fetch(`${Server_url}/verify-otp`, {
+      const response = await fetch(`${Server_url}/verify_otp_client`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          user_name: register_username,
           email: register_email,
+          password: register_password,
           otp: otp,
+          type: "client",
         }),
       });
 
@@ -257,7 +261,7 @@ function LoginRegister() {
 
       if (response.ok) {
         console.log("OTP verified successfully");
-        setUserRegistered(true);
+
         setShowOtpModal(false);
         // Proceed to register user in the database
         // Additional user registration logic here
@@ -279,16 +283,34 @@ function LoginRegister() {
       >
         {showOtpModal && (
           <div className="otp-modal">
-            <h2>Enter OTP</h2>
-            <input
-              type="text"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              placeholder="Enter OTP"
-              maxLength="6"
+            <img
+              src={close}
+              alt=""
+              style={{
+                height: "18px",
+                width: "18px",
+                position: "absolute",
+                top: "4px",
+                right: "5px",
+              }}
+              onClick={() => {
+                setShowOtpModal(false);
+              }}
             />
-            {otpError && <p className="error">{otpError}</p>}
-            <button onClick={handleOtpVerification}>Verify OTP</button>
+            <h2 style={{ width: "100%", textAlign: "left" }}>
+              <span style={{ color: "rgb(91, 91, 238)" }}>Verify</span> OTP
+            </h2>
+            <div className="input_and_submit_button">
+              <input
+                type="text"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                placeholder="Enter OTP"
+                maxLength="6"
+              />
+              {otpError && <p className="error">{otpError}</p>}
+              <button onClick={handleOtpVerification}>Verify OTP</button>
+            </div>
           </div>
         )}
         <div className="register_form">
@@ -572,4 +594,4 @@ function LoginRegister() {
   );
 }
 
-export default LoginRegister;
+export default LoginRegisterClient;

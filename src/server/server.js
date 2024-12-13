@@ -23,10 +23,10 @@ function create_jwt_token(user_email,user_name){
 function check_jwt_token(jwt_token) {
   try {
       const data = jwt.verify(jwt_token, JWT_SECRET_KEY);
-      return data; // Return the decoded token data
+      return data;
   } catch (err) {
       console.error(err);
-      return null; // Return null if the token is invalid
+      return null; 
   }
 }
 
@@ -92,32 +92,42 @@ app.post("/owner/add_owner", (req, res) => {
 });
 
 app.post("/send_otp_email", async (req, res) => {
-  const { email } = req.body;
-  if (!email) {
-    error_message("send_otp_email say : Email is required")
-    return res.status(400).json({ error: "Email is required" });
+  const { email,type } = req.body;
+  if (!email || !type) {
+    error_message("send_otp_email say : Email and type is required")
+    return res.status(400).json({ error: "Email and type is required" });
   }
   try {
-    const otp = generate_otp(email); 
+    let otp;
+    if(type == "owner"){
+      otp = generate_otp(email,"owner")
+    }else{
+      otp = generate_otp(email,"client")
+    }
     info_message(`An email has been sent to ${email}.OTP is ${otp}.`);
 
     await send_otp_page(email, otp);
-    res.status(200).json({ message: `OTP email sent to ${email}` });
+    res.status(200).json({ message: `OTP email sent to ${email}` ,status:"success"});
   } catch (error) {
     console.error("Error sending OTP email:", error);
     res.status(500).json({ error: "Failed to send OTP email" });
   }
 });
 
-app.post("/verify_otp", async (req, res) => {
-  const {user_send_otp , user_name, user_email, user_password, business_name, business_address, mobile_number, GST_number } = req.body;
+app.post("/verify_otp_owner", async (req, res) => {
+  const {type,user_send_otp , user_name, user_email, user_password, business_name, business_address, mobile_number, GST_number } = req.body;
 
-  if (!user_email || !user_send_otp) {
+  if (!user_email || !user_send_otp || !type) {
     error_message("verify_otp say : Email and OTP are required")
     return res.status(400).json({ error: "Email and OTP are required" });
   }
   try {
-    const storedOtp = get_otp(user_email);
+    let storedOtp;
+    if(type == "owner"){
+      storedOtp = get_otp(user_email,"owner")
+    }else{
+      storedOtp = get_otp(user_email,"client")
+    }
     if (storedOtp && storedOtp === user_send_otp) {
 
     const insertQuery = 'INSERT INTO owner (user_name, user_email, user_password, business_name, business_address, mobile_number, GST_number) VALUES (?, ?, ?, ?, ?, ?, ?)';
@@ -138,35 +148,60 @@ app.post("/verify_otp", async (req, res) => {
   }
 });
 
-app.post("/get_user_data_from_jwt", async (req, res) => {
-  const jwt_token = req.body.jwt_token;
-
-  if (!jwt_token) {
-    console.error("get_user_data_from_jwt says: JWT token is required");
-    return res.status(400).send("JWT token is required");
+app.post("/reset_password_verify_otp", async (req, res) => {
+  const body_otp = req.body.user_send_otp;
+  const user_email = req.body.user_email;
+  if (body_otp === get_otp(user_email,"owner")) {
+    return res.status(200).json({ message: "user pass with OTP", status: "verify-pass" });
+  } else {
+    return res.status(200).json({ message: "OTP does not match", status: "verify-fail" });
   }
+});
 
-  try {
-    const userData = check_jwt_token(jwt_token);
-    if (!userData || !userData.user_name || !userData.user_email) {
-      return res.status(200).json({ error: "Invalid or incomplete JWT token" });
+
+// Endpoint to set a new password
+app.post('/set_new_password', (req, res) => {
+  const { email, new_password } = req.body;
+
+  if (!email || !new_password) {
+    return res.status(400).json({ error: 'Email and password are required' });
+  }
+//1 --
+  const findUserQuery = `SELECT user_name FROM owner WHERE user_email = ?`;
+
+  db.query(findUserQuery, [email], (err, result) => {
+    if (err) {
+      console.error('Database error while finding user:', err);
+      return res.status(500).json({ error: 'Database error' });
     }
-    const find_user = `SELECT * FROM owner WHERE user_name = ? AND user_email = ?`;
+    
+    if (result.length === 0) {
+      return res.status(404).json({ message: 'User not found', status: 'user-not-found' });
+    }
 
-    db.query(find_user, [userData.user_name, userData.user_email], (err, result) => {
-      if (err) {
-        console.error("Database error:", err);
-        return res.status(500).json({ error: "Database error" });
+    const user_name = result[0].user_name;
+
+    //2 --
+    const updateQuery = `UPDATE owner SET user_password = ? WHERE user_email = ?`;
+
+    db.query(updateQuery, [new_password, email], (updateErr, updateResult) => {
+      if (updateErr) {
+        console.error('Database error while updating password:', updateErr);
+        return res.status(500).json({ error: 'Database error' });
       }
-      if (result.length === 0) {
-        return res.status(404).json({ message: "User not found" });
+
+      if (updateResult.affectedRows === 0) {
+        return res.status(404).json({ message: 'User not found', status: 'user-not-found' });
       }
-      res.status(200).json({ message: "User found", user: result[0] });
+
+      //  3 /--
+      const token = create_jwt_token(email, user_name);
+      info_message(`Email ${email} has updated their password`)
+
+      // Send the response
+      res.status(200).json({ message: 'Password updated successfully', status: 'password-updated', user_key: token });
     });
-  } catch (error) {
-    console.error("Error processing request:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
+  });
 });
 
 
@@ -181,6 +216,71 @@ app.get('/get_all_data', (req, res) => {
     });
 });
 
+app.post("/get_user_data_from_jwt", async (req, res) => {
+  const jwt_token = req.body.jwt_token;
+
+  if (!jwt_token) {
+    console.error("get_user_data_from_jwt says: JWT token is required");
+    return res.status(400).send("JWT token is required");
+  }
+
+  try {
+    const userData = check_jwt_token(jwt_token);
+    if (!userData || !userData.user_name || !userData.user_email) {
+      return res.status(200).json({ error: "Invalid or incomplete JWT token" });
+    }
+    const find_user = 'SELECT * FROM owner WHERE user_name = ? AND user_email = ?';
+
+    db.query(
+      find_user,
+      [userData.user_name, userData.user_email],
+      (err, result) => {
+        if (err) {
+          console.error("Database error:", err);
+          return res.status(500).json({ error: "Database error" });
+        }
+        if (result.length === 0) {
+          return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json({ message: "User found", user: result[0] });
+      }
+    );
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.post("/owner/login", (req, res) => {
+  const { user_email, user_password } = req.body;
+
+
+  if (!user_email || !user_password) {
+    return res.status(200).json({ error: "Email and password are required" });
+  }
+
+  const query =
+    "SELECT * FROM trevita_project_1.owner WHERE user_email = ? AND user_password = ?";
+
+  
+  db.query(query, [user_email, user_password], (err, results) => {
+    if (err) {
+      console.error("Database error:", err.message);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (results.length > 0) {
+
+      const user_name = results[0].user_name;
+     const token =  create_jwt_token(user_email,user_name);
+      return res.status(200).json({ message: "Login successful", user: results[0], user_key: token });
+
+    } else {
+      return res.status(200).json({ error: "Invalid email or password",status:"login-fail" });
+    }
+  });
+});
+
 
 
 
@@ -193,35 +293,75 @@ app.get('/get_all_data', (req, res) => {
 // praharsh ---- 
 
 // client paths
+app.post("/get_client_data_from_jwt", async (req, res) => {
+  const jwt_token = req.body.jwt_token;
 
-// Route to send OTP for registration
-app.post("/send-otp", (req, res) => {
-  const { email } = req.body;
-
-  if (!email) {
-    return res.status(400).json({ error: "Email is required" });
+  if (!jwt_token) {
+    console.error("get_user_data_from_jwt says: JWT token is required");
+    return res.status(400).send("JWT token is required");
   }
 
-  const otp = generateOtp();
-  console.log(otp);
+  try {
+    const userData = check_jwt_token(jwt_token);
 
-  otpStore[email] = otp;
+    if (!userData || !userData.user_name || !userData.user_email) {
+      return res.status(200).json({ error: "Invalid or incomplete JWT token" });
+    }
+    const find_user = 'SELECT * FROM trevita_project_1.clients WHERE user_name = ? AND user_email = ?';
 
-  sendOtpEmail(email, otp);
-
-  res.status(200).json({ message: "OTP sent successfully" });
+    db.query(
+      find_user,
+      [userData.user_name, userData.user_email],
+      (err, result) => {
+        if (err) {
+          console.error("Database error:", err);
+          return res.status(500).json({ error: "Database error" });
+        }
+        if (result.length === 0) {
+          return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json({ message: "User found", user: result[0] });
+      }
+    );
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
-// Route to verify OTP
-app.post("/verify-otp", (req, res) => {
-  const { email, otp } = req.body;
+app.post("/verify_otp_client", async (req, res) => {
+  const { type, otp, user_name, email, password } = req.body;
 
-  if (otpStore[email] === otp) {
-    // OTP is valid, you can proceed with the registration logic here
-    delete otpStore[email]; // Remove OTP from the store after successful verification
-    return res.status(200).json({ message: "OTP verified successfully" });
-  } else {
-    return res.status(400).json({ error: "Invalid OTP" });
+  if (!email || !otp || !type) {
+    error_message("verify_otp say : Email and OTP are required");
+    return res.status(400).json({ error: "Email and OTP are required" });
+  }
+  try {
+    let storedOtp;
+    if (type == "owner") {
+      storedOtp = get_otp(email, "owner");
+    } else {
+      storedOtp = get_otp(email, "client");
+    }
+    if (storedOtp && storedOtp === otp) {
+      const insertQuery =
+        "INSERT INTO clients (user_name, user_email, user_password) VALUES ( ?, ?, ?)";
+      db.query(insertQuery, [user_name, email, password], (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ error: "Database error" });
+        }
+        let token = create_jwt_token(email, user_name);
+        res
+          .status(200)
+          .json({ message: "OTP verified successfully", user_key: token });
+      });
+    } else {
+      res.status(200).json({ error: "Invalid OTP" });
+    }
+  } catch (error) {
+    console.error("Error verifying OTP:", error);
+    res.status(500).json({ error: "Failed to verify OTP" });
   }
 });
 
@@ -249,24 +389,7 @@ app.post("/client/register_user", async (req, res) => {
             return res.status(400).json({ error: "Username already exists" });
           }
         }
-
-        // Insert the new user into the database
-        const query =
-          "INSERT INTO clients (user_name, user_email, user_password) VALUES (?, ?, ?)";
-        db.query(
-          query,
-          [user_name, user_email, user_password],
-          (err, result) => {
-            if (err) {
-              console.error("Database error", err);
-              return res.status(500).json({ error: "Database error" });
-            }
-
-            res
-              .status(201)
-              .json({ message: "User registered successfully", result });
-          }
-        );
+        res.status(200).json({ staus: "user_name and email verified " });
       }
     );
   } catch (e) {
@@ -291,16 +414,18 @@ app.post("/client/login", (req, res) => {
     }
 
     if (results.length > 0) {
-      return res
-        .status(200)
-        .json({ message: "Login successful", user: results[0] });
+      const user_name = results[0].user_name;
+      const token = create_jwt_token(user_email, user_name);
+      return res.status(200).json({
+        message: "Login successful",
+        user: results[0],
+        jwt_token: token,
+      });
     } else {
       return res.status(401).json({ error: "Invalid email or password" });
     }
   });
 });
-
-
 
 
 

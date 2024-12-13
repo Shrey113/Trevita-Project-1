@@ -4,8 +4,9 @@ import close_button from './../../../Assets/Owener/cross.png'
 
 import {useState} from 'react';
 import ShowLoder from './../sub_components/show_loder.js';
+import {localstorage_key_for_jwt_user_side_key,Server_url} from './../../../redux/AllData.js'
 
-function ForgetPassword({page_close_function,last_enter_email}) {
+function ForgetPassword({page_close_function,last_enter_email,user_name}) {
   
   const [user_email,set_user_email] = useState(last_enter_email);
   const [user_otp,set_user_otp] = useState('');
@@ -19,6 +20,9 @@ function ForgetPassword({page_close_function,last_enter_email}) {
 
   const [current_form, setcurrent_form] = useState(1);
   const [show_loder,set_show_loder] = useState(false);
+
+
+
 
 
   const user_confirmation_for_close =  ()=>{
@@ -63,11 +67,13 @@ function ForgetPassword({page_close_function,last_enter_email}) {
 
     // if all set then fetch
     if (is_valid){
-      fetch('http://localhost:4000/api/reset_password_verify_email', {
+      set_show_loder(true);
+      fetch(`${Server_url}/send_otp_email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          user_email: user_email,
+          email: user_email,
+          type:"owner"
         }),
       }).then(response => {
         if (response.ok) {
@@ -77,7 +83,7 @@ function ForgetPassword({page_close_function,last_enter_email}) {
         }
       }).then(data => {
         console.log(data);
-
+        set_show_loder(false);
         if (data.status === 'success') {
           change_page_with_animation(2)
         }else{
@@ -93,11 +99,13 @@ function ForgetPassword({page_close_function,last_enter_email}) {
   const verify_OTP =(e)=>{
     e.preventDefault();
 
-    fetch("http://localhost:4000/api/reset_password_verify_otp",{
+    fetch(`${Server_url}/reset_password_verify_otp`,{
       method:"POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         user_send_otp: user_otp,
+        user_email:user_email,
+        type:"owner"
       }),
     }).then(response => {
       if (response.ok) {
@@ -140,7 +148,7 @@ function ForgetPassword({page_close_function,last_enter_email}) {
     }
     // if all set then fetch
     if(is_valid){
-      fetch("http://localhost:4000/api/set_new_password", {
+      fetch(`${Server_url}/set_new_password`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -155,9 +163,12 @@ function ForgetPassword({page_close_function,last_enter_email}) {
         }
       }).then(data => {
         console.log(data);
-    
         if (data.status === 'password-updated') {
           window.alert("Your password will be reset")
+          if(data.user_key){
+            localStorage.setItem(localstorage_key_for_jwt_user_side_key,data.user_key)
+            window.location.reload();
+          }
           page_close_function()
         } else {
           error_set_user_password("Password update failed");

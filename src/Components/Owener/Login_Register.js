@@ -1,24 +1,23 @@
 import React, { useState,useEffect  } from "react";
-// import CustomInputField from './sub_components/CustomInputField.js'
-import eye_visible from './../../Assets/Login/eye_visible.png';
-import eye_hide from './../../Assets/Login/eye_hide.png';
-
-
-import './css/LoginRegister.css'
-
-import Register_page_1 from "./../../Assets/Owener/Register_page_1.jpg";
-import Register_page_2 from "./../../Assets/Owener/Register_page_2.jpg";
-// import Register_page_3 from "./../../Assets/Owener/Register_page_3.jpg";
-import Register_page_4 from "./../../Assets/Owener/Register_page_4.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+
+import './css/LoginRegister.css'
 import "swiper/css";
 import "swiper/css/autoplay";
+
+import eye_visible from './../../Assets/Login/eye_visible.png';
+import eye_hide from './../../Assets/Login/eye_hide.png';
+import Register_page_1 from "./../../Assets/Owener/Register_page_1.jpg";
+import Register_page_2 from "./../../Assets/Owener/Register_page_2.jpg";
+import Register_page_3 from "./../../Assets/Owener/Register_page_3.jpg";
+import Register_page_4 from "./../../Assets/Owener/Register_page_4.jpg";
+
 
 import VerifyOpt from './sub_components/VerifyOpt.js';
 import ForgetPassword from "./sub_components/ForgetPassword.js";
 import ShowLoder from "./sub_components/show_loder.js";
-
+import {localstorage_key_for_jwt_user_side_key,Server_url} from './../../redux/AllData.js'
 
 
 
@@ -65,9 +64,9 @@ const CustomInputField = ({ id, type, value, onChange, label, error, name }) => 
     );
 };
 
-const Server_url = 'http://localhost:4000'
 
-function Login() {
+
+function LoginRegisterOwener() {
   //  Login part -- 
   const [login_email, set_login_email] = useState("");
   const [login_email_error, set_login_email_error] = useState("");
@@ -162,12 +161,12 @@ function Login() {
       is_valid = false;
     }
     if (is_valid) {
-      fetch('http://localhost:4000/api/login', {
+      fetch(`${Server_url}/owner/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          user_name: login_email,
-          password: login_password
+          user_email: login_email,
+          user_password: login_password
         }),
       })
         .then(response => {
@@ -181,22 +180,16 @@ function Login() {
         .then(data => {
           set_login_password_error("");
           set_login_email_error("");
+          console.log(data);
+          
 
           if (data.status === 'login-fail') {
-            set_login_email_error("Enter Email is does not exist");
-          }else{
-            if (data.status === 'password-fail') {
-              set_login_password_error("Enter password is incorrect");
-            } else if(data.status === 'password-pass'){
-              set_login_password_error("");
-              // go to verify otp page
-
-            } else if(data.status === 'server-fail'){
-              alert('Internal server error');
-            }else {
-              alert('Not valid data send by server');
-            }
-            set_login_email_error("");
+            set_login_password_error(data.error);
+            set_login_email_error(data.error);
+          }
+          if (data.user_key){
+            localStorage.setItem(localstorage_key_for_jwt_user_side_key,data.user_key)                
+            window.location.reload();
           }
         })
         .catch(error => {
@@ -264,7 +257,7 @@ function Login() {
     console.log("sss - 1");
   }
 }
-  // validate register - function 
+ 
   const handle_register_submit = async (event) => {
     event.preventDefault();
     let is_valid = true;
@@ -349,7 +342,7 @@ function Login() {
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email: register_email }),
+                body: JSON.stringify({ email: register_email, type:"owner", }),
               })
                 .then((response) => {
                   if (!response.ok) {
@@ -362,7 +355,7 @@ function Login() {
                     
                   } else {
                     set_show_loder(false);
-                    alert("server error at /send_otp_email");
+                    alert("server error at /send otp email");
                   }
                 })
                 .catch((error) => {
@@ -398,7 +391,7 @@ function Login() {
         
         {show_loder && <ShowLoder/>}
           {/* form - 1 Login */}
-          <form className={`login_part ${is_register ? "reverse_form_animation" : "set_form_animation" }`} id="login_part" onSubmit={handle_login_submit} action="http://localhost:4000/api/login" method="POST"
+          <form className={`login_part ${is_register ? "reverse_form_animation" : "set_form_animation" }`} id="login_part" onSubmit={handle_login_submit} action={`${Server_url}/api/login`} method="POST"
           style={{display:window.innerWidth >= 661 ? "flex" : test ? "none" : "flex" }}
           >
           
@@ -499,7 +492,7 @@ function Login() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="travel_login_img" id="travel_login_img">
-                <img src={Register_page_1} alt="" />
+                <img src={Register_page_3} alt="" />
               </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -536,6 +529,6 @@ function Login() {
   
 }
 
-export default Login;
+export default LoginRegisterOwener;
 
 

@@ -90,6 +90,46 @@
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  height: 180px;
+  width: 280px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  border-radius: 8px;
+}
+.Register_Page .otp-modal img:hover {
+  cursor: pointer;
+}
+.Register_Page .otp-modal .input_and_submit_button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.Register_Page .otp-modal .input_and_submit_button input {
+  font-size: 16px;
+  padding: 5px;
+  border: 0;
+  outline: 0;
+  border-bottom: 3px solid rgb(91, 91, 238);
+}
+.Register_Page .otp-modal .input_and_submit_button input:focus {
+  border: 0;
+  outline: 0;
+  border-bottom: 3px solid rgb(107, 140, 249);
+}
+.Register_Page .otp-modal .input_and_submit_button button {
+  border: 0;
+  outline: 0;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  background-color: rgb(116, 171, 252);
+}
+.Register_Page .otp-modal .input_and_submit_button button:hover {
+  cursor: pointer;
 }
 .Register_Page .otp-modal .error {
   color: red;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-const localstorage_key_for_jwt_user_side_key = 'Jwt_user_localstorage_key_on_photography_website';
+import {localstorage_key_for_jwt_user_side_key} from './../../redux/AllData'
 
 function Dashboard() {
     const user = useSelector((state) => state.user);

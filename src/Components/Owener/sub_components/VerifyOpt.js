@@ -5,9 +5,7 @@ import ShowLoder from './../sub_components/show_loder.js';
 // import {local_storage_key} from './sub_component/All_data.js'
 import close_button from './../../../Assets/Owener/cross.png'
 
-const Server_url = 'http://localhost:4000'
-const localstorage_key_for_jwt_user_side_key = 'Jwt_user_localstorage_key_on_photography_website';
-
+import {localstorage_key_for_jwt_user_side_key,Server_url} from './../../../redux/AllData.js'
 
 function VerifyOpt({ user_name,
   user_email,
@@ -35,13 +33,14 @@ function VerifyOpt({ user_name,
 
   const verify_opt = (e) => {
     e.preventDefault();
-    fetch(`${Server_url}/verify_otp`, {
+    fetch(`${Server_url}/verify_otp_owner`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(
         {
+          type:"owener",
           user_send_otp: OTP,
           user_name: user_name,
           user_email: user_email,
