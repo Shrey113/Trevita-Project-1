@@ -25,8 +25,8 @@
 
 .user_login_con {
   height: fit-content;
-  max-height: 85vh;
-  height: 100vh;
+  max-height: 700px;
+  height: 85vh;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -77,9 +77,13 @@
   color:var(--color_3);
   cursor: pointer;
   align-self: flex-end;
-  margin-right: 20px;
+  /* margin-right: 20px; */
   /* this is fix for -20 */
-  margin-top: -20px;
+  /* margin-top: -20px; */
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
 }
 
 
@@ -118,7 +122,7 @@
 
 
 .switch_con {
-  padding: 15px;
+  padding: 12px;
   position: absolute;
   top: 0;
   left: 0;
@@ -133,10 +137,9 @@
   z-index: 0;
   cursor: pointer;
 
-  transition: all 1s ease-in-out;
-  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: all 1.2s;
   will-change: transform;
-  background: rgb(255, 255, 255);
+  /* background: rgb(255, 255, 255); */
 }
 
 
@@ -391,6 +394,16 @@
 }
 
 @media only screen and (max-width: 660px) {
+  .user_login_con {
+    height:  100vh;
+    max-height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    transform:none;
+   
+  }
   .switch_con{
     display: none;
   }
@@ -404,22 +417,17 @@
 .Login_register_input_group_Owener input[type="email"] {
   width: 350px;
 }
+.button_con_register_part #custom_button {
+  padding: 12px 30px;
+  font-size: 18px;
+}
 
 }
 
 @media only screen and (max-width: 450px) {
-  .user_login_con {
-    height: 100vh;
-    max-height:100svh;
-    width: 100vw;
-    position: fixed;
-    top: 0%;
-    left: 0%;
-    transform:none;
-   
-  }
+
   .login_part{
-  gap: 40px;
+  gap: 25px;
 }
   .register_part {
   gap: 15px;

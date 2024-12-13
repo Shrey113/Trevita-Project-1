@@ -4,7 +4,19 @@ import './../css/VerifyOpt.css';
 import ShowLoder from './../sub_components/show_loder.js';
 // import {local_storage_key} from './sub_component/All_data.js'
 import close_button from './../../../Assets/Owener/cross.png'
-function VerifyOpt({ user_name, user_email, user_password, close_function }) {
+
+const Server_url = 'http://localhost:4000'
+const localstorage_key_for_jwt_user_side_key = 'Jwt_user_localstorage_key_on_photography_website';
+
+
+function VerifyOpt({ user_name,
+  user_email,
+  user_password,
+  business_name,
+  business_address,
+  mobile_number,
+  GST_number
+  , close_function }) {
   const [show_loder, set_show_loder] = useState(false);
 
 
@@ -23,7 +35,7 @@ function VerifyOpt({ user_name, user_email, user_password, close_function }) {
 
   const verify_opt = (e) => {
     e.preventDefault();
-    fetch('http://localhost:4000/api/verify_otp', {
+    fetch(`${Server_url}/verify_otp`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -33,34 +45,35 @@ function VerifyOpt({ user_name, user_email, user_password, close_function }) {
           user_send_otp: OTP,
           user_name: user_name,
           user_email: user_email,
-          user_password: user_password
+          user_password: user_password,
+          business_name: business_name,
+          business_address: business_address,
+          mobile_number: mobile_number,
+          GST_number: GST_number,
         }
       ),
     })
       .then((response) => {
         if (!response.ok) { throw new Error('Network response was not ok'); }
         return response.json();
-      })
-      .then((data) => {
-        if (data.status === "verify-pass") {
+      }).then((data) => {
+        console.log(data);
+        if (data.message === "OTP verified successfully") {
+          console.log("OTP verification passed");
           set_show_loder(true);
           setTimeout(() => {
             set_show_loder(false);
             if(data.user_key){
-              alert("set me localt key and redux")
-              // localStorage.setItem(local_storage_key,data.user_key)                
+              localStorage.setItem(localstorage_key_for_jwt_user_side_key,data.user_key)                
             }else{
-              console.log(data);
-              alert("Not able to store a user Data")
+              alert("Not able to store a Data")
             }
             window.location.reload();
-          }, 2000);
-
+          }, 1000);
         } else {
           alert("OTP NOT match")
+          console.log("Message not matched:", data.message);
         }
-
-        console.log(data);
       })
       .catch((error) => {
         console.error('There was a problem with the fetch operation:', error);

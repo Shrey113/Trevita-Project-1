@@ -132,6 +132,7 @@ function ForgetPassword({ set_show_forget_password }) {
               onChange={(e) => {
                 set_forget_email(e.target.value);
               }}
+              width="280px"
             />
 
             <div

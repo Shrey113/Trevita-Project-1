@@ -17,6 +17,7 @@ import "swiper/css/autoplay";
 
 import VerifyOpt from './sub_components/VerifyOpt.js';
 import ForgetPassword from "./sub_components/ForgetPassword.js";
+import ShowLoder from "./sub_components/show_loder.js";
 
 
 
@@ -99,21 +100,23 @@ function Login() {
 
   // toggle page --
   const [show_verify_page,set_show_verify_page] = useState(false)
-  const [show_forget_password,set_show_forget_password] = useState(true)
+  const [show_forget_password,set_show_forget_password] = useState(false)
 
-  const [test,set_test] = useState(false)
+  const [test,set_test] = useState(false);
+
+  const [show_loder,set_show_loder] = useState(false);
   
 
 
   function go_to_register(){
-    if(window.innerWidth >= 660 ){
+    if(window.innerWidth >= 661 ){
       toggle_register_login(!is_register)
     }else{
       set_test(true);
     }
   }
   function go_to_Login(){
-    if(window.innerWidth >= 660 ){
+    if(window.innerWidth >= 661 ){
       toggle_register_login(!is_register)
     }else{
       set_test(false);
@@ -128,7 +131,7 @@ function Login() {
       if (window.innerWidth !== previousWidth) {
         previousWidth = window.innerWidth; 
 
-        if (window.innerWidth >= 660) {
+        if (window.innerWidth >= 661) {
           set_test(true);
         } else {
           set_test(false);
@@ -308,37 +311,80 @@ function Login() {
 
 
     if (is_valid) {
-  
-        const Data = {
-          user_name: register_user_name,
-          user_email: register_email,
-          user_password:register_password ,
-          business_name: register_business_name,
-          business_address: register_business_address,
-          mobile_number: register_business_mobile_number,
-          GST_number: register_business_GST_number
-        };
-      
-        try {
-          const response = await fetch(`${Server_url}/owener/add_owener`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(Data),
-          });
-      
+      const Data = {
+        user_name: register_user_name,
+        user_email: register_email,
+        user_password: register_password,
+        business_name: register_business_name,
+        business_address: register_business_address,
+        mobile_number: register_business_mobile_number,
+        GST_number: register_business_GST_number,
+      };
+
+      try {
+        const response = await fetch(`${Server_url}/owner/add_owner`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Data),
+        });
+        if (response.ok) {
           const data = await response.json();
-          if (response.ok) {
-            console.log('Client added successfully:', data);
+          console.log(data);
+
+          if (data.error === "Email already exists") {
+            toggle_is_page_1register(true);
+            set_register_email_error(data.error);
           } else {
-            console.log('Error adding client:', data.error);
+            // sub -if-else
+            if (data.error === "user name already exists") {
+              toggle_is_page_1register(true);
+              set_register_user_name_error(data.error);
+            } else if (data.message === "go for otp") {
+              set_show_loder(true);
+              set_show_verify_page(true);
+              fetch(`${Server_url}/send_otp_email`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email: register_email }),
+              })
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  return response.json();
+                })
+                .then((data) => {
+                  if (!data.error) {
+                    
+                  } else {
+                    set_show_loder(false);
+                    alert("server error at /send_otp_email");
+                  }
+                })
+                .catch((error) => {
+                  set_show_loder(false);
+                  console.error("Error:", error.message);
+                });
+            }else{
+              set_show_loder(false);
+              set_show_verify_page(false);
+              alert("server error at /owner/add_owner");
+            }
           }
-        } catch (error) {
-          console.error('Error making fetch request:', error);
+        } else {
+          const errorData = await response.text();
+          console.log("Error adding client, status code:", response.status);
+          console.error("Error response:", errorData);
         }
-   
+      } catch (error) {
+        console.error("Error making fetch request:", error);
+      }
     }
+  
   };
 
  
@@ -347,12 +393,16 @@ function Login() {
   return (
     <>
       <div className="full_blur_bg_1">
+      
         <div className="user_login_con">
-
+        
+        {show_loder && <ShowLoder/>}
           {/* form - 1 Login */}
           <form className={`login_part ${is_register ? "reverse_form_animation" : "set_form_animation" }`} id="login_part" onSubmit={handle_login_submit} action="http://localhost:4000/api/login" method="POST"
-          style={{display:window.innerWidth >= 660 ? "flex" : test ? "none" : "flex" }}
+          style={{display:window.innerWidth >= 661 ? "flex" : test ? "none" : "flex" }}
           >
+          
+
               <div className="title">Login</div>
               <CustomInputField type="text" id="login_email" name="user_html" value={login_email} onChange={(e)=>set_login_email(e.target.value)} label="Email" error={login_email_error} />
               <CustomInputField type="password" id="login_password" value={login_password} onChange={(e)=>set_login_password(e.target.value)} label="Password" error={login_password_error} />
@@ -369,8 +419,9 @@ function Login() {
 
           {/* form - 2 Register */}
           <form className={`register_part ${!is_register ? "reverse_form_animation" : "set_form_animation" }`} action="go.html" id="register_part" onSubmit={handle_register_submit} 
-          style={{display:window.innerWidth >= 660 ? "flex" : test ? "flex" : "none" }}
+          style={{display:window.innerWidth >= 661 ? "flex" : test ? "flex" : "none" }}
           >
+            
                 <div className="title">Register</div>
                 {is_page_1register ? <>
                 <CustomInputField type="text" value={register_user_name} onChange={(e)=>set_register_user_name(e.target.value)} label="User Name" error={register_user_name_error} id="register_user_name"/>
@@ -397,7 +448,7 @@ function Login() {
                 <div className="button_con_register_part">
 
                 {is_page_1register ?
-                    <button id="custom_button" onClick={ (e)=>{
+                    <button id="custom_button" className="custom_button" onClick={ (e)=>{
                       register_page_1_valide(e);
                       }} >Next</button> : <button id="custom_button" onClick={ (e)=>{
                         e.preventDefault();
@@ -443,32 +494,17 @@ function Login() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="travel_login_img" id="travel_login_img">
-                <img src={Register_page_2}      alt="Slide 1"
-                style={{
-                  height: "100%",
-                  width: "100%",
-                  objectFit: "cover",
-                }} />
+                <img src={Register_page_2} alt="" />
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="travel_login_img" id="travel_login_img">
-                <img src={Register_page_1}      alt="Slide 1"
-                style={{
-                  height: "100%",
-                  width: "100%",
-                  objectFit: "cover",
-                }} />
+                <img src={Register_page_1} alt="" />
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="travel_login_img" id="travel_login_img">
-                <img src={Register_page_4}      alt="Slide 1"
-                style={{
-                  height: "100%",
-                  width: "100%",
-                  objectFit: "cover",
-                }} />
+                <img src={Register_page_4} alt="" />
               </div>
             </SwiperSlide>
             <div className="swiper-pagination" />
@@ -478,10 +514,23 @@ function Login() {
         </div>
       </div>
 
-      {show_verify_page ? <VerifyOpt user_name={register_user_name} user_email={register_email} user_password={register_password} close_function={()=>{set_show_verify_page(!show_verify_page)}} />
+      {show_verify_page ? <VerifyOpt 
+             user_name={register_user_name}
+             user_email={register_email}
+             user_password={register_password}
+             business_name={register_business_name}
+             business_address={register_business_address}
+             mobile_number={register_business_mobile_number}
+             GST_number={register_business_GST_number}
+      close_function={()=>{set_show_verify_page(!show_verify_page);
+        set_show_loder(false);
+
+      }
+    } />
                       : ''}
       { show_forget_password ? <ForgetPassword last_enter_email={login_email} page_close_function={()=>
-         {set_show_forget_password(!show_forget_password);}} /> : ''}
+         {set_show_forget_password(!show_forget_password);
+         }} /> : ''}
    </>
   );
   

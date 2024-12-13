@@ -3,6 +3,7 @@ import "./CSS File/login_register.css";
 import { CustomInputField } from "./sub_component/CustomInputField";
 
 import ForgetPassword from "./ForgetPassword";
+import { useNavigate } from "react-router-dom";
 
 import Login_page_photo1 from "./../../Assets/Client/Login_page_photo1.jpg";
 import Login_page_photo2 from "./../../Assets/Client/Login_page_photo2.jpg";
@@ -18,6 +19,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
+import { data } from "react-router-dom";
 function LoginRegister() {
   const [isLoginVisible, setIsLoginVisible] = useState(true);
 
@@ -41,6 +43,17 @@ function LoginRegister() {
   const [termsError, setTermsError] = useState("");
 
   const [show_forget_password, set_show_forget_password] = useState(false);
+
+  // for otp send verification
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpError, setOtpError] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [userRegistered, setUserRegistered] = useState(false);
+
+  const Server_url = "http://localhost:4000";
+
+  const navigate = useNavigate();
 
   const toggle_login_register = () => {
     setIsLoginVisible(!isLoginVisible);
@@ -76,7 +89,7 @@ function LoginRegister() {
     return email_pattern.test(email);
   };
 
-  const handle_login_submit = (event) => {
+  const handle_login_submit = async (event) => {
     event.preventDefault();
 
     // for login email and password error
@@ -94,11 +107,41 @@ function LoginRegister() {
     }
     setTermsError("");
     if (is_valid) {
-      console.log("good in login");
+      console.log("Submitting login request");
+
+      try {
+        const response = await fetch(`${Server_url}/client/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_email: login_email,
+            user_password: login_password,
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Login successful:", data);
+
+          // Perform actions after successful login
+          set_login_password_error("");
+          set_login_email_error("");
+          navigate("/user_home");
+          // Redirect to another page or store token/user info
+        } else if (response.status === 401) {
+          set_login_password_error("Invalid email or password");
+        } else {
+          console.error("Server-side error occurred");
+          alert("An error occurred on the server. Please try again later.");
+        }
+      } catch (error) {
+        console.error("Error occurred on the client side:", error);
+        alert("Failed to connect to the server. Please check your connection.");
+      }
     }
   };
 
-  const handle_register_submit = (e) => {
+  const handle_register_submit = async (e) => {
     e.preventDefault();
     let is_valid = true;
 
@@ -146,9 +189,86 @@ function LoginRegister() {
       set_register_confirm_password_error("");
     }
     if (is_valid) {
-      console.log("good in register");
+      console.log("Registering user...");
+      const Data = {
+        user_name: register_username,
+        user_email: register_email,
+        user_password: register_password,
+      };
+      try {
+        const response = await fetch(`${Server_url}/client/register_user`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Data),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          console.log("Client added successfully", data);
+
+          setOtpSent(true);
+          // Send OTP email to the user
+          await fetch(`${Server_url}/send-otp`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: register_email }),
+          });
+          setShowOtpModal(true); // Show OTP modal
+        } else {
+          console.log("Error adding client: ", data.error);
+          if (data.error === "Email already exists") {
+            set_register_email_error(data.error);
+          } else if (data.error === "Username already exists") {
+            set_register_username_error(data.error);
+          } else {
+            console.error("Unexpected error: ", data.error);
+          }
+        }
+      } catch (e) {
+        console.error("Error occured at client side ", e);
+      }
     }
   };
+
+  const handleOtpVerification = async () => {
+    if (otp.length !== 6) {
+      setOtpError("OTP must be 6 digits");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${Server_url}/verify-otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: register_email,
+          otp: otp,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("OTP verified successfully");
+        setUserRegistered(true);
+        setShowOtpModal(false);
+        // Proceed to register user in the database
+        // Additional user registration logic here
+      } else {
+        setOtpError(data.error || "Invalid OTP");
+      }
+    } catch (error) {
+      console.error("Error verifying OTP:", error);
+    }
+  };
+
   return (
     <div className="Main_Container">
       {/* for register page */}
@@ -157,6 +277,20 @@ function LoginRegister() {
         className={`Register_Page ${!isLoginVisible ? "active" : ""}`}
         onSubmit={handle_register_submit}
       >
+        {showOtpModal && (
+          <div className="otp-modal">
+            <h2>Enter OTP</h2>
+            <input
+              type="text"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              placeholder="Enter OTP"
+              maxLength="6"
+            />
+            {otpError && <p className="error">{otpError}</p>}
+            <button onClick={handleOtpVerification}>Verify OTP</button>
+          </div>
+        )}
         <div className="register_form">
           {/* <div className="swiper_contianer_wrapper"> */}
 

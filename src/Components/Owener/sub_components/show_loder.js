@@ -5,9 +5,16 @@ const ShowLoder = () => {
     <>
       <style>{`
         @keyframes set_me_test {
-          0% {width: 20%;}
+          0% {
+          width: 20%;
+          background:rgb(135, 156, 238);
+          }
           50% {width: 50%; left: 20%;}
-          100% {width: 10%; left: 100%;}
+          100% {
+          width: 10%;
+           left: 100%;
+           background: #5264AE;
+          }
         }
 
         @keyframes opacity_animation {

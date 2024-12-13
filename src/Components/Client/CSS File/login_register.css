@@ -1,10 +1,10 @@
 :root {
-  --color_1: #0d1117; /* Dark base */
-  --color_2: #1f6feb; /* Vivid Blue */
-  --color_3: #f2a365; /* Soft Orange */
-  --color_4: #e6edf3; /* Text white */
-  --color_5: #8b949e; /* Text gray */
-  --color_error: #d72638; /* Alert red */
+  --color_1: #0d1117;
+  --color_2: #1f6feb;
+  --color_3: #f2a365;
+  --color_4: #e6edf3;
+  --color_5: #8b949e;
+  --color_error: #d72638;
   --input_font_size: 1rem;
 }
 
@@ -16,10 +16,7 @@
   justify-content: flex-start;
   overflow: hidden;
   position: relative;
-  background: url("./../../../Assets/Client/Stage\ Background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #f69d37;
 }
 
 /* swiper buttons */
@@ -68,7 +65,7 @@
   z-index: 1;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: rgba(76, 76, 79, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .Main_Container .Register_Page.active,
@@ -82,6 +79,20 @@
   opacity: 0;
   transform: translateY(-40%, -40%);
   z-index: 0;
+}
+
+.Register_Page .otp-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+.Register_Page .otp-modal .error {
+  color: red;
 }
 
 .Main_Container .Register_Page .register_form {
