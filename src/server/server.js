@@ -280,7 +280,21 @@ app.post("/owner/login", (req, res) => {
     }
   });
 });
+// admin
+// admin
+// admin
+// admin
 
+app.get('/Admin/owners', async (req, res) => {
+  const query = 'SELECT * FROM trevita_project_1.owner;';
+  db.query(query, (err, results) => {
+      if (err) {
+          console.error('Error executing query:', err.message);
+          return res.status(500).json({ error: 'Database error' });
+      }
+      res.json(results);
+  });
+});
 
 
 

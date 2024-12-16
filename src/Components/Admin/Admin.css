@@ -1,0 +1,477 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color_1: #000C20;
+    --color_2: #01316F;
+    --color_3: #6FAFDB;
+    --color_4: #E2E2B7;
+    --admin_main_color:#6148cc;
+    --input_font_size: .9rem;
+    --bg_for_main_title:rgb(255, 255, 255);
+}
+
+.Admin_main_con {
+    height: 100vh;
+    width: 100vw;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgb(241, 248, 199) 0%, #f8f8d9 35%, #fafadd 100%);
+}
+
+.Admin_main_con .nav {
+    padding: 10px 30px;
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.Admin_main_con .nav .web_app_img {
+    height: 100%;
+    width: fit-content;
+}
+
+.Admin_main_con .nav .web_app_img img {
+    height: 100%;
+    width: 100%;
+}
+
+.Admin_main_con .nav .ohter_nav_bar_part {
+    height: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.Admin_main_con .nav .ohter_nav_bar_part .switch_part_menu {
+    height: 100%;
+    width: fit-content;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 40px;
+    padding: 7px;
+}
+
+.Admin_main_con .nav .ohter_nav_bar_part .switch_part_menu .item {
+    height: 100%;
+    min-width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+    border-radius: 40px;
+    &:hover{
+        cursor: pointer;
+        background: rgba(207, 207, 207, 0.362);
+    }
+    
+}
+.Admin_main_con .nav .ohter_nav_bar_part .switch_part_menu .item.active {
+    background: rgb(0, 0, 0);
+    color: white;
+}
+.Admin_main_con .nav .ohter_nav_bar_part .setting{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255, 255, 255);
+    border-radius: 40px;
+    padding: 5px;
+    padding-right: 15px;
+    gap: 5px;
+    &:hover{
+        cursor: pointer;
+        background: rgba(239, 238, 238, 0.926);
+    }
+}
+
+.Admin_main_con .nav .ohter_nav_bar_part .setting .icon{
+    height: 100%;
+    padding: 10px;
+}
+.Admin_main_con .nav .ohter_nav_bar_part .setting .icon img{
+    height: 100%;
+    width: fit-content;
+}
+.Admin_main_con .nav .ohter_nav_bar_part .ohter_icon{
+    height: 100%;
+    display: flex;
+    gap: 10px;
+}
+.Admin_main_con .nav .ohter_nav_bar_part .ohter_icon .item{
+    background: white;
+    border-radius: 40px;
+    padding: 12px;
+    &:hover{
+        cursor: pointer;
+        background: rgba(239, 238, 238, 0.926);
+    }
+}
+.Admin_main_con .nav .ohter_nav_bar_part .ohter_icon .item img{
+    height: 100%;
+    width: 100%;
+    
+}
+.Admin_main_con .Admin_body{
+    /* height: 100%; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    
+}
+
+.Admin_body .Dashboard{
+    height: fit-content;
+    position: relative;
+    width: 100%;
+    padding: 0px 10px;
+    
+}
+.Admin_body .Dashboard .title_1{
+ font-size: 2.2rem;
+ padding: 40px;
+ padding-left: 10px;
+}
+.Admin_body .Dashboard .title_2{
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Admin_body .Dashboard .progress_bar_tile{
+    height: fit-content;
+}
+.Admin_body .Dashboard .title_2 .progress_bar{
+ height: 30px;
+ margin-top: 10px;
+ width: 300px;
+ background: rgba(226, 226, 226, 0.649);
+ border-radius: 40px;
+ overflow: hidden;
+}
+.Admin_body .Dashboard .title_2 .progress_bar .bar_{
+ height: 100%;
+ width: 78%;
+ background: #fdfd6e;
+ display: flex;
+ justify-content: flex-end;
+ padding-right: 10px;
+ align-items: center;
+ 
+}
+.Admin_body .Dashboard .select_menu{
+ display: flex;
+gap: 10px;
+}
+.Admin_body .Dashboard .main_Dashboard{
+    margin-top: 20px;
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_title_bar{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_title_bar .main_title_1{
+    display: flex;
+    gap: 10px;
+    background: var(--bg_for_main_title);
+    width: 100%;
+    margin-right: 30px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_title_bar .main_title_1::after{
+    content: '';
+    height: 45px;
+    width: 35px;
+    border-radius:0% 100% 100% 0% / 0% 100% 0% 100%  ;
+    transform: rotate(180deg);
+    position: absolute;
+    bottom:-2px;
+    right: -35px;
+    
+    /* background: rebeccapurple; */
+    /* box-shadow: 10px -10px #ff0000; */
+    box-shadow: 10px -10px var(--bg_for_main_title);
+
+}
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_title_bar .main_title_1 .custom_input{
+    background: rgb(255, 255, 255);
+    display: flex;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 40px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_title_bar .main_title_1 .custom_input .icon{
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_title_bar .main_title_1 .custom_input .icon img{
+    height: 100%;
+    width: 100%;
+}
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_title_bar .main_title_1 .custom_input input{
+    border: 0;
+    outline: 0;
+    background: transparent;
+}
+
+.Admin_body .Dashboard .main_Dashboard  .main_title_2{
+    display: flex;
+    gap: 10px;
+}
+.Admin_body .Dashboard .main_Dashboard  .main_title_2 .icon{
+    height: 40px;
+    width:  40px;
+    overflow: hidden;
+    background: white;
+    border-radius: 50%;
+    padding: 7px;
+    cursor: pointer;
+    &:hover{
+        background: rgba(239, 238, 238, 0.926);
+    }
+}
+.Admin_body .Dashboard .main_Dashboard  .main_title_2 .icon img{
+    height: 100%;
+    width:  100%;
+    padding: 2px;
+}
+.Admin_body .Dashboard .main_Dashboard  .main_title_2 .icon_title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 35px;
+ 
+  padding-right: 10px;
+  
+  height: fit-content;
+  cursor: pointer;
+  &:hover{
+      background: rgba(239, 238, 238, 0.926);
+  }
+}
+.Admin_body .Dashboard .main_Dashboard  .main_title_2 .icon_title img{
+    height: 40px;
+    width:  40px;
+    padding: 8px;
+   
+    
+}
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data{
+    height: fit-content;
+    padding-top: 35px;
+    padding-bottom: 20px;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px 25px 25px 25px;
+}
+
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table th,
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: none;
+    border: 3px solid transparent;
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table th:nth-child(1),
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table td:nth-child(1) {
+    width: 30px;
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table td:nth-child(1) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table th img{
+    height: 14px;
+}
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table th {
+    /* border-style: dashed; */
+    cursor: pointer;
+    border-radius: 10px;
+    background: rgba(243, 245, 216, 0.684);
+    &:hover{
+        background: rgba(255, 255, 0, 0.252);
+    }
+
+}
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table tr th.active_title{
+    background: rgba(255, 255, 0, 0.732);
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table th:first-child,
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table th:last-child{
+    cursor: default;
+    &:hover{
+        background: none;
+    }
+}
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table td {
+    font-size: 14px;
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table td img{
+    height: 30px;
+    padding: 6px;
+    border-radius: 50%;
+    
+    cursor: pointer;
+    &:hover{
+        background: rgba(203, 203, 203, 0.292);
+    }
+}
+
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table tr{
+    position: relative;
+}
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table tr .pop_menu{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: rgb(255, 255, 255);
+    width:fit-content;
+    height: fit-content;
+    z-index: 100;
+    min-width: 150px;
+
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 10px 0px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table tr .pop_menu span{
+   padding: 10px;
+   cursor: pointer;
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+   gap: 10px;
+   /* padding: 0px 10px; */
+   &:hover{
+    background: rgba(203, 203, 203, 0.292);
+}
+}
+
+.Admin_body .Dashboard .main_Dashboard .main_Dashboard_data .owner-table tr .pop_menu span img{
+    height: 30px;
+    width: 30px;
+    border-radius: 0;
+     padding: 3px;
+   &:hover{
+    background: none;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* PopMenu.css */
+
+.pop-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .pop-menu {
+    background: #fff;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .pop-menu-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .pop-menu-table th,
+  .pop-menu-table td {
+    text-align: left;
+    padding: 8px 12px;
+    width: 50%;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .pop-menu-table th {
+    
+    font-weight: bold;
+    background-color: #f5f5f5;
+  }
+  

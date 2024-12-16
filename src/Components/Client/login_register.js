@@ -15,13 +15,14 @@ import Register_page_photo3 from "./../../Assets/Client/Register_page_photo3.jpg
 import Register_page_photo4 from "./../../Assets/Client/Register_page_photo4.jpg";
 
 import close from "./../../Assets/Client/close.png";
+import ShowLoder from "./../Owener/sub_components/show_loder";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
 
-import {localstorage_key_for_client} from "./../../redux/AllData"
+import { localstorage_key_for_client } from "./../../redux/AllData";
 
 function LoginRegisterClient() {
   const [isLoginVisible, setIsLoginVisible] = useState(true);
@@ -46,14 +47,12 @@ function LoginRegisterClient() {
   const [termsError, setTermsError] = useState("");
 
   const [show_forget_password, set_show_forget_password] = useState(false);
-
+  const [isShowLoader, setIsShowLoader] = useState(false);
 
   // for otp send verification
-  const [showOtpModal, setShowOtpModal] = useState(true);
+  const [showOtpModal, setShowOtpModal] = useState(false);
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState("");
-
-
 
   const Server_url = "http://localhost:4000";
 
@@ -129,7 +128,14 @@ function LoginRegisterClient() {
           set_login_password_error("");
           set_login_email_error("");
           localStorage.setItem(localstorage_key_for_client, data.jwt_token);
-          window.location.reload();
+          setIsShowLoader(true);
+          setTimeout(() => {
+            setIsShowLoader(false);
+          }, 1500);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1600);
+
           // Redirect to another page or store token/user info
         } else if (response.status === 401) {
           set_login_password_error("Invalid email or password");
@@ -275,6 +281,7 @@ function LoginRegisterClient() {
 
   return (
     <div className="Main_Container">
+      {isShowLoader ? <ShowLoder /> : ""}
       {/* for register page */}
 
       <div
@@ -440,13 +447,7 @@ function LoginRegisterClient() {
 
           <p>
             Already have an account?
-            <span
-              onClick={toggle_login_register}
-              style={{ cursor: "pointer", color: "blue" }}
-            >
-              {" "}
-              Login
-            </span>
+            <span onClick={toggle_login_register}> Login</span>
           </p>
         </form>
       </div>
@@ -572,13 +573,7 @@ function LoginRegisterClient() {
 
           <p>
             Are you new user?
-            <span
-              onClick={toggle_login_register}
-              style={{ cursor: "pointer", color: "blue" }}
-            >
-              {" "}
-              Register
-            </span>
+            <span onClick={toggle_login_register}> Register</span>
           </p>
         </form>
         {/* </div> */}

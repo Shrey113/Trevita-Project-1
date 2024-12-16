@@ -16,7 +16,7 @@
   justify-content: flex-start;
   overflow: hidden;
   position: relative;
-  background-color: #f69d37;
+  background-color: #e6edf3;
 }
 
 /* swiper buttons */
@@ -148,6 +148,10 @@
   object-fit: cover;
   border-radius: 5px;
 }
+.Main_Container .Register_Page .all_fields h1,
+.Main_Container .Login_Page .all_fields h1 {
+  color: var(--color_2);
+}
 .Main_Container .Register_Page .all_fields {
   height: fit-content;
   width: 45%;
@@ -173,10 +177,11 @@
   justify-content: flex-end;
 }
 .Main_Container .Login_Page p.forgot_password {
-  color: blue;
+  color: var(--color_3);
 }
 .Main_Container .Login_Page p.forgot_password:hover {
   cursor: pointer;
+  color: var(--color_2);
 }
 .Main_Container .Login_Page .all_fields {
   height: fit-content;
@@ -193,6 +198,15 @@
   width: 50%;
   object-fit: cover;
 }
+.Main_Container .Login_Page .all_fields p span,
+.Main_Container .Register_Page .all_fields p span {
+  color: var(--color_3);
+  cursor: pointer;
+}
+.Main_Container .Login_Page .all_fields p span:hover,
+.Main_Container .Register_Page .all_fields p span:hover {
+  color: var(--color_2);
+}
 .all_fields #custom_button {
   outline: none;
   cursor: pointer;
@@ -208,8 +222,8 @@
   font-size: 17px;
   border-radius: 500px;
   overflow: hidden;
-  background: var(--color_3);
-  color: var(--color_4);
+  background: var(--color_2);
+  color: #e6edf3;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
