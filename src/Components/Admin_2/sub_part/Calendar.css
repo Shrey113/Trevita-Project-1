@@ -1,0 +1,180 @@
+:root{
+    --ui_color:#6e6af0;
+    --ui_color:#0084da;
+    --admin_bg_coloer:#e8f1f8;
+    --admin_ui_coloer:#ffffff;
+    --admin_box_shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    --admin_box_radius:20px;
+}
+.Calendar_con{
+    background: var(--admin_ui_coloer);
+    height: fit-content;
+    width: 320px;
+    padding: 20px;
+    border-radius: var(--admin_box_radius);
+    box-sizing: var(--admin_box_shadow);
+    /* border: 1px solid black; */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Add hover effect to chart box */
+  .Calendar_con:hover {
+    transform: scale(1.03); /* Slight zoom-in effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+
+.Calendar_con .title_bar_sub{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    font-size: 1.4rem;
+    /* gap: 18px; */
+    width: 100%;
+}
+.Calendar_con .title_bar_sub .navigation{
+    display: flex;
+    
+}
+.Calendar_con .title_bar_sub .navigation .left,
+.Calendar_con .title_bar_sub .navigation .right{
+    height: 45px;
+    width: 45px;
+    padding: 10px;
+    display: flex;
+    cursor: pointer;
+    border-radius: 8px;
+    &:hover{
+        background: rgba(212, 212, 212, 0.192);
+    }
+}
+.Calendar_con .title_bar_sub .navigation img{
+    height: 100%;
+    width: 100%;
+}
+
+
+.Calendar_con .day_list_con{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+}
+
+.Calendar_con .day_list_con .all_day{
+    display: flex;
+    justify-content: space-evenly;
+}
+.Calendar_con .day_list_con .all_day span{
+    height: 40px;
+    width: 40px;
+    /* background: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*  */
+.Calendar_con .day_list_con .only_day{
+    display: flex;
+    justify-content: space-evenly;
+}
+.Calendar_con .day_list_con .only_day span{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+    &:hover{
+        background: rgba(212, 212, 212, 0.192);
+    }
+}
+.Calendar_con .day_list_con .only_day span.active{
+    background: #6d61e5;
+    /* background: red; */
+}
+.Calendar_con .list_of_active_task{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+.Calendar_con .list_of_active_task .item_con{
+    /* width: 330px; */
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    padding: 10px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    width: 100%;
+    &:hover{
+        background: rgba(212, 212, 212, 0.421);
+    }
+}
+.Calendar_con .list_of_active_task .item_con .icon{
+    height: 60px;
+    width: 60px;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: #eceef5;
+}
+.Calendar_con .list_of_active_task .item_con .icon img{
+    height: 100%;
+    width: 100%;
+}
+.Calendar_con .list_of_active_task .item_con .data{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.Calendar_con .list_of_active_task .item_con .data .title{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.Calendar_con .list_of_active_task .item_con .data .message_Data{
+    display: flex;
+    justify-content:space-between;
+    gap: 15px;
+    align-items: center;
+}
+.Calendar_con .list_of_active_task .item_con .data .message_Data .time,
+.Calendar_con .list_of_active_task .item_con .data .message_Data .sub_data{
+    display: flex;
+    flex-wrap: nowrap;
+    text-wrap: nowrap;
+    height: 19px;
+    /* background: rebeccapurple; */
+    align-items: center;
+    gap: 2px;
+}
+.Calendar_con .list_of_active_task .item_con .data .message_Data .time img,
+.Calendar_con .list_of_active_task .item_con .data .message_Data .sub_data img{
+    height: 100%;
+    /* width:  100%; */
+}
+.Calendar_con .list_of_active_task .item_con .data .message_Data .time img{
+    height: 15px;
+}
+
+
+
+
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */

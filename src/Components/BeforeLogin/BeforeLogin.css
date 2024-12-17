@@ -1,3 +1,13 @@
+::-webkit-scrollbar {
+  width: 10px;
+  background: rgba(255, 226, 226, 0.849);
+}
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  background: #888;
+  border-radius: 10px;
+}
+
 .home {
   height: 100vh;
   width: 100%;
@@ -7,12 +17,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  animation: slideBg 15s linear infinite;
-  background-image: url("https://img.freepik.com/premium-photo/studio-photography-background-with-lighting-equipment_885831-50156.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 }
+
 .home::after {
   content: "";
   height: 100px;
@@ -27,6 +33,21 @@
   );
   z-index: 99;
 }
+.home .beforeLoginImage {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.home .beforeLoginImage img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  z-index: -1;
+  filter: brightness(70%);
+}
 .home nav {
   height: 10%;
   width: 99%;
@@ -35,6 +56,7 @@
   align-items: center;
   justify-content: space-around;
   overflow: hidden;
+  z-index: 1;
 }
 .home nav img {
   height: 70%;
@@ -94,6 +116,7 @@
   width: 99%;
   border-radius: 10px;
   overflow: hidden;
+  z-index: 1;
 }
 .home main .main_content {
   height: 90%;
@@ -129,8 +152,8 @@
   border-radius: 20px;
   padding: 10px 20px;
   gap: 10px;
-  background-color: rgb(246, 246, 91);
-  color: rgb(58, 57, 57);
+  background-color: yellowgreen;
+  color: rgb(20, 20, 20);
   font-size: 15px;
 }
 .home main .main_content button:hover {
@@ -258,7 +281,7 @@
   position: relative;
   flex-direction: column;
 }
-.business::after {
+.business::before {
   content: "";
   height: 40px;
   width: 100%;
@@ -272,20 +295,39 @@
   );
   z-index: 99;
 }
+/* .business::after {
+  content: "";
+  height: 40px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    0deg,
+    rgb(86, 86, 85) 0%,
+    rgba(253, 187, 45, 0) 100%
+  );
+  z-index: 99;
+} */
+
 .business h1 {
+  font-size: 3rem;
+  font-family: monospace;
   color: white;
 }
 .business .services_content {
   height: 50%;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
   border-radius: 10px;
   padding: 10px;
 }
 .business .services_content .left_container {
   height: 100%;
+  width: 450px;
   padding: 10px 30px;
   border: 10px solid rgb(255, 255, 255);
   display: flex;
@@ -301,14 +343,12 @@
   height: 40px;
   width: 40px;
 }
-.business .services_content .left_container h1 {
-  font-size: 35px;
-}
+
 .business .services_content .left_container .data_container {
   height: 40%;
   width: 70%;
   align-self: center;
-  background-color: #f4d984;
+  background-color: #daa3f8;
   border-radius: 20px;
   border: 5px solid white;
   display: flex;
@@ -320,39 +360,89 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   padding: 10px;
   align-items: flex-start;
 }
 
 .business .services_content .left_container .data_container .data_content p {
-  font-size: 15px;
+  font-size: 12px;
+  font-weight: 600;
 }
+
 .business .services_content .left_container .data_container .data_content p,
 h1 {
   transition: all 0.2s ease;
 }
 .business .services_content .left_container .data_container img {
-  height: 70px;
-  width: 70px;
+  height: 80px;
+  width: 80px;
   object-fit: cover;
   border-radius: 50%;
+  padding: 10px;
 }
 
 .business .services_content .center_container {
   height: 100%;
-  background-color: #e3a4ec;
+  width: 450px;
+  background-color: #373737;
   border: 10px solid white;
   border-radius: 20px;
   position: relative;
 }
-.business .services_content .center_container:hover .heart_image {
-  rotate: 0deg;
+.business .services_content .center_container .message_container {
+  height: 45px;
+  width: 80px;
+  background-color: white;
+  border-radius: 5px;
+  position: absolute;
+  top: 20%;
+  left: -5%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
 }
-
+.business .services_content .center_container .message_container::before {
+  content: "";
+  height: 15px;
+  width: 10px;
+  clip-path: polygon(0 0, 100% 100%, 100% 0);
+  bottom: -50%;
+  left: 50%;
+  position: absolute;
+  background-color: white;
+  border: 4px solid white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.business .services_content .center_container h1 {
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 9;
+  text-align: center;
+  font-size: 30px;
+  width: 90%;
+  color: #ffffff;
+  text-shadow: -2px 1px 4px rgb(67, 67, 67);
+}
+.business .services_content .center_container:hover .message_container {
+  animation: scaleEffect 0.6s ease-in-out forwards;
+}
+@keyframes scaleEffect {
+  0% {
+    scale: 0;
+  }
+  100% {
+    scale: 1;
+  }
+}
 .business .services_content .center_container .main_image {
   position: absolute;
-  height: 360px;
+  height: 420px;
   top: 120px;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -375,26 +465,263 @@ h1 {
 
 .business .services_content .right_container {
   height: 100%;
+  width: 450px;
   background-color: #d8d8ff;
   border-radius: 20px;
   border: 10px solid white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #595a5b;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
 }
+
+.showcase_title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.stats_flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.stat_item {
+  width: 180px;
+  background: #373737;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease;
+}
+.stat_item:hover {
+  transform: translateY(-10px);
+  cursor: pointer;
+}
+.stat_item img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.stat_item h3 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+  color: #69b7b5;
+}
+.stat_item p {
+  font-size: 1.1rem;
+  color: #f3f3f3;
+}
+
+/* Service section */
 .services {
   height: 100vh;
   width: 100%;
-  background-color: #424244;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+  background-color: #595a5b;
+  text-align: center;
 }
-.packages {
-  height: 100vh;
+/* .services::before {
+  content: "";
+  height: 40px;
   width: 100%;
-  background-color: #868686;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(86, 86, 85) 0%,
+    rgba(253, 187, 45, 0) 100%
+  );
+  z-index: 99;
+} */
+/* .services::after {
+  content: "";
+  height: 30px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    0deg,
+    rgb(89, 90, 91) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  z-index: 99;
+} */
+.services .section-title {
+  font-size: 3rem;
+  color: #fff;
 }
+.services .services-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+.services .services-container .service-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 350px;
+  height: 300px;
+  background: transparent;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+.services .services-container .service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.services
+  .services-container
+  .service-card:hover
+  .services_image_container
+  img {
+  scale: 1.1;
+}
+.services .services-container .service-card .services_image_container {
+  height: 150px;
+  width: 150px;
+  padding: 20px;
+}
+.services
+  .services-container
+  .service-card
+  .services_image_container
+  .service-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.5s ease-in-out;
+}
+.services .services-container .service-card .service-title {
+  margin: 1rem 0;
+  font-size: 1.7rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.services .services-container .service-card .service-description {
+  font-size: 1rem;
+  color: #555;
+  padding: 0 1rem 1rem;
+  font-weight: 550;
+}
+
+/* packages container  */
+
+.packages {
+  height: fit-content;
+  width: 100%;
+  background-color: rgb(89, 90, 91);
+  position: relative;
+  padding: 4rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+.packages::before {
+  content: "";
+  height: 40px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(89, 90, 91) 0%,
+    rgba(249, 177, 21, 0) 100%
+  );
+  z-index: 99;
+}
+
+.package-title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.packages-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+.package-card {
+  width: 600px;
+  height: fit-content;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.package-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.package_image_container {
+  height: 100%;
+  width: 50%;
+}
+.package_image_container .package-img {
+  width: 100%;
+  border-radius: 10px;
+}
+.package-title {
+  font-size: 30px;
+  color: #333;
+  color: white;
+}
+.package-price {
+  font-size: 1.5rem;
+  color: #e74c3c;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.package-features {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.package-features li {
+  font-size: 1rem;
+  color: #555;
+  margin: 0.5rem 0;
+}
+
 .testimonial {
   height: 100vh;
   width: 100%;
   background-color: #efefef;
 }
+
 .back-to-top {
   position: fixed;
   bottom: 30px;

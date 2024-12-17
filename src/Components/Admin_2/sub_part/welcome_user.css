@@ -1,0 +1,52 @@
+:root{
+    
+    --admin_box_shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+
+.welcome_message_con{
+    min-height: 150px;
+    height: 150px;
+    width: 580px;
+    padding: 21px 10px;
+    /* background: red; */
+    border-radius: var(--admin_box_radius);
+    display: flex;
+    
+    justify-content: space-evenly;
+    overflow: hidden;
+    box-shadow:var(--admin_box_shadow) ;
+    background: var(--admin_ui_coloer);
+  }
+  
+
+
+.welcome_message_con .data{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.welcome_message_con .data .data_1 .title{
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+.welcome_message_con .data .data_1 .info{
+    font-size: 1rem;
+    margin-top: 2px;
+}
+.welcome_message_con .data .data_2 button{
+    padding: 7px 15px;
+    border-radius: 20px;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    background: #0b8bdc;
+    color: white;
+}
+.welcome_message_con .bg_welcome_img{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

@@ -1,0 +1,93 @@
+/* ProfitExpensesChart.css */
+:root{
+
+  --admin_box_shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.chart-container {
+    width: 750px;  
+    max-width: 750px;
+    background: red;    
+    border-radius:var(--admin_box_radius);
+    box-shadow: var(--admin_box_shadow);
+    padding: 20px 20px;
+    background: var(--admin_ui_coloer);
+    height: fit-content;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Add hover effect to chart box */
+  .chart-container:hover {
+    transform: scale(1.03); /* Slight zoom-in effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .chart-title {
+    font-size: 1.5rem;
+    font-weight:400;
+    margin-bottom: 30px;
+    display: flex;
+  }
+  
+  .chart-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 20px;
+    
+  }
+  
+  .chart-container .chart_con{
+    display: flex;
+    
+  }
+  .chart-container .chart_con .chart{
+    display: flex;
+    flex: 1.2;
+  }
+  .chart-container .chart_con .chart_data{
+    display: flex;
+    flex: 0.9;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  .chart-container .chart_con .chart_data .chart_info{
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+  }
+  .chart-container .chart_con .chart_data .chart_info .icon{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    padding: 8px;
+  }
+
+
+  .chart-container .chart_con .chart_data .chart_info .icon img{
+    height: 100%;
+    width: 100%;
+  }
+  .chart-container .chart_con .chart_data .chart_info .data .amount{
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  .chart-container .chart_con .chart_data .chart_info .data .info{
+    font-size: 0.9rem;
+  }
+
+  .chart-container .chart_con .chart-button-container button{
+    margin-top: 30px;
+    padding: 7px 15px;
+    border-radius: 20px;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    background: #0b8bdc;
+    color: white;
+    font-size: 1.1rem;
+}

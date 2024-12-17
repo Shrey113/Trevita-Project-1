@@ -97,9 +97,7 @@ function Admin() {
   const [activeRow, setActiveRow] = useState(null);
   const popMenuRef = useRef(null);
 
-  const active_users = Owners_data?.filter((owner)=>{
 
-  });
 
   const [searchQuery, setSearchQuery] = useState("");
   const [status_filter, set_status_filter] = useState(null);

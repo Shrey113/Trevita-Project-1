@@ -289,7 +289,7 @@ app.get('/Admin/owners', async (req, res) => {
   const query = 'SELECT * FROM trevita_project_1.owner;';
   db.query(query, (err, results) => {
       if (err) {
-          console.error('Error executing query:', err.message);
+          console.error('Error executing query at admin owners:', err.message);
           return res.status(500).json({ error: 'Database error' });
       }
       res.json(results);

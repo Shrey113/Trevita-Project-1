@@ -10,8 +10,11 @@ import HomePage from "./Components/Client/HomePage.js";
 import PageNotFound from'./PageNotFound.js'
 
 import {localstorage_key_for_client,localstorage_key_for_jwt_user_side_key,Server_url} from './redux/AllData.js'
-import Admin from "./Components/Admin/Admin.js";
+// import Admin from "./Components/Admin/Admin.js";
 import BeforeLogin from "./Components/BeforeLogin/BeforeLogin.js";
+import Admin2 from "./Components/Admin_2/Admin.js";
+import Calendar from "./Components/Admin_2/sub_part/Calendar.js";
+
 
 
 
@@ -97,7 +100,9 @@ function App() {
       <Routes>
         {/* Default route */}
         <Route path="/" element={<BeforeLogin/> } />
-        <Route path="/admin" element={<Admin/> } />
+        <Route path="/Admin2" element={<Admin2/> } />
+        {/* <Route path="/" element={<BeforeLogin/> } /> */}
+        {/* <Route path="/admin" element={<Admin/> } /> */}
         {/* <Route path="/" element={ authStatus.client ? <HomePage /> : authStatus.owner ? <Dashboard /> : <LoginRegisterOwener /> } /> */}
 
         {/* Client routes */}
