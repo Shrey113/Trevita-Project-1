@@ -7,6 +7,9 @@ const initialState = {
     business_address: '',
     mobile_number: '',
     gst_number: '',
+    user_Status: '',
+    admin_message: '',
+    set_status_by_admin: '',
   };
   
   const user_data = (state = initialState, action) => {

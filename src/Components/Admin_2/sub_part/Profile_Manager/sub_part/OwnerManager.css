@@ -1,0 +1,317 @@
+:root{
+    --ui_color:#6e6af0;
+    --ui_color:#0084da;
+    --admin_bg_coloer:#e8f1f8;
+    --admin_ui_coloer:#ffffff;
+    --admin_box_shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    --admin_box_radius:20px;
+  }
+  .Owner_manager{
+      height: fit-content;
+      background: white;
+      padding: 20px;
+      border-radius: var(--admin_box_radius);
+      width: 100%;
+      min-width: 800px;
+      /* margin: 20px auto; */
+      transition: box-shadow 0.3s ease;
+      overflow-x: auto;
+    }
+
+    .Owner_manager:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    .Owner_manager.limited-width {
+      max-width: 850px;
+    }
+  
+  .Owner_manager .title_bar_sub{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+  }
+  .Owner_manager .title_bar_sub span{
+      display: flex;
+      gap: 10px;
+  }
+  .Owner_manager .title_bar_sub img{
+      height: 36px;
+      padding: 8px;
+      border-radius: 10px;
+      cursor: pointer;
+      &:hover{
+          background: rgba(212, 212, 212, 0.421);
+      }
+  }
+  .Owner_manager .title_hr{
+      
+      height: 1px;
+      width: 100%;
+      background: rgb(0, 0, 0);
+   }
+   
+  
+  .Owner_manager table {
+      margin-top: 20px;
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+      table-layout: fixed;
+    }
+  
+    .Owner_manager .user_table   th,
+    .Owner_manager .user_table   td {
+      padding: 12px 15px;
+      text-align: left;
+      vertical-align: middle;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-bottom: 1px solid #eee;
+      max-width: 200px;
+      
+    }
+    .Owner_manager .user_table th.set_width:first-child,
+    .Owner_manager .user_table td.set_width:first-child {
+      width: 50px;
+      min-width: 50px;
+      max-width: 50px;
+    }
+    
+    .Owner_manager .user_table   thead th {
+      background-color: #f8f9fa;
+      color: #495057;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .Owner_manager.user_table    thead tr {
+      height:60px;
+    }
+    .Owner_manager .user_table   tbody tr {
+      height:100px;
+      /* background: rebeccapurple; */
+      border-radius: 20px;
+      transition: background-color 0.2s ease;
+    }
+    .Owner_manager .user_table   tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+    
+  
+    .Owner_manager  .profile_con {
+      display: flex;
+      align-items: center;
+    }
+    
+    .Owner_manager  .profile {
+      margin-right: 20px;
+    }
+    
+    .Owner_manager  .profile img {
+      width: 40px; /* Profile image size */
+      height: 40px;
+      border-radius: 50%; /* Makes the image circular */
+      object-fit: cover;
+      border: 1px solid #ccc;
+    }
+    
+    .Owner_manager  .data .title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 3px;
+    }
+    
+    .Owner_manager  .data .type {
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    
+    .Owner_manager thead tr th{
+      text-align: center;
+    }
+  
+    .Owner_manager tbody tr  .set_type span{
+      padding: 5px 8px;
+      background: rebeccapurple;
+      width: fit-content;
+      border-radius: 15px;
+    }
+    .Owner_manager tbody tr  .set_type span.Accept{
+      background: #dffff3;
+      color: #5cd7ae;
+      border: 1px solid #5cd7ae;
+    }
+    .Owner_manager tbody tr .set_type span.Reject{
+      background:  #fbe4e4;
+      color: #e13131;
+      border: 1px solid #e13131;
+    }
+    .Owner_manager tbody tr .set_type span.Pending{
+      background: #ffede9;
+      color: #faa691;
+      border: 1px solid #faa691;
+    }
+    .Owner_manager tbody tr td .more_option_bt{
+     height: 35px;
+     padding: 8px;
+    border-radius: 10px;
+     cursor: pointer;
+     &:hover{
+      background: rgba(128, 128, 128, 0.168);
+     }
+    }
+    .Owner_manager tbody tr td .more_option_pop{
+      display: flex;
+      gap: 8px;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .Owner_manager tbody tr td .more_option_pop .icon_img{
+      height: 37px;
+      width: 37px;
+      padding: 4px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+      &:hover{
+        background-color: rgba(45, 45, 45, 0.137);
+      }
+    }
+    .Owner_manager tbody tr td .more_option_pop .icon_img img{
+      height: 25px;
+      width: 25px;
+      object-fit: contain;
+    }
+  
+  
+
+
+    
+.Owner_manager .user-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.Owner_manager .user-data-table th, 
+.Owner_manager .user-data-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #eee;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Owner_manager .user-data-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.Owner_manager .logout-button,
+.Owner_manager .view-details-button {
+  margin: 0.5em;
+  padding: 0.6em 1.2em;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.Owner_manager .logout-button:hover,
+.Owner_manager .view-details-button:hover {
+  background-color: #0056b3;
+}
+
+.Owner_manager .popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.Owner_manager .popup-content {
+  background: white;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  max-height: 94vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.Owner_manager .close-popup-button {
+  padding: 0.6em 1.2em;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.Owner_manager .close-popup-button:hover {
+  background-color: #c9302c;
+}
+
+.Owner_manager .categories-container {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+  padding: 8px;
+  background: #f0f8ff;
+  border-radius: 10px;
+  overflow-x: auto;
+  width: fit-content;
+}
+
+.Owner_manager .category-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.Owner_manager .category-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.Owner_manager .category-item.active {
+  background-color: white;
+  color: var(--ui_color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Add this new style to center only the Access column */
+.Owner_manager .user_table td:last-child {
+  text-align: center;
+}
+

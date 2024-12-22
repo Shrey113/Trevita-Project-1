@@ -11,7 +11,7 @@ function PageNotFound() {
     
     <h1> 404 Error.</h1>
     <p> We can't find the page you're looking for.</p>
-    <button onClick={()=>{window.location.href = '/Owener'}}>Back to home</button>
+    <button onClick={()=>{window.location.href = '/'}}>Back to home</button>
   </div>
 </div>
   )

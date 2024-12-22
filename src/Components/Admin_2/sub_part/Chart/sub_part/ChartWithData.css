@@ -1,16 +1,4 @@
-/* General layout for the chart container */
-.chart-container_round .chart-container_round {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-    background-color: #e9eff5;  /* Soft background color */
-    border-radius: 15px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    transition: all 0.3s ease;
-  }
-  
+
   /* The main box that contains both chart and data */
   .chart-container_round .chart-box {
     display: flex;
@@ -22,12 +10,13 @@
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    height: 550px;
+    /* background: red; */
   }
   
   /* Add hover effect to chart box */
   .chart-container_round .chart-box:hover {
-    transform: scale(1.03); /* Slight zoom-in effect */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
   

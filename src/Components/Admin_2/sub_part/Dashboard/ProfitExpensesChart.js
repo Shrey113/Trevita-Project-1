@@ -28,7 +28,7 @@ const ProfitExpensesChart = () => {
   return (
     <div className="chart-container">
         <div className="chart-title">
-        Profit & Expenses
+        User Growth Chart
         </div>
       
 

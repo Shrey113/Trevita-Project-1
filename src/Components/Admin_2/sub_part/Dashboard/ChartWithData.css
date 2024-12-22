@@ -1,0 +1,71 @@
+/* General layout for the chart container */
+.chart-container_round .chart-container_round {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background-color: #e9eff5;  /* Soft background color */
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  /* The main box that contains both chart and data */
+  .chart-container_round .chart-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 350px;  /* Slightly smaller width */
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    height: 550px;
+  }
+  
+  /* Add hover effect to chart box */
+  .chart-container_round .chart-box:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style for the chart itself */
+  .chart-container_round .chart {
+    width: 100%;
+    height: 350px;
+    margin-bottom: 25px;
+    border-radius: 15px;  /* Rounded chart corners */
+  }
+  
+  /* Data box below the chart */
+  .chart-container_round .data-box {
+    width: 100%;
+    padding: 15px;
+    background-color: #f4f7fc; /* Light gray background for data box */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  /* Style for each data entry in the data box */
+  .chart-container_round .data-box p {
+    font-size: 1rem;
+    margin: 8px 0;
+    line-height: 1.5;
+  }
+  
+  .chart-container_round .data-box p strong {
+    font-weight: bold;
+    color: #5f6bc4;  /* Accent color for strong text */
+  }
+  
+  /* Add a hover effect for the data box as well */
+  .chart-container_round .data-box:hover {
+    background-color: #eef2fb; /* Light color change on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  

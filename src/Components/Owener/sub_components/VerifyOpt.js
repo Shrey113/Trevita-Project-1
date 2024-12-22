@@ -33,7 +33,7 @@ function VerifyOpt({ user_name,
 
   const verify_opt = (e) => {
     e.preventDefault();
-    fetch(`${Server_url}/verify_otp_owner`, {
+    fetch(`${Server_url}/owner/verify_otp_owner`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

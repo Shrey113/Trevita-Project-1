@@ -13,7 +13,8 @@ import {localstorage_key_for_client,localstorage_key_for_jwt_user_side_key,Serve
 // import Admin from "./Components/Admin/Admin.js";
 import BeforeLogin from "./Components/BeforeLogin/BeforeLogin.js";
 import Admin2 from "./Components/Admin_2/Admin.js";
-import Calendar from "./Components/Admin_2/sub_part/Calendar.js";
+import BottomRightMenu from "./BottomRightMenu.js";
+// import Calendar from "./Components/Admin_2/sub_part/Calendar.js";
 
 
 
@@ -47,6 +48,9 @@ function App() {
               business_address: data.user.business_address || null,
               mobile_number: data.user.mobile_number || null,
               gst_number: data.user.gst_number || null,
+              user_Status: data.user.user_Status || null,
+              admin_message: data.user.admin_message || null,
+              set_status_by_admin: data.user.set_status_by_admin || null,
             }});
             setAuthStatus((prev) => ({ ...prev, owner: true }));
           } else {
@@ -98,12 +102,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Default route */}
-        <Route path="/" element={<BeforeLogin/> } />
+        {/* testing part */}
         <Route path="/Admin2" element={<Admin2/> } />
-        {/* <Route path="/" element={<BeforeLogin/> } /> */}
-        {/* <Route path="/admin" element={<Admin/> } /> */}
-        {/* <Route path="/" element={ authStatus.client ? <HomePage /> : authStatus.owner ? <Dashboard /> : <LoginRegisterOwener /> } /> */}
+
+        
+        {/* Default route */}
+        <Route path="/" element={ authStatus.client ? <HomePage /> : authStatus.owner ? <Dashboard /> : <BeforeLogin /> } />
 
         {/* Client routes */}
         <Route path="/Client" element={authStatus.client ? <HomePage /> : <LoginRegisterClient />} />
@@ -116,6 +120,7 @@ function App() {
         {/* 404 Page */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      <BottomRightMenu />
     </Router>
   );
 }

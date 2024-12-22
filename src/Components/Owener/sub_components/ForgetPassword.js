@@ -99,7 +99,7 @@ function ForgetPassword({page_close_function,last_enter_email,user_name}) {
   const verify_OTP =(e)=>{
     e.preventDefault();
 
-    fetch(`${Server_url}/reset_password_verify_otp`,{
+    fetch(`${Server_url}/owner/reset_password_verify_otp`,{
       method:"POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -148,7 +148,7 @@ function ForgetPassword({page_close_function,last_enter_email,user_name}) {
     }
     // if all set then fetch
     if(is_valid){
-      fetch(`${Server_url}/set_new_password`, {
+      fetch(`${Server_url}/owner/set_new_password`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

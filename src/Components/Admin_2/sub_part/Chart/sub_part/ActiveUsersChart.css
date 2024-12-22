@@ -1,0 +1,78 @@
+
+
+
+
+ .active-users-chart {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    /* margin: 20px; */
+    flex: 1;
+    background: white;
+    border-radius: 15px;
+    padding: 60px 30px;
+    height: fit-content;
+    position: relative;
+    max-width: 440px;
+    height: 550px;
+  }
+  
+ 
+  .active-users-chart .chart-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+ 
+  }
+  
+
+  
+ 
+  .active-users-chart .toggle-button:active {
+    transform: scale(1);
+  }
+  
+ 
+  .active-users-chart .chart-container_ActiveUsersChart {
+    margin-top: 30px;
+    width: 100%;
+  }
+  
+ 
+  .active-users-chart .recharts-bar-rectangles .recharts-bar-rectangle {
+    transition: all 0.3s ease;
+  }
+  
+ 
+  .active-users-chart .slider_con {
+    margin: 10px 0;
+    padding: 10px 20px;
+    background: #f0f8ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    display: flex;
+    gap: 20px;
+    border-radius: 10px;
+
+  }
+  .active-users-chart button{
+    background: transparent;
+    outline: 0;
+    border: 0;
+  }
+  
+  .active-users-chart button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  .active-users-chart button.active {
+    background-color: white;
+    color: var(--ui_color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  

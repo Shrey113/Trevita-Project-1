@@ -1,0 +1,69 @@
+
+/* PopupMenu.css */
+
+.main-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+  
+  .popup {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+  }
+  
+  .popup h2 {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+  }
+  
+  .popup textarea {
+    border: 0;
+    outline: 0;
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+
+  }
+  .popup textarea:focus {
+    border: 1px solid rgb(68, 68, 253);
+  }
+  
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button.confirm {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  button.close {
+    background-color: #ccc;
+    color: black;
+  }
+  

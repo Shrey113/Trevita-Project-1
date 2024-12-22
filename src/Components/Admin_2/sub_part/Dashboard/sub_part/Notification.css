@@ -1,0 +1,68 @@
+.notification {
+    padding: 16px;
+    margin: 4px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: white;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); */
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    /* background: rebeccapurple; */
+    /* border-left: 4px solid #e0e0e0; */
+    &:hover{
+        background-color: #f0f0f0;
+    }
+}
+
+
+
+.user_icon {
+    width: 45px;
+    height: 45px;
+    /* border-radius: 50%; */
+    border-radius: 40%;
+    /* padding: 8px; */
+    /* background: white; */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.127);
+}
+
+
+.data {
+    flex: 1;
+}
+.data span {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+}
+
+.notification-title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 4px 0;
+}
+
+.data span .notification-message {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.4;
+    width: 230px;
+    height: 20px;
+    /* background: rebeccapurple; */
+    overflow: hidden; /* Uncommented for proper ellipsis effect */
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Corrected property for preventing text wrapping */
+}
+
+.data span .notification-time{
+    font-size: 0.8rem;
+    height: 100%;
+    color: #666;
+}
+
+  

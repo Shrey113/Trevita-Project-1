@@ -43,16 +43,19 @@
 .admin_body .admin_side_bar_con{
     position: fixed;
     height: 100%;
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
+ width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;z-index: 100;
+  
 }
+
 .admin_body .admin_side_bar_con .admin_side_bar{
     height: 400px;
-    width: 100%;
+
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
     background: var(--ui_color);
     position: relative;
     border-radius: 0px 40px 40px 0px;
@@ -61,7 +64,32 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    transition: all 0.2s;
+    /* &:hover {
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
+    }
+    &:hover:after{
+        height: 120px;
+        width: 130%;
+        top: -114px;
+        left: -30px;
+        box-shadow:  -25px 50px var(--ui_color);
+        box-shadow:  -55px 50px var(--ui_color);
+
+    }
+    &:hover:before{
+        height: 120px;
+        width: 130%;
+        bottom: -114px;
+        left: -30px;
+    
+        box-shadow:  -55px -50px var(--ui_color);
+
+    } */
 }
+
 
 .admin_body .admin_side_bar_con .admin_side_bar::after{
     content: '';
@@ -75,6 +103,7 @@
     border-radius: 100% 0% 0% 100% / 0% 0% 100% 100% ;
     box-shadow: -25px 10px #000000;
     box-shadow:  -25px 10px var(--ui_color);
+    transition: all 0.2s;
 }
 .admin_body .admin_side_bar_con .admin_side_bar::before{
     content: '';
@@ -87,8 +116,7 @@
     
     border-radius: 100% 0% 100% 0% / 100% 100% 0% 0%  ;
     /* box-shadow: -25px -10px #000000; */
-    box-shadow:  -25px -10px var(--ui_color);
-    
+    box-shadow:  -25px -10px var(--ui_color);    transition: all 0.2s;
 }
 
 
@@ -103,7 +131,7 @@
 
 .admin_body .admin_side_bar_con .admin_side_bar .active_bar{
     height: 45px;
-    width: 45px;
+    width: 100%;
     background: rgb(255, 255, 255);
     border-radius: 10px;
     position: absolute;
@@ -112,11 +140,13 @@
 }
 .admin_body .admin_side_bar_con .admin_side_bar .icon{
     height: 45px;
-    width: 45px;
+    width: fit-content;
     padding: 7px;
     cursor: pointer;
     border-radius: 10px;
     z-index: 1;
+    display: flex;
+    align-items: center;
     &:hover{
         background: rgba(225, 225, 225, 0.259);
     }
@@ -245,6 +275,7 @@
     flex-direction: column;
     border-radius: var(--admin_box_radius);
     box-shadow: var(--admin_box_shadow);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     padding: 0px 20px;
     z-index: 10;
 }
@@ -431,13 +462,14 @@
 
  .section_1_admin{
     display: flex;
-    gap: 30px;
+    gap: 50px;
+
  }
 
 .admin_first_page_box{
     background: #0084da;
-    height: 150px;
-    width: 150px;
+    height: 140px;
+    width: 140px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -485,13 +517,16 @@
     gap: 30px;
     /* justify-content: space-between; */
     height: fit-content;
+    margin-top: -350px;
  }
 .section_3_admin{
+    /* background: rebeccapurple; */
     display: flex;
     gap: 30px;
     /* justify-content: space-between; */
     height: fit-content;
     width: fit-content;
     /* background: rebeccapurple; */
-    margin-top: -150px;
+    /* margin-top: -150px; */
+    margin-top: 30px;
  }

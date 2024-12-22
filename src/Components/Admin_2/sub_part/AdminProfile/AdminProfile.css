@@ -1,0 +1,472 @@
+.admin_profile_container {
+  width: 100%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.admin_profile_container h2, .admin_profile_container h3 {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+}
+
+.admin_profile_container section {
+  margin-bottom: 25px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.admin_profile_container .profile_item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  justify-content: space-evenly;
+  position: relative;
+  gap: 10px;
+}
+
+.admin_profile_container .profile_item .all_error_input {
+  color: red;
+  font-size: 13px;
+}
+
+.admin_profile_container label {
+  flex: 1;
+  font-weight: bold;
+  font-size: 16px;
+  color: #555;
+}
+
+.admin_profile_container .editable_field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.admin_profile_container .editable_field input {
+  width: 100%;
+  min-width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #f0f0f0;
+  transition: border 0.3s ease;
+}
+
+.admin_profile_container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #f0f0f0;
+  transition: border 0.3s ease;
+}
+
+.admin_profile_container input.error_input {
+  border: 1px solid red;
+}
+
+.admin_profile_container input:focus {
+  background-color: #fff;
+  border-color: #007bff;
+  outline: none;
+}
+
+.admin_profile_container .profile_img_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin_profile_container .profile_img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+.admin_profile_container .change_img_btn {
+  margin-top: -20px;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.admin_profile_container .change_img_btn:hover {
+  background-color: #0056b3;
+}
+
+.admin_profile_container .save_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.admin_profile_container .save_icon {
+  width: 20px;
+  height: 20px;
+}
+
+.admin_profile_container .change_password {
+  padding: 8px 12px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+
+}
+
+.admin_profile_container .change_password:hover {
+  background-color: #f55d6c;
+}
+
+.admin_profile_container .profile_item span, .admin_profile_container .profile_item .change_password {
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  
+}
+
+.admin_profile_container .view_login_history {
+  background-color: #007bff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.admin_profile_container .delete_account {
+  background-color: #dc3545;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  &:hover {
+    background-color: #f55d6c;
+  }
+}
+
+.admin_profile_container input[type="file"] {
+  display: none;
+}
+
+
+
+.admin_profile_container input[type="text"], .admin_profile_container input[type="email"] {
+  width: 50%;
+}
+
+.admin_profile_container input[type="text"]:hover, .admin_profile_container input[type="email"]:hover {
+  border-color: #007bff9a;
+}
+
+.admin_profile_container input[type="text"]:focus, .admin_profile_container input[type="email"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.admin_profile_container .save_button:hover {
+  background-color: #f8f9fa;
+}
+
+.admin_profile_container .save_button:focus {
+  outline: none;
+}
+
+.admin_profile_container .profile_item label, .admin_profile_container .profile_item span {
+  font-size: 16px;
+}
+
+.admin_profile_container .editable_field input {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.admin_profile_container .profile_item + .profile_item {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+
+.admin_profile_container .save_button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.admin_profile_container .save_button:hover {
+  background-color: #0056b3;
+}
+
+.admin_profile_container .save_button:focus {
+  outline: none;
+}
+
+.admin_profile_container .select_input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #f0f0f0;
+  transition: border 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 1em;
+  cursor: pointer;
+}
+
+.admin_profile_container .select_input:hover {
+  border-color: #007bff9a;
+}
+
+.admin_profile_container .select_input:focus {
+  background-color: #fff;
+  border-color: #007bff;
+  outline: none;
+}
+
+.admin_profile_container .select_input.error_input {
+  border: 1px solid red;
+}
+
+/* Add these styles for readonly inputs */
+.admin_profile_container input[readonly] {
+  background-color: #f8fbff;
+  cursor: default;
+  opacity: 0.8;
+  border: 1px solid #ced4da86;
+  color: black;
+}
+
+.admin_profile_container input[readonly]:hover,
+.admin_profile_container input[readonly]:focus {
+  border-color: #ced4da25;
+  background-color: #e9ecef;
+  box-shadow: none;
+  /* color: rgba(128, 128, 128, 0.593); */
+  opacity: 0.5;
+  outline: none;
+}
+
+.profile_popup_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+.profile_popup_overlay .profile_popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile_popup_overlay .profile_popup h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.profile_popup_overlay .default_images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.profile_popup_overlay .default_images img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  border: 2px solid transparent;
+}
+
+.profile_popup_overlay .default_images img:hover {
+  transform: scale(1.05);
+  border-color: #007bff;
+}
+
+.profile_popup_overlay .upload_section {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.profile_popup_overlay .upload_section input[type="file"] {
+  display: none;
+}
+
+.profile_popup_overlay .upload_section label {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.profile_popup_overlay .upload_section label:hover {
+  background-color: #218838;
+}
+
+.profile_popup_overlay .close_popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+  padding: 5px;
+}
+
+.profile_popup_overlay .close_popup:hover {
+  color: #333;
+}
+
+/* Update existing profile image styles */
+.profile_popup_overlay .profile_img_wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile_popup_overlay .profile_img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile_popup_overlay .change_img_btn {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile_popup_overlay .change_img_btn:hover {
+  background-color: #0056b3;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.loading-spinner::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 10px auto;
+  border-radius: 50%;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.disabled-select {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+  opacity: 0.7;
+  border: 1px solid #ccc;
+}
+
+.disabled-select:hover {
+  border-color: #ccc;
+}
+
+.select_input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.select_input:not(.disabled-select):hover {
+  border-color: #666;
+}
+
+.select_input:not(.disabled-select):focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}

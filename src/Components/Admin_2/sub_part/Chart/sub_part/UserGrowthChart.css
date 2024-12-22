@@ -1,0 +1,67 @@
+
+
+:root{
+  --chart_color_1:#fa977c;
+  --chart_color_1:#0085db;
+  --chart_color_1:#e6ecf1;
+}
+
+ .UserGrowthChart_con {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f0f4f8;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    /* margin: 30px auto; */
+    padding-top: 40px;
+    width: 800px;
+    height: 600px;
+    
+  }
+  
+  
+.UserGrowthChart_con .UserGrowthChart_chart {
+    width: 100%;
+    height: 90%;
+  }
+  
+ .UserGrowthChart_con .UserGrowthChart_description {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #7f8c8d;
+    text-align: center;
+  }
+  
+
+
+  .UserGrowthChart_con .slider_con {
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: #cdf4f3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    display: flex;
+    gap: 20px;
+    border-radius: 10px;
+
+  }
+  .UserGrowthChart_con button{
+    background: white;
+    outline: 0;
+    border: 0;
+  }
+  
+  .UserGrowthChart_con button:hover {
+    background: white;
+  }
+  .UserGrowthChart_con button.active {
+    background: rgb(209, 241, 250);
+  }

@@ -1,0 +1,353 @@
+:root{
+  --ui_color:#6e6af0;
+  --ui_color:#0084da;
+  --admin_bg_coloer:#e8f1f8;
+  --admin_ui_coloer:#ffffff;
+  --admin_box_shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  --admin_box_radius:20px;
+}
+.Admin_table_date{
+    height: fit-content;
+    background: white;
+    padding: 20px 10px;
+    border-radius: var(--admin_box_radius);
+    width: max-content;
+    flex: 1;
+    /* margin-top: -70px; */
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Add hover effect to chart box */
+  .Admin_table_date:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+
+.Admin_table_date .title_bar_sub{
+    display: flex;
+    justify-content: space-between;
+}
+.Admin_table_date .title_bar_sub span{
+    display: flex;
+    gap: 10px;
+}
+.Admin_table_date .title_bar_sub img{
+    height: 36px;
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    &:hover{
+        background: rgba(212, 212, 212, 0.421);
+    }
+}
+.Admin_table_date .title_hr{
+    
+    height: 1px;
+    width: 100%;
+    background: rgb(0, 0, 0);
+ }
+ 
+
+.Admin_table_date table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+
+  .Admin_table_date  table th,
+  .Admin_table_date  table td {
+    border: 3px solid transparent;
+    padding: 10px 18px;
+    text-align: left;
+  }
+  
+  .Admin_table_date  table thead th {
+    font-weight: bold;
+    color: #333;
+  }
+  .Admin_table_date  table thead tr {
+    height:45px;
+    text-wrap: nowrap;
+  }
+  .Admin_table_date  table tbody tr {
+    height:100px;
+    /* background: rebeccapurple; */
+    border-radius: 20px;
+  }
+  .Admin_table_date  table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+
+  .Admin_table_date  .profile_con {
+    display: flex;
+    align-items: center;
+  }
+  
+  .Admin_table_date  .profile {
+    margin-right: 20px;
+  }
+  
+  .Admin_table_date  .profile img {
+    width: 40px; /* Profile image size */
+    height: 40px;
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover;
+    border: 1px solid #ccc;
+  }
+  
+  .Admin_table_date  .data .title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 3px;
+  }
+  
+  .Admin_table_date  .data .type {
+    font-size: 0.9em;
+    color: #666;
+  }
+  .Admin_table_date tbody tr td{
+    position: relative;
+  }
+
+  .Admin_table_date tbody tr td .set_type{
+    padding: 5px 8px;
+    background: rebeccapurple;
+    width: fit-content;
+    border-radius: 15px;
+    text-wrap: nowrap;
+  }
+  .Admin_table_date tbody tr td .set_type.read_only{
+    background: #dffff3;
+    color: #5cd7ae;
+    border: 1px solid #5cd7ae;
+  }
+  .Admin_table_date tbody tr td .set_type.read_write{
+    background:  #e4f2fb;
+    color: #319be1;
+    border: 1px solid #319be1;
+  }
+  .Admin_table_date tbody tr td .set_type.Full{
+    background: #ffede9;
+    color: #faa691;
+    border: 1px solid #faa691;
+  }
+  .Admin_table_date tbody tr td .more_option_bt{
+   height: 35px;
+   padding: 8px;
+  border-radius: 10px;
+   cursor: pointer;
+   &:hover{
+    background: rgba(128, 128, 128, 0.168);
+   }
+  }
+  .Admin_table_date tbody tr td .more_option_pop{
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: var(--admin_ui_coloer);
+    box-shadow: var(--admin_box_shadow);
+  }
+  .Admin_table_date tbody tr td .more_option_pop .item{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    &:hover{
+      background: rgba(128, 128, 128, 0.221);
+    }
+  }
+  .Admin_table_date tbody tr td .more_option_pop .item .icon_img{
+    height: 25px;
+    width: 25px;
+    padding: 2px;
+  }
+  .Admin_table_date tbody tr td .more_option_pop .item .icon_img img{
+    height: 100%;
+    width: 100%;
+  }
+
+
+
+
+
+
+  /*  */
+  /*  */
+  /*  */
+/* Overlay background */
+.popup_overlay_admin_con {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(39, 39, 39, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-in-out;
+}/* Fade-in animation for overlay */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* Popup container */
+.popup_overlay_admin_con .popup_admin {
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.popup_overlay_admin_con .popup_admin .error_message{
+  color: red;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Header inside the popup */
+.popup_overlay_admin_con .popup_admin h2 {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+/* Form styling */
+.popup_overlay_admin_con .popup_admin .popup_admin_form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.popup_overlay_admin_con .popup_admin .popup_admin_form label {
+  font-size: 1.1rem;
+  color: #444;
+  display: flex;
+  justify-content: flex-start;
+  gap: 40px;
+}
+.popup_overlay_admin_con .popup_admin .popup_admin_form label:has(input[type="text"]) {
+  align-items: center;
+}
+.popup_overlay_admin_con .popup_admin .popup_admin_form input[type="text"]{
+  width: 300px;
+}
+
+.popup_overlay_admin_con .popup_admin .popup_admin_form input,
+.popup_overlay_admin_con .popup_admin .popup_admin_form select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+
+.popup_overlay_admin_con .popup_admin .popup_admin_form input:focus:not([readonly]),
+.popup_overlay_admin_con .popup_admin .popup_admin_form select:focus:not([readonly]) {
+  border-color: #007bff;
+}
+
+.popup_overlay_admin_con .popup_admin .popup_admin_form input:read-only{
+  background: rgba(128, 128, 128, 0.237);
+  cursor: default;
+}
+
+/* Access Type Radio Buttons */
+.popup_overlay_admin_con .Access_radio_con {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.popup_overlay_admin_con .Access_radio_con label {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  flex-direction: column;
+  display: flex;
+  
+  flex: 1;
+  border-radius: 8px;
+  padding: 15px;
+  transition: border-color 0.3s ease;
+}
+
+.popup_overlay_admin_con .Access_radio_con label input {
+  margin-right: 7px;
+}
+.popup_overlay_admin_con .Access_radio_con label:hover {
+  border-color: #007bff;
+}
+
+.popup_overlay_admin_con .Access_radio_con label.active {
+  border-color: #007bff;
+}
+
+.popup_overlay_admin_con .Access_radio_con label .dec {
+  font-size: 0.9rem;
+  color: #444444;
+}
+
+/* Access Type Label */
+.popup_overlay_admin_con .Access_type_lable {
+  font-size: 1.1rem;
+  color: #444;
+  /* padding: 10px 0; */
+}
+
+/* Actions buttons */
+.popup-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.popup-actions button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.2s ease;
+}
+
+.popup-actions button:hover {
+  opacity: 0.9;
+}
+
+.popup-actions button:first-child {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.popup-actions button:last-child {
+  background-color: #f44336;
+  color: #fff;
+}

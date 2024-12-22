@@ -1,0 +1,31 @@
+:root{
+    --chart_color_1:#fa977c;
+    --chart_color_1:#0085db;
+    --chart_color_1:#e6ecf1;
+}
+
+
+.Chart_id{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.Chart_id .section_1{
+    display: flex;
+    justify-content: space-between;
+    background: rebeccapurple;
+    padding: 20px 40px;
+    border-radius: 20px;
+    gap: 20px;
+}
+
+.Chart_id .section_2{
+    display: flex;
+    
+    justify-content: space-between;
+
+    background: rebeccapurple;
+    padding: 20px 40px;
+
+    border-radius: 20px;
+}

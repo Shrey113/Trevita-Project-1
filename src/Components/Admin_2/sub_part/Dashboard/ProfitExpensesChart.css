@@ -5,21 +5,20 @@
 }
 
 .chart-container {
-    width: 750px;  
-    max-width: 750px;
+    width: 910px;  
+    max-width: 910px;
     background: red;    
     border-radius:var(--admin_box_radius);
     box-shadow: var(--admin_box_shadow);
     padding: 20px 20px;
     background: var(--admin_ui_coloer);
     height: fit-content;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition: box-shadow 0.3s ease;
   }
   
-  /* Add hover effect to chart box */
   .chart-container:hover {
-    transform: scale(1.03); /* Slight zoom-in effect */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  
   }
   
   .chart-title {
