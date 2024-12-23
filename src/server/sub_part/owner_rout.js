@@ -1,13 +1,11 @@
 const express = require('express');
 const mysql = require('mysql2'); 
-const cors = require("cors");
-const app = express();
-app.use(express.json()); 
-app.use(cors());
+const router = express.Router();
 
 
-const {server_request_mode,write_log_file,error_message,info_message,success_message,normal_message} = require('./modules/_all_help');
-const { generate_otp, get_otp, clear_otp } = require('./modules/OTP_generate');
+
+const {server_request_mode,write_log_file,error_message,info_message,success_message,normal_message} = require('./../modules/_all_help');
+const { generate_otp, get_otp, clear_otp } = require('./../modules/OTP_generate');
 const JWT_SECRET_KEY = 'Jwt_key_for_photography_website';
 
 function create_jwt_token(user_email,user_name){
