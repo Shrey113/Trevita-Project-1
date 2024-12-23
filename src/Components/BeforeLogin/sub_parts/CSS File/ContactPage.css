@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap");
+
+.contact-info {
+  width: 300px;
+  background-color: #363535;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: -300px;
+  right: 10px;
+  z-index: 20;
+  opacity: 0;
+  transition: right 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: slide 0.5s ease-in-out forwards;
+}
+@keyframes slide {
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    top: 70px;
+  }
+}
+.contact-info .get_in_touch {
+  display: flex;
+  gap: 7px;
+  flex-direction: column;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+.contact-info .get_in_touch:hover {
+  background-color: rgb(83, 83, 83);
+}
+.contact-info .get_in_touch p {
+  font-family: "Sour Gummy", serif;
+  line-height: 1.2em;
+}
+.contact-info .contact_details {
+  display: flex;
+  gap: 7px;
+  flex-direction: column;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+.contact-info .contact_details:hover {
+  background-color: rgb(83, 83, 83);
+}
+.contact-info .contact_details .email_and_phone p strong {
+  font-family: "Sour Gummy", serif;
+}
+.contact-info .follow_us {
+  display: flex;
+  gap: 7px;
+  flex-direction: column;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+.contact-info .follow_us:hover {
+  background-color: rgb(83, 83, 83);
+}
+.contact-info .follow_us .links_social_media {
+  line-height: 1.3em;
+}
+.contact-info .follow_us .links_social_media p {
+  font-family: "Sour Gummy", serif;
+}
+
+.contact-info h3 {
+  color: #9aa1ff;
+}
+
+.contact-info a {
+  color: #cbcef9;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}

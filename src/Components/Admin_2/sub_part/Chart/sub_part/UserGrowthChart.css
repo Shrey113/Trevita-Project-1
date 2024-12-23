@@ -4,6 +4,8 @@
   --chart_color_1:#fa977c;
   --chart_color_1:#0085db;
   --chart_color_1:#e6ecf1;
+
+ 
 }
 
  .UserGrowthChart_con {
@@ -19,8 +21,10 @@
 
     /* margin: 30px auto; */
     padding-top: 40px;
-    width: 800px;
+    width: var(--chart_2_width);
     height: 600px;
+
+    margin-top: -20px;
     
   }
   

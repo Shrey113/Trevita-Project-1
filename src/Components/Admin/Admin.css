@@ -433,7 +433,7 @@ gap: 10px;
     z-index: 1000;
   }
   
-  .pop-menu {
+  .pop-menu-overlay .pop-menu {
     background: #fff;
     border-radius: 8px;
     width: 80%;
@@ -444,7 +444,7 @@ gap: 10px;
   }
 
   
-  .close-button {
+  .pop-menu-overlay .close-button {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -455,21 +455,21 @@ gap: 10px;
     color: #333;
   }
   
-  .pop-menu-table {
+  .pop-menu-overlay .pop-menu-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
   }
   
-  .pop-menu-table th,
-  .pop-menu-table td {
+  .pop-menu-overlay .pop-menu-table th,
+  .pop-menu-overlay .pop-menu-table td {
     text-align: left;
     padding: 8px 12px;
     width: 50%;
     border-bottom: 1px solid #ddd;
   }
   
-  .pop-menu-table th {
+  .pop-menu-overlay .pop-menu-table th {
     
     font-weight: bold;
     background-color: #f5f5f5;

@@ -4,6 +4,10 @@
     --chart_color_1:#e6ecf1;
 }
 
+:root{
+    --chart_1_width:370px;
+    --chart_2_width:900px;
+  }
 
 .Chart_id{
     display: flex;
@@ -13,7 +17,6 @@
 .Chart_id .section_1{
     display: flex;
     justify-content: space-between;
-    background: rebeccapurple;
     padding: 20px 40px;
     border-radius: 20px;
     gap: 20px;
@@ -23,8 +26,6 @@
     display: flex;
     
     justify-content: space-between;
-
-    background: rebeccapurple;
     padding: 20px 40px;
 
     border-radius: 20px;

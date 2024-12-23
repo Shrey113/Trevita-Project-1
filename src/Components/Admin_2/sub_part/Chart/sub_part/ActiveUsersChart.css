@@ -1,7 +1,5 @@
 
 
-
-
  .active-users-chart {
     font-family: 'Arial', sans-serif;
     display: flex;
@@ -15,8 +13,11 @@
     padding: 60px 30px;
     height: fit-content;
     position: relative;
-    max-width: 440px;
+    max-width: var(--chart_1_width);
     height: 550px;
+
+
+    margin-top: 110px;
   }
   
  

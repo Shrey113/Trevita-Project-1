@@ -21,7 +21,7 @@ const PopupMenu = ({ email, handleClose, onSuccess, admin_email }) => {
   };
 
   return (
-    <div className="main-container">
+    <div className="main-container_Owner_question">
       <div className="popup">
         <h2>Are you sure you want to reject?</h2>
         <p className="email-display">Email: {email}</p>

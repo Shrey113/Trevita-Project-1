@@ -82,6 +82,10 @@ const BottomRightMenu = () => {
             <button onClick={() => handleNavigate("/Owner/Dashboard")}>Owner Dashboard</button>
             <button onClick={() => handleOpenInNewTab("/Owner/Dashboard")}>Go</button>
           </div>
+          <div className="menu-item">
+            <button onClick={() => handleNavigate("BeforeLogin")}>BeforeLogin</button>
+            <button onClick={() => handleOpenInNewTab("BeforeLogin")}>Go</button>
+          </div>
         </div>
       )}
     </div>

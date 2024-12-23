@@ -1,7 +1,7 @@
 
 /* PopupMenu.css */
 
-.main-container {
+.main-container_Owner_question {
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -14,7 +14,7 @@
     z-index: 100;
   }
   
-  .popup {
+  .main-container_Owner_question .popup {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -23,12 +23,12 @@
     width: 400px;
   }
   
-  .popup h2 {
+  .main-container_Owner_question .popup h2 {
     margin-bottom: 20px;
     font-size: 1.2em;
   }
   
-  .popup textarea {
+  .main-container_Owner_question .popup textarea {
     border: 0;
     outline: 0;
     width: 100%;
@@ -40,29 +40,29 @@
     resize: none;
 
   }
-  .popup textarea:focus {
+  .main-container_Owner_question .popup textarea:focus {
     border: 1px solid rgb(68, 68, 253);
   }
   
   
-  .buttons {
+  .main-container_Owner_question .buttons {
     display: flex;
     justify-content: space-between;
   }
   
-  button {
+  .main-container_Owner_question button {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
   
-  button.confirm {
+  .main-container_Owner_question button.confirm {
     background-color: #e74c3c;
     color: white;
   }
   
-  button.close {
+  .main-container_Owner_question button.close {
     background-color: #ccc;
     color: black;
   }

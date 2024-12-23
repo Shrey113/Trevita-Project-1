@@ -5,22 +5,16 @@ import './ActiveUsersChart.css';
 
 const dailyActiveUsers = [
   { name: "Mon", activeUsers: 120, totalUsers: 500 },
-  { name: "Tue", activeUsers: 150, totalUsers: 520 },
   { name: "Wed", activeUsers: 170, totalUsers: 540 },
-  { name: "Thu", activeUsers: 160, totalUsers: 550 },
   { name: "Fri", activeUsers: 180, totalUsers: 560 },
-  { name: "Sat", activeUsers: 190, totalUsers: 570 },
   { name: "Sun", activeUsers: 200, totalUsers: 580 },
 ];
 
 
 const monthlyActiveUsers = [
   { month: "Jan", activeUsers: 2000, totalUsers: 10000 },
-  { month: "Feb", activeUsers: 2200, totalUsers: 10200 },
   { month: "Mar", activeUsers: 2300, totalUsers: 10500 },
-  { month: "Apr", activeUsers: 2500, totalUsers: 10700 },
   { month: "May", activeUsers: 2700, totalUsers: 11000 },
-  { month: "Jun", activeUsers: 2900, totalUsers: 11500 },
   { month: "Jul", activeUsers: 3100, totalUsers: 12000 },
 ];
 
@@ -35,10 +29,10 @@ const ActiveUsersChart = () => {
       
     <div className="slider_con">
     <button className={`${showDailyData === false  && 'active'}`} onClick={() => setShowDailyData(false)}>
-            Real Time
+    Daily
             </button>
             <button className={`${showDailyData   && 'active'}`} onClick={() => setShowDailyData(true)}>
-            Per Day
+            Monthly
             </button> 
 
     </div>
@@ -46,7 +40,10 @@ const ActiveUsersChart = () => {
 
       <div className="chart-container_ActiveUsersChart" style={{ boxShadow: 'none' }}>
         <ResponsiveContainer width="100%" height={300} style={{ boxShadow: 'none' }}>
-          <BarChart data={showDailyData ? dailyActiveUsers : monthlyActiveUsers}>
+          <BarChart data={showDailyData ? dailyActiveUsers : monthlyActiveUsers} 
+              barCategoryGap="20%" 
+              barGap={5}  
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey={showDailyData ? "name" : "month"} />
             <YAxis />

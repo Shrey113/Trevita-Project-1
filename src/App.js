@@ -104,9 +104,11 @@ function App() {
       <Routes>
         {/* testing part */}
         <Route path="/Admin2" element={<Admin2/> } />
+        <Route path="/BeforeLogin" element={<BeforeLogin/> } />
 
         
         {/* Default route */}
+
         <Route path="/" element={ authStatus.client ? <HomePage /> : authStatus.owner ? <Dashboard /> : <BeforeLogin /> } />
 
         {/* Client routes */}

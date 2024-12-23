@@ -10,7 +10,7 @@ import PackageUsageCharts from './sub_part/PackageUsageCharts'
 function Charts() {
   return (
     <div className='Chart_id'>
-            <div className='section_2'>
+      <div className='section_2'>
       <ChartWithData/>
       <ProfitExpensesChart/>
       </div>
