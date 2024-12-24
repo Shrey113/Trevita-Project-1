@@ -11,13 +11,14 @@ function Charts() {
   return (
     <div className='Chart_id'>
       <div className='section_2'>
-      <ChartWithData/>
+      {/* <ChartWithData/> */}
+      <ActiveUsersChart/>
       <ProfitExpensesChart/>
       </div>
 
       <div className='section_1'>
-      <ActiveUsersChart/>
-      <UserGrowthChart/> 
+      
+      {/* <UserGrowthChart/>  */}
       </div>
 
 

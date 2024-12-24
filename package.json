@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
     "chalk": "^4.1.2",
     "chart.js": "^4.4.7",
     "cors": "^2.8.5",

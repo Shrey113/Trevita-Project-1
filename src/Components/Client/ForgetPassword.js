@@ -3,7 +3,7 @@ import "./CSS File/ForgetPassword.css";
 import CustomInputField from "./sub_component/CustomInputField.js";
 import close from "./../../Assets/Client/close.png";
 import leftArrow from "./../../Assets/Client/left-arrow.png";
-
+import { data } from "react-router-dom";
 function ForgetPassword({ set_show_forget_password }) {
   const [forget_email, set_forget_email] = useState("");
   const [forget_email_error, set_forget_email_error] = useState("");
@@ -24,15 +24,9 @@ function ForgetPassword({ set_show_forget_password }) {
     return email_pattern.test(email);
   };
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     let is_valid = true;
-    // if (validate_email(forget_email)) {
-    //   set_forget_email_error(" ");
-    // } else {
-    //   set_forget_email_error("Invalid email");
-    //   is_valid = false;
-    // }
 
     if (otp.length < 4) {
       set_otp_error("invalid OTP or Enter valid field");
@@ -41,11 +35,45 @@ function ForgetPassword({ set_show_forget_password }) {
       set_otp_error(" ");
     }
     if (is_valid) {
+      try {
+        const response = await fetch(
+          "http://localhost:4000/verify_forget_otp_client",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: forget_email,
+              type: "client",
+              otp: otp,
+            }),
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            alert(data.message);
+            set_forget_first(false);
+          } else {
+            alert(data.message);
+          }
+        } else {
+          const errorText = await data.message;
+          console.error("Error response:", errorText);
+          alert("An error occurred while verifying the email.");
+        }
+      } catch (e) {
+        console.log("error occured while fetching data", e);
+        alert("error occured while fetching data");
+      }
+
       console.log("validated");
-      set_forget_first(false);
     }
   }
-  function handle_password_change(e) {
+
+  async function handle_password_change(e) {
     e.preventDefault();
     let is_valid = true;
     if (password.length < 4) {
@@ -71,9 +99,36 @@ function ForgetPassword({ set_show_forget_password }) {
     }
 
     if (is_valid) {
-      alert("Password changed Successfuly");
-      set_show_forget_password(false);
-      return;
+      try {
+        const response = await fetch(
+          "http://localhost:4000/client_password_verify",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ password: password, email: forget_email }),
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            console.log(data.message);
+
+            alert("Password changed Successfuly");
+            set_show_forget_password(false);
+          } else {
+            alert(data.message);
+          }
+        } else {
+          console.error("response error");
+          alert("response error");
+        }
+      } catch (e) {
+        console.error("error occurred while fetching data", e);
+        alert("error occurred while fetching data");
+      }
     }
   }
 
@@ -94,8 +149,9 @@ function ForgetPassword({ set_show_forget_password }) {
     }
   };
 
-  const handle_email_check = (e) => {
+  const handle_email_check = async (e) => {
     e.preventDefault();
+
     let is_valid = true;
     if (validate_email(forget_email)) {
       set_forget_email_error(" ");
@@ -103,8 +159,37 @@ function ForgetPassword({ set_show_forget_password }) {
       set_forget_email_error("Invalid email");
       is_valid = false;
     }
+
     if (is_valid) {
-      set_is_email_valid(true);
+      try {
+        const response = await fetch(
+          "http://localhost:4000/client_email_verify",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: forget_email }),
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            alert("Email exists in the system.");
+            set_is_email_valid(true);
+          } else {
+            alert(data.message);
+          }
+        } else {
+          const errorText = await response.text();
+          console.error("Error response:", errorText);
+          alert("An error occurred while verifying the email.");
+        }
+      } catch (error) {
+        console.error("Error verifying email:", error);
+        alert("An error occurred. Please try again later.");
+      }
     }
   };
 
@@ -132,7 +217,7 @@ function ForgetPassword({ set_show_forget_password }) {
               onChange={(e) => {
                 set_forget_email(e.target.value);
               }}
-              width="280px"
+              width="300px"
             />
 
             <div

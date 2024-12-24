@@ -50,7 +50,11 @@ import github from "./../../Assets/BeforeLogin/github.png";
 import profile from "./../../Assets/BeforeLogin/profile.png";
 import buttonProfile from "./../../Assets/BeforeLogin/buttonProfile.png";
 
+import clientPhotography from "./../../Assets/BeforeLogin/clientPhotography.png";
+import offerPhotography from "./../../Assets/BeforeLogin/offerPhotography.png";
+
 import ContactPage from "./sub_parts/ContactPage";
+import FAQ from "./sub_parts/FAQ";
 
 function BeforeLogin() {
   const [showPopup, setShowPopup] = useState(false);
@@ -339,7 +343,7 @@ function BeforeLogin() {
                     onChange={handleOptionChange}
                   />
                   <p>Offer Photography Services</p>
-                  <img src={heart} alt="select option" />
+                  <img src={offerPhotography} alt="select option" />
                 </label>
 
                 <label className="option">
@@ -350,7 +354,7 @@ function BeforeLogin() {
                     onChange={handleOptionChange}
                   />
                   <p>Hire a Photographer</p>
-                  <img src={heart} alt="select option" />
+                  <img src={clientPhotography} alt="select option" />
                 </label>
               </div>
               <button className="next-button" onClick={handleSelectClick}>
@@ -557,6 +561,7 @@ function BeforeLogin() {
           ))}
         </div>
       </div>
+      <FAQ />
       <footer>
         <div className="footer_image_container">
           <img src={businessAvailable} alt="" />

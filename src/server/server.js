@@ -5,6 +5,7 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const adminRoutes = require('./sub_part/Admin_rout');
 const ownerRoutes = require('./sub_part/owner_rout');
+const chartRoutes = require('./sub_part/chart_rout');
 app.use(express.json()); 
 app.use(cors());
 
@@ -12,6 +13,35 @@ const { send_welcome_page, send_otp_page } = require('./modules/send_server_emai
 const {server_request_mode,write_log_file,error_message,info_message,success_message,normal_message} = require('./modules/_all_help');
 const { generate_otp, get_otp, clear_otp } = require('./modules/OTP_generate');
 const JWT_SECRET_KEY = 'Jwt_key_for_photography_website';
+
+
+// Socket.IO setup
+const http = require('http');
+const { Server } = require('socket.io');
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: '*', // Allow all origins
+    methods: '*', // Allow all HTTP methods
+  },
+});
+
+// Handle Socket.IO connections
+io.on('connection', (socket) => {
+  console.log('A user connected:', socket.id);
+
+  // Listen for custom events
+  socket.on('message', (msg) => {
+    console.log('Message received:', msg);
+    io.emit('message', msg); // Broadcast the message to all clients
+  });
+
+  // Handle disconnection
+  socket.on('disconnect', () => {
+    console.log('A user disconnected:', socket.id);
+  });
+});
+
 
 const db = mysql.createConnection({
   host: 'localhost', 
@@ -61,7 +91,7 @@ app.use((req, res, next) => {
     next();
 });
   
-app.post("/",(req,res)=>{
+app.get("/",(req,res)=>{
     res.send("hi server user")
 });
 
@@ -112,7 +142,7 @@ app.post("/get_user_data_from_jwt", async (req, res) => {
           return res.status(500).json({ error: "Database error" });
         }
         if (result.length === 0) {
-          return res.status(404).json({ message: "User not found" });
+          return res.status(200).json({ message: "User not found" });
         }
         res.status(200).json({ message: "User found", user: result[0] });
       }
@@ -123,6 +153,54 @@ app.post("/get_user_data_from_jwt", async (req, res) => {
   }
 });
 
+function getNotifications(notification_type, notification_message, notification_title, callback) {
+  const query = `
+      SELECT *, created_at 
+      FROM notification
+      WHERE notification_type = ? 
+      AND notification_message = ? 
+      AND notification_title = ? 
+      AND DATE(created_at) = CURDATE()`;
+
+  // Execute the query with placeholders for security
+  db.query(query, [notification_type, notification_message, notification_title], (err, results) => {
+      if (err) {
+          console.error('Error executing query:', err);
+          return callback(err, null);
+      }
+      callback(null, results);
+  });
+}
+
+app.post('/notifications_admin', (req, res) => {
+  const { notification_type, notification_message, notification_title } = req.body;
+
+  if (!notification_type || !notification_message || !notification_title) {
+      return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  // Call the getNotifications function
+  getNotifications(notification_type, notification_message, notification_title, (err, results) => {
+      if (err) {
+          return res.status(500).json({ error: 'Failed to fetch notifications' });
+      }
+      io.emit('new_notification',"all ok");
+
+      res.json({message:"all ok", notifications: results });
+  });
+});
+
+app.get('/notifications_for_test', (req, res) => {
+  db.query('SELECT * FROM notification', (err, results) => {
+    if (err) {
+      console.error('Error fetching data: ', err);
+      res.status(500).send('Error fetching data');
+      return;
+    }
+    res.json(results);  // Send the data as JSON
+  });
+});
+
 
 // admin routes
 app.use('/Admin', adminRoutes);
@@ -130,18 +208,106 @@ app.use('/Admin', adminRoutes);
 // owner routes
 app.use('/owner', ownerRoutes);
 
+// owner routes
+app.use('/chart', chartRoutes);
+
+
+
 // @shrey11_  End ---- 
 // @shrey11_  End ---- 
 // @shrey11_  End ---- 
 // @shrey11_  End ---- 
 // @shrey11_  End ----
-
-// praharsh  start ---- 
-// praharsh  start ---- 
-// praharsh  start ---- 
-// praharsh  start ---- 
+// praharsh  start ----
+// praharsh  start ----
+// praharsh  start ----
+// praharsh  start ----
 // praharsh  start ----
 // client paths
+
+app.post("/verify_forget_otp_client", async (req, res) => {
+  const { email, type, otp } = req.body;
+  if (!email || !type || !otp) {
+    return res
+      .status(200)
+      .json({ success: false, message: "Email and Otp are required" });
+  }
+  const storedOtp = get_otp(email, type);
+  console.log(storedOtp);
+
+  if (storedOtp === otp) {
+    res
+      .status(200)
+      .json({ success: true, message: "otp verified successfully" });
+  } else {
+    res.status(200).json({ success: false, message: "error in verifying otp" });
+  }
+});
+
+app.post("/client_password_verify", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res
+      .status(200)
+      .json({ success: false, message: "password is required" });
+  }
+
+  try {
+    const query = "UPDATE clients SET user_password = ? WHERE user_email = ?";
+    db.query(query, [password, email], (err, result) => {
+      if (err) {
+        console.error("Database update error:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Database error" });
+      }
+
+      // Check if any rows were updated
+      if (result.affectedRows > 0) {
+        res
+          .status(200)
+          .json({ success: true, message: "Password updated successfully" });
+      } else {
+        res.status(404).json({ success: false, message: "Email not found" });
+      }
+    });
+  } catch (error) {
+    res.status(200).json({ success: false, message: "Server error" });
+  }
+});
+
+app.post("/client_email_verify", async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res
+      .status(200)
+      .json({ success: false, message: "Email is required" });
+  }
+
+  const query = "SELECT * FROM clients WHERE user_email = ?";
+  db.query(query, [email], (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Database error" });
+    }
+
+    if (results.length > 0) {
+      const otp = generate_otp(email, "client");
+      console.log("generated otp ", otp);
+      send_otp_page(email, otp);
+
+      return res.status(200).json({ success: true, message: "Email exists" });
+    } else {
+      return res
+        .status(200)
+        .json({ success: false, message: "Email not found" });
+    }
+  });
+});
+
 app.post("/get_client_data_from_jwt", async (req, res) => {
   const jwt_token = req.body.jwt_token;
 
@@ -156,7 +322,8 @@ app.post("/get_client_data_from_jwt", async (req, res) => {
     if (!userData || !userData.user_name || !userData.user_email) {
       return res.status(200).json({ error: "Invalid or incomplete JWT token" });
     }
-    const find_user = 'SELECT * FROM trevita_project_1.clients WHERE user_name = ? AND user_email = ?';
+    const find_user =
+      "SELECT * FROM trevita_project_1.clients WHERE user_name = ? AND user_email = ?";
 
     db.query(
       find_user,
@@ -276,15 +443,14 @@ app.post("/client/login", (req, res) => {
   });
 });
 
-// praharsh  End ---- 
-// praharsh  End ---- 
-// praharsh  End ---- 
-// praharsh  End ---- 
+// praharsh  End ----
+// praharsh  End ----
+// praharsh  End ----
+// praharsh  End ----
 // praharsh  End ----
 
-
 const PORT = 4000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:4000`);
 });
 

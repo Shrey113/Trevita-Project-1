@@ -3,8 +3,8 @@ import { gsap } from "gsap";
 
 
 import UserDataList from './UserDataList.js'
-import Calendar from "./Calendar";
-import ChartWithData from "./ChartWithData.js";
+// import Calendar from "./Calendar";
+import ChartWithData from "../Chart/sub_part/ChartWithData.js";
 import ProfitExpensesChart from "./ProfitExpensesChart";
 import WelcomeUser from "./welcome_user";
 
@@ -37,9 +37,10 @@ const MainBox = ({fix_img,main_img,amount,other_amount,title})=>{
   }
   
 
-function Dashboard({activeRow,setActiveRow}) {
+function Dashboard({adminSettings,activeRow,setActiveRow}) {
 
     useEffect(() => {
+      if(adminSettings?.show_animation){
 
        if (activeRow === 0) {gsap.fromTo(
           ".section_1_admin > *",
@@ -74,8 +75,9 @@ function Dashboard({activeRow,setActiveRow}) {
             stagger: 0.5,
           }
         );}
+      }
     
-      }, [activeRow]);
+      }, [activeRow,adminSettings?.show_animation]);
   return (
     <>
         <div className="section_1_admin">
@@ -93,7 +95,7 @@ function Dashboard({activeRow,setActiveRow}) {
         </div>
         <div className="section_3_admin">
         <ProfitExpensesChart />
-        <Calendar />
+        {/* <Calendar /> */}
         </div>
     </>
   )

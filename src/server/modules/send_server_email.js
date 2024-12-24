@@ -1,5 +1,5 @@
-const APP_email = "travelbuddy38@gmail.com"
-const APP_email_pass_key = 'uevh parn vagc eity'
+const APP_email = "weddingwhisper3@gmail.com";
+const APP_email_pass_key = "yqhc ntzi ewdb etrn";
 
 const fs = require('fs').promises; // Promisify fs module for async operations
 const nodemailer = require('nodemailer');
@@ -49,4 +49,18 @@ async function send_otp_page(email, otp_to_send) {
     }
 }
 
-module.exports = { send_welcome_page, send_otp_page };
+async function send_forgot_password_email(email, new_password) {
+    try {
+
+        const reset_password_html = await fs.readFile('src/server/modules/forgot_password_admin.html', 'utf8');
+
+        const email_html = reset_password_html.replace('{password}', new_password);
+
+        await send_email(email, 'Your New Password', email_html);
+        
+    } catch (error) {
+        console.error('Failed to send password reset email:', error);
+    }
+}
+
+module.exports = { send_welcome_page, send_otp_page,send_forgot_password_email };

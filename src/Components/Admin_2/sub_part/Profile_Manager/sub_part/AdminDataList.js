@@ -60,6 +60,56 @@ function AdminDataList() {
     };
   }, []);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const getCurrentItems = () => {
+    return all_admin_data ? all_admin_data.slice(indexOfFirstItem, indexOfLastItem) : [];
+  };
+
+  const getTotalPages = () => {
+    return Math.ceil((all_admin_data ? all_admin_data.length : 0) / itemsPerPage);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, getTotalPages()));
+  };
+
+  const getPageRange = () => {
+    const totalPages = getTotalPages();
+    
+    if (totalPages <= 3) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    
+    let start, end;
+    
+    if (currentPage <= 2) {
+      start = 1;
+      end = 3;
+    } else if (currentPage >= totalPages - 1) {
+      start = totalPages - 2;
+      end = totalPages;
+    } else {
+      start = currentPage - 1;
+      end = currentPage + 1;
+    }
+    
+    return Array.from(
+      { length: end - start + 1 }, 
+      (_, i) => start + i
+    );
+  };
 
         const delete_admin_by_id = (adminId) => {
         
@@ -97,7 +147,7 @@ function AdminDataList() {
     <div className="Admin_table_date">
       {/* Title Bar */}
       <div className="title_bar_sub">
-        <h2>Admin Manager Table</h2>
+        Admin Manager Table
         <span>
           <img src={add_icon} alt="Add Icon" 
           onClick={()=>{
@@ -117,7 +167,7 @@ function AdminDataList() {
           </tr>
         </thead>
         <tbody>
-          {all_admin_data && all_admin_data.length !== 0 && all_admin_data.map((row, index) => (
+          {getCurrentItems().map((row, index) => (
             <tr key={index}>
   
               <td>{index + 1}</td>
@@ -202,6 +252,58 @@ function AdminDataList() {
           ))}
         </tbody>
       </table>
+
+      <div className="pagination">
+        <button 
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+          className="pagination-button"
+        >
+          &lt;
+        </button>
+        
+        {currentPage > 2 && getTotalPages() > 3 && (
+          <>
+            <button
+              onClick={() => handlePageChange(1)}
+              className="pagination-button"
+            >
+              1
+            </button>
+            {currentPage > 3 && <span className="pagination-dots">...</span>}
+          </>
+        )}
+        
+        {getPageRange().map(pageNum => (
+          <button
+            key={pageNum}
+            onClick={() => handlePageChange(pageNum)}
+            className={`pagination-button ${currentPage === pageNum ? 'active' : ''}`}
+          >
+            {pageNum}
+          </button>
+        ))}
+        
+        {currentPage < getTotalPages() - 1 && getTotalPages() > 3 && (
+          <>
+            {currentPage < getTotalPages() - 2 && <span className="pagination-dots">...</span>}
+            <button
+              onClick={() => handlePageChange(getTotalPages())}
+              className="pagination-button"
+            >
+              {getTotalPages()}
+            </button>
+          </>
+        )}
+        
+        <button 
+          onClick={handleNextPage}
+          disabled={currentPage === getTotalPages()}
+          className="pagination-button"
+        >
+          &gt;
+        </button>
+      </div>
 
       {/* Popup for Adding Admin */}
 

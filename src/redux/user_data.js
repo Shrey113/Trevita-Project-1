@@ -9,6 +9,7 @@ const initialState = {
     gst_number: '',
     user_Status: '',
     admin_message: '',
+    user_role: 'test',
     set_status_by_admin: '',
   };
   

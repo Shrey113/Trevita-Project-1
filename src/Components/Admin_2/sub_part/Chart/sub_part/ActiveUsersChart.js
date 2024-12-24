@@ -20,7 +20,7 @@ const monthlyActiveUsers = [
 
 const ActiveUsersChart = () => {
   
-  const [showDailyData, setShowDailyData] = useState(false);
+  const [showDailyData, setShowDailyData] = useState(true);
 
   return (
     <div className="active-users-chart">
@@ -28,10 +28,10 @@ const ActiveUsersChart = () => {
 
       
     <div className="slider_con">
-    <button className={`${showDailyData === false  && 'active'}`} onClick={() => setShowDailyData(false)}>
+    <button className={`${showDailyData   && 'active'}`} onClick={() => setShowDailyData(true)}>
     Daily
             </button>
-            <button className={`${showDailyData   && 'active'}`} onClick={() => setShowDailyData(true)}>
+            <button className={`${showDailyData === false   && 'active'}`} onClick={() => setShowDailyData(false)}>
             Monthly
             </button> 
 
@@ -49,8 +49,8 @@ const ActiveUsersChart = () => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="activeUsers" fill="#fa977c" />
-            <Bar dataKey="totalUsers" fill="#0085db" />
+            <Bar dataKey="activeUsers" fill="#fa977c"  radius={[10, 10, 0, 0]} />
+            <Bar dataKey="totalUsers" fill="#0085db"   radius={[10, 10, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

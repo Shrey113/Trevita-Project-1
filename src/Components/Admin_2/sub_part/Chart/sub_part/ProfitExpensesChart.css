@@ -1,47 +1,54 @@
-/* ProfitExpensesChart.css */
-:root{
-  --chart_2_width:900px;
-  --admin_box_shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-}
-
+ 
 .chart-container {
+    min-height: 500px;
     width: var(--chart_2_width);
+    min-width: var(--chart_2_width);
     border-radius:var(--admin_box_radius);
     box-shadow: var(--admin_box_shadow);
     padding: 20px 20px;
     background: var(--admin_ui_coloer);
     height: fit-content;
     transition: box-shadow 0.3s ease;
-
+    /* margin-top: 40px; */
+    position: relative;
+    padding-top: var(--admin_title_padding_top);
   }
   
   .chart-container:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--admin_box_shadow_hover);
   
   }
   
-  .chart-title {
-    font-size: 1.5rem;
-    font-weight:400;
-    margin-bottom: 30px;
-    display: flex;
+  .chart-container .chart-title {
+
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: var(--admin_title_padding);
+    font-size: var(--admin_title_font_size);
+    font-weight: var(--admin_title_font_weight);
   }
   
   .chart-stats {
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 60px;
     gap: 20px;
-    
   }
   
   .chart-container .chart_con{
     display: flex;
-    
+    /* background: rebeccapurple; */
+    width: 100%;
+    margin-top: 30px;
+    height: 350px;
   }
   .chart-container .chart_con .chart{
     display: flex;
     flex: 1.2;
+    
   }
   .chart-container .chart_con .chart_data{
     display: flex;
@@ -50,6 +57,7 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
+    
   }
   .chart-container .chart_con .chart_data .chart_info{
     height: fit-content;

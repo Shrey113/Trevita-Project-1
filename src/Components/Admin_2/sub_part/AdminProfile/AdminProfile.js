@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './AdminProfile.css';
 import saveIcon from './sub_img/diskette.png';
 import { format } from 'date-fns';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import user_img_1 from './profile_pic/user1.jpg';
 import user_img_2 from './profile_pic/user2.jpg';
 import user_img_3 from './profile_pic/user3.jpg';
 import user_img_4 from './profile_pic/user4.jpg';
+import ForgotPasswordPopup from './sub_part/ForgotPasswordPopup';
+import { localstorage_key_for_admin_login } from '../../../../redux/AllData';
 
 
 function AdminProfile({admin_email}) {
@@ -31,6 +34,7 @@ function AdminProfile({admin_email}) {
     admin_id_error: '',
     join_date_error: '',
     last_login_error: ''
+
   });
 
   const [basic_info, set_basic_info] = useState(initial_data);
@@ -38,6 +42,33 @@ function AdminProfile({admin_email}) {
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const [selectedImage, setSelectedImage] = useState("https://via.placeholder.com/150");
   const [isLoading, setIsLoading] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
+  const [passwordDataError, setPasswordDataError] = useState({
+    oldPasswordError: '',
+    newPasswordError: '',
+    confirmPasswordError: ''
+  });
+  const [showPasswords, setShowPasswords] = useState({
+    oldPassword: false,
+    newPassword: false,
+    confirmPassword: false
+  });
+
+  const [showDeleteAccount, setShowDeleteAccount] = useState(false);
+  
+  const [deleteConfirmText, setDeleteConfirmText] = useState('');
+  const [deleteError, setDeleteError] = useState('');
+
+  const [deletePassword, setDeletePassword] = useState('');
+  const [deletePasswordError, setDeletePasswordError] = useState('');
+
+  const [showDeletePassword, setShowDeletePassword] = useState(false);
+  const [showForgotPasswordPopup, setShowForgotPasswordPopup] = useState(false);
 
   const defaultImages = [
     { id: 1, src: user_img_1 },
@@ -280,6 +311,350 @@ const handleRoleChange = (e) => {
   }
 };
 
+const validatePassword = (password) => {
+  const minLength = 4;
+  const hasNumber = /\d/.test(password);
+  const hasCapital = /[A-Z]/.test(password);
+  
+  if (password.length < minLength) {
+    return "Password must be at least 4 characters long";
+  }
+  if (!hasNumber) {
+    return "Password must contain at least one number";
+  }
+  if (!hasCapital) {
+    return "Password must contain at least one capital letter";
+  }
+  return "";
+};
+
+const handlePasswordChange = (e) => {
+  const { name, value } = e.target;
+  setPasswordData(prev => ({
+    ...prev,
+    [name]: value
+  }));
+
+  // Validate new password
+  if (name === 'newPassword') {
+    const error = validatePassword(value);
+    setPasswordDataError(prev => ({
+      ...prev,
+      newPasswordError: error
+    }));
+
+    // Check if confirm password matches
+    if (passwordData.confirmPassword) {
+      setPasswordDataError(prev => ({
+        ...prev,
+        confirmPasswordError: value !== passwordData.confirmPassword 
+          ? "Passwords do not match" 
+          : ""
+      }));
+    }
+  }
+
+  // Validate confirm password
+  if (name === 'confirmPassword') {
+    setPasswordDataError(prev => ({
+      ...prev,
+      confirmPasswordError: value !== passwordData.newPassword 
+        ? "Passwords do not match" 
+        : ""
+    }));
+  }
+};
+
+const handleSubmitPassword = (e) => {
+  e.preventDefault();
+  
+  // Validate all fields before submission
+  const newPasswordError = validatePassword(passwordData.newPassword);
+  const confirmError = passwordData.newPassword !== passwordData.confirmPassword 
+    ? "Passwords do not match" 
+    : "";
+
+  setPasswordDataError({
+    oldPasswordError: passwordData.oldPassword ? "" : "Current password is required",
+    newPasswordError,
+    confirmPasswordError: confirmError
+  });
+
+  // Only proceed if there are no errors
+  if (!newPasswordError && !confirmError && passwordData.oldPassword) {
+    console.log('Password data:', passwordData);
+    
+    setPasswordData({ oldPassword: '', newPassword: '', confirmPassword: '' });
+    setShowChangePassword(false);
+  }
+};
+
+
+const togglePasswordVisibility = (field) => {
+  setShowPasswords(prev => ({
+    ...prev,
+    [field]: !prev[field]
+  }));
+};
+const handleDeleteAccount = () => {
+  const handleDeleteSubmit = () => {
+    let isValid = true;
+
+    if (!deletePassword) {
+      setDeletePasswordError("Password is required");
+      isValid = false;
+    } else {
+      setDeletePasswordError("");
+    }
+
+    if (deleteConfirmText.toLowerCase() !== 'confirm delete') {
+      setDeleteError("Please type 'confirm delete' exactly");
+      isValid = false;
+    } else {
+      setDeleteError("");
+    }
+
+    if (isValid) {
+
+      console.log("Account deletion confirmed");
+      
+   
+
+      fetch('http://localhost:4000/Admin/delete_admin', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ admin_email, admin_password: deletePassword })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if(data.message === 'No admin account found with this email'){
+          alert("Your account not found with this email");
+        }else if(data.message === 'Incorrect password'){
+          setDeletePasswordError("Your password is incorrect");
+        }
+
+        if(data.status === 'success'){
+          setShowDeleteAccount(false);
+        }
+      });
+    }
+  };
+
+  return (
+    <div className="delete_account_popup">
+      <button 
+        className="close_popup"
+        onClick={() => setShowDeleteAccount(false)}
+      >
+        ✕
+      </button>
+      
+      <h3>Delete Account</h3>
+      <div className="delete_warning">
+        <p>⚠️ Warning: This action cannot be undone!</p>
+        <p>All your data will be permanently deleted.</p>
+      </div>
+      
+      <div className="delete_confirm_input">
+        <label htmlFor="confirm_delete_password">Enter Password:</label>
+        <div className="password_input_wrapper">
+          <input 
+            type={showDeletePassword ? "text" : "password"}
+            id="confirm_delete_password"
+            placeholder="Enter Password"
+            className="delete_input"
+            value={deletePassword}
+            onChange={(e) => setDeletePassword(e.target.value)}
+          />
+          <button 
+            type="button"
+            className="password_toggle_btn"
+            onClick={() => setShowDeletePassword(!showDeletePassword)}
+          >
+            {showDeletePassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        </div>
+        <div className="delete_error_input">
+          {deletePasswordError}
+        </div>
+      </div>
+
+      <div className="delete_confirm_input">
+        <label htmlFor="confirm_delete_text">Type 'confirm delete' to proceed:</label>
+        <input 
+          type="text" 
+          id="confirm_delete_text" 
+          placeholder="confirm delete"
+          className="delete_input"
+          value={deleteConfirmText}
+          onChange={(e) => setDeleteConfirmText(e.target.value)}
+        />
+        <div className="delete_error_input">
+          {deleteError}
+        </div>
+      </div>
+
+      <div className="delete_actions">
+        <button 
+          className="delete_confirm_btn"
+          onClick={handleDeleteSubmit}
+        >
+          Delete Account
+        </button>
+        <button 
+          className="delete_cancel_btn"
+          onClick={() => setShowDeleteAccount(false)}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  );
+};
+
+
+const handleForgotPassword = () => {
+  // First validate the email
+  if (!basic_info.email || !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(basic_info.email)) {
+    setPasswordDataError(prev => ({
+      ...prev,
+      oldPasswordError: "Please provide a valid email address"
+    }));
+    return;
+  }
+
+  setIsLoading(true); 
+  
+  fetch('http://localhost:4000/Admin/forgot-password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ admin_email })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === 'success') {
+      setShowForgotPasswordPopup(true);
+      setPasswordDataError(prev => ({
+        ...prev,
+        oldPasswordError: "" // Clear any previous errors
+      }));
+    } else {
+      // Handle different error cases
+      if (data.message === 'No admin account found with this email') {
+        setPasswordDataError(prev => ({
+          ...prev,
+          oldPasswordError: "No account found with this email"
+        }));
+      } else {
+        setPasswordDataError(prev => ({
+          ...prev,
+          oldPasswordError: "An error occurred. Please try again later."
+        }));
+      }
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    setPasswordDataError(prev => ({
+      ...prev,
+      oldPasswordError: "Network error. Please check your connection."
+    }));
+  })
+  .finally(() => {
+    setIsLoading(false); // Hide loading state
+  });
+};
+
+const handleForgotPasswordSubmit = (e) => {
+  e.preventDefault(); // Prevent form submission
+
+  // Validate current password
+  if (!passwordData.oldPassword) {
+    setPasswordDataError(prev => ({
+      ...prev,
+      oldPasswordError: "Current password is required"
+    }));
+    return;
+  }
+
+  setIsLoading(true); // Show loading state
+
+  fetch('http://localhost:4000/Admin/change-password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ 
+      admin_email,
+      current_password: passwordData.oldPassword,
+      new_password: passwordData.newPassword 
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === 'success') {
+      alert('Password changed successfully!');
+      setShowChangePassword(false);
+
+      setPasswordData({ oldPassword: '', newPassword: '', confirmPassword: '' });
+      setPasswordDataError({
+        oldPasswordError: '',
+        newPasswordError: '',
+        confirmPasswordError: ''
+      });
+    } else {
+
+      if (data.message === 'No admin account found with this email') {
+        setPasswordDataError(prev => ({
+          ...prev,
+          oldPasswordError: "Account not found"
+        }));
+      } else if (data.message === 'Current password is incorrect') {
+        setPasswordDataError(prev => ({
+          ...prev,
+          oldPasswordError: "Current password is incorrect"
+        }));
+      } else if(data.message === 'Password reset successfully'){
+        setShowForgotPasswordPopup(false);
+      }
+      
+      else {
+        setPasswordDataError(prev => ({
+          ...prev,
+          oldPasswordError: "An error occurred. Please try again."
+        }));
+      }
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    setPasswordDataError(prev => ({
+      ...prev,
+      oldPasswordError: "Network error. Please try again later."
+    }));
+  })
+  .finally(() => {
+    setIsLoading(false); // Hide loading state
+  });
+};
+
+const logout_as_admin = () => {
+
+  const isConfirmed = window.confirm("Are you sure you want to log out?");
+
+
+  if (isConfirmed) {
+    localStorage.removeItem(localstorage_key_for_admin_login); // Remove admin token from localStorage
+    window.location.reload(); // Reload the page to reset the app state
+  }
+};
+
+
   return (
     <div className="admin_profile_container">
       {isLoading && (
@@ -289,7 +664,7 @@ const handleRoleChange = (e) => {
           </div>
         </div>
       )}
-      <h2>Admin Profile Section</h2>
+
       
 
       {/* Basic Information Section */}
@@ -365,6 +740,7 @@ const handleRoleChange = (e) => {
         {has_section_changes(['full_name', 'email', 'phone_number', 'address']) && (
           <button className="save_button" onClick={() => is_valid_basic_info(['full_name', 'email', 'phone_number', 'address'])}>
             <img src={saveIcon} alt="Save" className="save_icon" />
+            <span>Save all </span>
           </button>
         )}
       </section>
@@ -457,19 +833,18 @@ const handleRoleChange = (e) => {
       </section>
 
       {/* Security Settings Section */}
-      <section>
+      <section className='security_settings'>
         <h3>Security Settings</h3>
-        <div className="profile_item">
-          <label>Change Password:</label>
-          <button className="change_password">Change Password</button>
-        </div>
-        <div className="profile_item">
-          <label>Login History:</label>
-          <span className="view_login_history" > View Login History</span>
-        </div>
-        <div className="profile_item">
-          <label>Delete Account:</label>
-          <span className="delete_account" > Delete Account</span>
+
+        <div className="button_con">
+          <button 
+            className="change_password"
+            onClick={() => setShowChangePassword(true)}
+          >
+            Change Password
+          </button>
+          <button className="delete_account" onClick={() => setShowDeleteAccount(true)}>Delete Account</button>
+          <button className="Logout_button" onClick={() => logout_as_admin()}>Logout</button>
         </div>
       </section>
 
@@ -509,6 +884,119 @@ const handleRoleChange = (e) => {
             </button>
           </div>
         </div>
+      )}
+
+      {showChangePassword && (
+        <div className="profile_popup_overlay">
+          <div className="change_password_container">
+            <h3>Change Password</h3>
+            <form className="password_form" onSubmit={handleSubmitPassword}>
+              <div className="password_field">
+                <label>Current Password:</label>
+                <div className="password_input_wrapper">
+                  <input 
+                    type={showPasswords.oldPassword ? "text" : "password"}
+                    name="oldPassword"
+                    value={passwordData.oldPassword}
+                    onChange={handlePasswordChange}
+                    placeholder="Enter current password"
+                    required
+                  />
+                  <button 
+                    type="button"
+                    className="password_toggle_btn"
+                    onClick={() => togglePasswordVisibility('oldPassword')}
+                  >
+                    {showPasswords.oldPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+                {passwordDataError.oldPasswordError && (
+                  <span className="error_message">{passwordDataError.oldPasswordError}</span>
+                )}
+              </div>
+
+              <div className="password_field">
+                <label>New Password:</label>
+                <div className="password_input_wrapper">
+                  <input 
+                    type={showPasswords.newPassword ? "text" : "password"}
+                    name="newPassword"
+                    value={passwordData.newPassword}
+                    onChange={handlePasswordChange}
+                    placeholder="Enter new password"
+                    required
+                  />
+                  <button 
+                    type="button"
+                    className="password_toggle_btn"
+                    onClick={() => togglePasswordVisibility('newPassword')}
+                  >
+                    {showPasswords.newPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+                {passwordDataError.newPasswordError && (
+                  <span className="error_message">{passwordDataError.newPasswordError}</span>
+                )}
+              </div>
+
+              <div className="password_field">
+                <label>Confirm New Password:</label>
+                <div className="password_input_wrapper">
+                  <input 
+                    type={showPasswords.confirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    value={passwordData.confirmPassword}
+                    onChange={handlePasswordChange}
+                    placeholder="Confirm new password"
+                    required
+                  />
+                  <button 
+                    type="button"
+                    className="password_toggle_btn"
+                    onClick={() => togglePasswordVisibility('confirmPassword')}
+                  >
+                    {showPasswords.confirmPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+                {passwordDataError.confirmPasswordError && (
+                  <span className="error_message">{passwordDataError.confirmPasswordError}</span>
+                )}
+              </div>
+              <div className="forgot_password_text">
+                <span onClick={() => handleForgotPassword()}>
+                  Forgot Password?
+                </span>
+              </div>
+              <div className="password_buttons">
+                <button type="submit" className="change_pwd_btn" onClick={handleForgotPasswordSubmit}>
+                  Change Password
+                </button>
+                <button 
+                  type="button" 
+                  className="forgot_pwd_btn"
+                  onClick={() => setShowChangePassword(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {showDeleteAccount && (
+        <div className="profile_popup_overlay">
+          
+            {handleDeleteAccount()}
+          
+        </div>
+      )}
+
+      {showForgotPasswordPopup && (
+        <ForgotPasswordPopup
+          closeFunction={() => setShowForgotPasswordPopup(false)}
+          admin_email={basic_info.email}
+        />
       )}
     </div>
   );

@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2'); 
 const router = express.Router();
-
+const jwt = require('jsonwebtoken');
 
 
 const {server_request_mode,write_log_file,error_message,info_message,success_message,normal_message} = require('./../modules/_all_help');
@@ -52,10 +52,15 @@ router.post("/add_owner", (req, res) => {
           if (result.length > 0) {
               return res.status(200).json({ error: 'user name already exists' });
           }
+
           return res.status(200).json({ message: 'go for otp' });
+
+          
       });
     
     });
+
+    
   });
 
   router.post("/login", (req, res) => {
@@ -111,6 +116,22 @@ router.post("/add_owner", (req, res) => {
     });
   });
 
+  function getNotifications(notification_type, notification_message, notification_title, callback) {
+    const query = `
+    INSERT INTO notification (notification_type, notification_message, notification_title, created_at) 
+    VALUES (?, ?, ?, NOW())`;
+
+// Execute the query with placeholders for security
+db.query(query, [notification_type, notification_message, notification_title], (err, results) => {
+    if (err) {
+        console.error('Error executing query:', err);
+        return callback(err, null);
+    }
+    callback(null, results);
+});
+  }
+
+
   router.post("/verify_otp_owner", async (req, res) => {
     const {type,user_send_otp , user_name, user_email, user_password, business_name, business_address, mobile_number, GST_number } = req.body;
   
@@ -126,15 +147,26 @@ router.post("/add_owner", (req, res) => {
         storedOtp = get_otp(user_email,"client")
       }
       if (storedOtp && storedOtp === user_send_otp) {
+        
+
+        let Pending ="Pending"
   
-      const insertQuery = 'INSERT INTO owner (user_name, user_email, user_password, business_name, business_address, mobile_number, GST_number) VALUES (?, ?, ?, ?, ?, ?, ?)';
-      db.query(insertQuery, [user_name, user_email, user_password, business_name, business_address, mobile_number, GST_number], (err, result) => {
+      const insertQuery = 'INSERT INTO owner (user_name, user_email, user_password, business_name, business_address, mobile_number, GST_number,user_Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+      db.query(insertQuery, [user_name, user_email, user_password, business_name, business_address, mobile_number, GST_number,Pending], (err, result) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json({ error: 'Database error' });
             }
             let token = create_jwt_token(user_email,user_name);
-            res.status(200).json({ message: 'OTP verified successfully', user_key : token });
+            getNotifications("padding_owner",`new request on ${user_email}`, "padding request", (err, results) => {
+              if (err) {
+                  return res.status(500).json({ error: 'Failed to fetch notifications' });
+              }
+              console.log("all set at notification");
+              res.status(200).json({ message: 'OTP verified successfully', user_key : token });
+              
+            });
+            
         });
       } else {
         res.status(200).json({ error: "Invalid OTP" });

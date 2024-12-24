@@ -1,13 +1,6 @@
-:root{
-  --ui_color:#6e6af0;
-  --ui_color:#0084da;
-  --admin_bg_coloer:#e8f1f8;
-  --admin_ui_coloer:#ffffff;
-  --admin_box_shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  --admin_box_radius:20px;
-}
 .Admin_table_date{
-    height: fit-content;
+  height: 580px;
+  min-height: 580px;
     background: white;
     padding: 20px 10px;
     border-radius: var(--admin_box_radius);
@@ -15,6 +8,8 @@
     flex: 1;
     /* margin-top: -70px; */
     transition: box-shadow 0.3s ease;
+    position: relative;
+    padding-top: var(--admin_title_padding_top_for_2);
   }
   
   /* Add hover effect to chart box */
@@ -26,6 +21,13 @@
 .Admin_table_date .title_bar_sub{
     display: flex;
     justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--admin_title_padding);
+    font-size: var(--admin_title_font_size);
+    font-weight: var(--admin_title_font_weight);
 }
 .Admin_table_date .title_bar_sub span{
     display: flex;
@@ -350,4 +352,46 @@
 .popup-actions button:last-child {
   background-color: #f44336;
   color: #fff;
+}
+
+
+
+.Admin_table_date .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 5px;
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  width: 100%;
+}
+
+.Admin_table_date .pagination-button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.Admin_table_date .pagination-button:hover {
+  background-color: #f0f0f0;
+}
+
+.Admin_table_date .pagination-button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.Admin_table_date .pagination-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.Admin_table_date .pagination-dots {
+  margin: 0 5px;
 }

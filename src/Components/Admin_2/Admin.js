@@ -4,17 +4,20 @@ import "./Admin.css";
 import more_options_no_active_icon from "./img/no_active/application.png";
 import more_options_active_icon from "./img/active/application.png";
 
-import user_icon from "./img/active/user.png";
-import user_no_active_icon from "./img/no_active/user.png";
+import database_management_icon from "./img/active/database-management.png";
+import database_management_no_active_icon from "./img/no_active/database-management.png";
 
 import analytics_icon from "./img/active/analytics.png";
 import analytics_no_active_icon from "./img/no_active/analytics.png";
 
-import bell_icon from "./img/active/bell.png";
-import bell_no_active_icon from "./img/no_active/bell.png";
+import user_icon from "./img/active/user.png";
+import user_no_active_icon from "./img/no_active/user.png";
 
-import calendar_icon from "./img/active/calendar.png";
-import calendar_no_active_icon from "./img/no_active/calendar.png";
+// import calendar_icon from "./img/active/calendar.png";
+// import calendar_no_active_icon from "./img/no_active/calendar.png";
+
+import setting_icon from "./img/active/setting.png";
+import Setting_no_active_icon from "./img/no_active/setting.png";
 
 
 import Dashboard from "./sub_part/Dashboard/Dashboard.js";
@@ -22,13 +25,79 @@ import TitleBar from "./sub_part/Title_bar/TitleBar.js";
 import ProfileManager from "./sub_part/Profile_Manager/ProfileManager.js";
 import AdminProfile from "./sub_part/AdminProfile/AdminProfile.js";
 import Charts from "./sub_part/Chart/Chart.js";
+import Setting from "./sub_part/Setting/Setting.js";
+import {localstorage_key_for_admin_settings,localstorage_key_for_admin_login,Server_url} from './../../redux/AllData'
 
-const admin_email = 'gfapk63@gmail.com'
+
+
 
 function Admin2() {
   const [activeRow, setActiveRow] = useState(0);
+  const [adminSettings, setAdminSettings] = useState(null);
+  const [admin_email, set_admin_email] = useState('gfapk63@gmail.com');
+
+  function get_admin_settings(){
+    const savedSettings = localStorage.getItem(localstorage_key_for_admin_settings);
+    if (savedSettings) {
+      setAdminSettings(JSON.parse(savedSettings));
+    }else{
+      setAdminSettings({
+        show_animation: true,
+        show_navbar: true,
+        dark_mode: false,
+      })
+    }
+  }
+
+
+  
+    useEffect(() => {
+      const checkAdminToken = async () => {
+        const jwtToken = localStorage.getItem(localstorage_key_for_admin_login);
+
+        if (!jwtToken) return;
+  
+        try {
+          const response = await fetch(`${Server_url}/Admin/check-jwt`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ token: jwtToken }),
+          });
+  
+          const result = await response.json();
+    
+          if (response.ok) {
+
+            if(result.message === "Token is valid"){
+             
+              
+              if(result.data.user_email){
+                set_admin_email(result.data.user_email)
+              }
+            }
+            
+          } else {
+            console.log(result);
+          }
+        } catch (err) {
+          console.error("Admin token check error:", err);
+        }
+      };
+  
+      checkAdminToken();
+    }, []);
+
 
   useEffect(() => {
+    get_admin_settings()
+  }, []);
+
+  useEffect(() => {
+    if (!admin_email || admin_email.trim() === "") {
+      return;
+    }
     const updateLastLogin = async () => {
       try {
         const response = await fetch('http://localhost:4000/Admin/update-last-login', {
@@ -51,7 +120,7 @@ function Admin2() {
     };
 
     updateLastLogin();
-  }, []);
+  }, [admin_email]);
 
   return (
     <div className="admin_body">
@@ -66,21 +135,21 @@ function Admin2() {
           {/* {is_hover && <span>Dashboard</span>} */}
         </div>
 
-        <div className="icon" onClick={()=> { setActiveRow(1); }} title="Profile" >
-          <img src={activeRow===1 ? user_icon : user_no_active_icon} alt="" />
+        <div className="icon" onClick={()=> { setActiveRow(1); }} title="Database Manager" >
+          <img src={activeRow===1 ? database_management_icon : database_management_no_active_icon} alt="" />
           
         </div>
 
-        <div className="icon" onClick={()=> { setActiveRow(2); }} title="analytics" >
+        <div className="icon" onClick={()=> { setActiveRow(2); }} title="Analytics" >
           <img src={ activeRow===2 ? analytics_icon : analytics_no_active_icon } alt="" />
         </div>
 
-        <div className="icon" onClick={()=> { setActiveRow(3); }} title="notification" >
-          <img src={activeRow===3 ? bell_icon : bell_no_active_icon} alt="" />
+        <div className="icon" onClick={()=> { setActiveRow(3); }} title="Notification" >
+          <img src={activeRow===3 ? user_icon : user_no_active_icon} alt="" />
         </div>
 
         <div className="icon" onClick={()=> { setActiveRow(4); }} title="Calender" >
-          <img src={activeRow===4 ? calendar_icon : calendar_no_active_icon} alt="" />
+          <img src={activeRow===4 ? setting_icon : Setting_no_active_icon} alt="" />
         </div>
 
       </div>
@@ -88,10 +157,10 @@ function Admin2() {
   </div>
   <div className="admin_body_main">
 
-    <TitleBar/>
+    <TitleBar adminSettings={adminSettings}  setActiveRow={setActiveRow}/>
 
     {
-      activeRow === 0 &&  <Dashboard activeRow={activeRow} setActiveRow={setActiveRow}/>
+      activeRow === 0 &&  <Dashboard  adminSettings={adminSettings} activeRow={activeRow} setActiveRow={setActiveRow}/>
     }
     {
       activeRow === 1 &&  <ProfileManager activeRow={activeRow} admin_email={admin_email}/>
@@ -102,13 +171,9 @@ function Admin2() {
     {
       activeRow === 3 && <AdminProfile activeRow={activeRow} setActiveRow={setActiveRow} admin_email={admin_email}/>
     }
-
-    {/* {
-      activeRow === 3 && <Notification activeRow={activeRow} setActiveRow={setActiveRow}/>
-    }
     {
-      activeRow === 4 && <Calender activeRow={activeRow} setActiveRow={setActiveRow}/>
-    } */}
+      activeRow === 4 && <Setting get_admin_settings={get_admin_settings}/>
+    }
 
   </div>
 

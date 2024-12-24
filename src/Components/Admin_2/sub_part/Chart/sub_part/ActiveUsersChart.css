@@ -14,20 +14,30 @@
     height: fit-content;
     position: relative;
     max-width: var(--chart_1_width);
-    height: 550px;
-
-
-    margin-top: 110px;
+    height: 500px;
+    transition: box-shadow 0.3s ease;
+    box-shadow: var(--admin_box_shadow);
+    padding-top:100px;
   }
+
+  .active-users-chart:hover {
+    box-shadow: var(--admin_box_shadow_hover);
+    }
+    
   
  
   .active-users-chart .chart-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
+
  
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: var(--admin_title_padding);
+    font-size: var(--admin_title_font_size);
+    font-weight: var(--admin_title_font_weight);
   }
+  
   
 
   
@@ -66,12 +76,17 @@
     background: transparent;
     outline: 0;
     border: 0;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 1;
   }
   
   .active-users-chart button:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
   .active-users-chart button.active {
+
     background-color: white;
     color: var(--ui_color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

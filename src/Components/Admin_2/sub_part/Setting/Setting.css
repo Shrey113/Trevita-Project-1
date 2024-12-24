@@ -1,13 +1,9 @@
 .settings-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  position: relative;
+  height: fit-content;
 }
 
 .settings-wrapper  .settings-overlay {
@@ -16,29 +12,22 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  animation: fadeIn 0.3s ease-out;
 }
 
 .settings-wrapper  .settings-container {
   position: relative;
-  max-width: 600px;
-  width: 90%;
-  margin: 20px;
-  z-index: 10000;
-  animation: slideIn 0.3s ease-out;
+  width: 100%;
+  /* margin: 20px; */
+  will-change: transform ;
+
 }
+
 
 .settings-wrapper  .settings-section {
   background: var(--admin_ui_coloer, #ffffff);
   border-radius: var(--admin_box_radius, 20px);
   overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, 
-              rgba(0, 0, 0, 0.12) 0px -12px 30px, 
-              rgba(0, 0, 0, 0.12) 0px 4px 6px, 
-              rgba(0, 0, 0, 0.17) 0px 12px 13px, 
-              rgba(0, 0, 0, 0.09) 0px -3px 5px;
+ box-shadow: var(--admin_box_shadow);
 }
 
 .settings-wrapper  .settings-header {
@@ -77,8 +66,6 @@
 
 .settings-wrapper  .settings-content {
   padding: 20px 25px;
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
 }
 
 .settings-wrapper  .setting-item {
@@ -98,14 +85,9 @@
 }
 
 .settings-wrapper  .setting-item:hover {
-  background-color: #dedede;
+  background-color: #dededeae;
   border-radius: 8px;
   
-}
-
-.settings-wrapper  .setting-item:active {
-  transform: translateX(5px) scale(0.99);
-  background-color: #f0f4f8;
 }
 
 .settings-wrapper  .setting-info {
@@ -135,13 +117,6 @@
   transition: all 0.3s ease;
 }
 
-.settings-wrapper  .toggle-switch:hover {
-  transform: scale(1.05);
-}
-
-.settings-wrapper  .toggle-switch:active {
-  transform: scale(0.95);
-}
 
 .settings-wrapper  .slider {
   position: absolute;
@@ -165,7 +140,7 @@
   background-color: white;
   transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: var(--admin_box_shadow); */
 }
 .settings-wrapper  input{
   display: none;
@@ -179,38 +154,7 @@
   transform: translateX(26px);
 }
 
-/* Hover effect for the entire row */
-.settings-wrapper  .setting-item:hover .toggle-switch .slider {
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-}
 
-/* Click effect for the toggle */
-.settings-wrapper  .setting-item:active .toggle-switch .slider {
-  transform: scale(0.95);
-}
-
-/* Animations */
- @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-    from {
-    opacity: 0;
-  }
-    to {
-    opacity: 1;
-  }
-}
-
-/* Responsive Design */
   @media (max-width: 768px) {
   .settings-wrapper  .settings-container {
     width: 95%;
@@ -240,4 +184,30 @@
   .settings-wrapper  .setting-info p {
     font-size: 13px;
   }
+}
+
+
+.settings-section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 8px;
+
+}
+
+.settings-section:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.settings-header h1 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.setting-info p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
 }

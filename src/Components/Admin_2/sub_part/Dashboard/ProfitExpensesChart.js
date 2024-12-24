@@ -26,7 +26,7 @@ const data = [
 
 const ProfitExpensesChart = () => {
   return (
-    <div className="chart-container">
+    <div className="chart_container_Dashboard">
         <div className="chart-title">
         User Growth Chart
         </div>

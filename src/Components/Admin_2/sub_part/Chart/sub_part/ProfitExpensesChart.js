@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ProfitExpensesChart.css";
 import {
   BarChart,
@@ -14,6 +14,7 @@ import {
 import icon_1 from './../sub_img/icon-biology.png'
 import icon_2 from './../sub_img/icon-erase.png'
 import icon_3 from './../sub_img/icon-globe.png'
+ 
 
 const data = [
   { month: "Aug", profit: 60, expense: 70 },
@@ -25,6 +26,47 @@ const data = [
 ];
 
 const ProfitExpensesChart = () => {
+  const [status_counts, set_status_counts] = useState({});
+  const [loading, set_loading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    const fetchStatusCounts = async () => {
+        try {
+            set_loading(true);
+            const response = await fetch('http://localhost:4000/chart/status-count'); // Replace with your endpoint URL
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            console.log(data);
+            
+
+            // Transform the data to match the desired structure
+            const transformedData = {
+                status_pending_request: data.Pending || 0,
+                status_reject_request: data.Reject || 0,
+                status_accept_request: data.Accept || 0,
+            };
+
+            set_status_counts(transformedData);
+        } catch (err) {
+            console.error('Error fetching status counts:', err);
+            setError(err.message);
+        } finally {
+            set_loading(false);
+        }
+    };
+
+    fetchStatusCounts();
+}, []);
+
+
+
   return (
     <div className="chart-container">
         <div className="chart-title">
@@ -34,7 +76,7 @@ const ProfitExpensesChart = () => {
 
       <div className="chart_con">
         <div className="chart">
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer>
             <BarChart data={data} barCategoryGap={12}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />

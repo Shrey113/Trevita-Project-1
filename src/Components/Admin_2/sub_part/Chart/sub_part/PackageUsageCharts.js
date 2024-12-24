@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Line, Pie, Bar } from 'react-chartjs-2';
+import React from 'react';
+import { Line, Bar } from 'react-chartjs-2';
 import './PackageUsageCharts.css'
 import {
   Chart as ChartJS,
@@ -42,17 +42,17 @@ const PackageUsageCharts = () => {
     ],
   };
 
-  
-  const pieData = {
-    labels: ['Package A', 'Package B', 'Package C', 'Package D'],
-    datasets: [
-      {
-        data: [300, 50, 100, 75],
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-      },
-    ],
-  };
+  // import pi
+  // const pieData = {
+  //   labels: ['Package A', 'Package B', 'Package C', 'Package D'],
+  //   datasets: [
+  //     {
+  //       data: [300, 50, 100, 75],
+  //       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+  //       hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+  //     },
+  //   ],
+  // };
 
   
   const barData = {
@@ -62,11 +62,15 @@ const PackageUsageCharts = () => {
         label: 'Number of Users',
         data: [150, 200, 120, 250],
         backgroundColor: '#FF6384',
+        borderRadius: 5,
+        barThickness: 80,
       },
       {
         label: 'Free Trial Users',
         data: [50, 40, 60, 30],
         backgroundColor: '#36A2EB',
+        borderRadius: 5,
+        barThickness: 80,
       },
     ],
   };
@@ -82,43 +86,39 @@ const PackageUsageCharts = () => {
         stacked: true,
       },
     },
+    
   };
-
-  const [showChart,setshowChart] = useState(1)
 
   return (
     <div className="charts-container_PackageUsage">
   <h2 className="charts-title">Package Usage Overview</h2>
 
-  
-    <div className="slider_con">
-            <button className={`${showChart !== 0 && 'active'}`} onClick={() => setshowChart(1)}>
-                Most Used Packages
-            </button> 
-            <button className={`${showChart !== 1 && 'active'}`} onClick={() => setshowChart(0)}>
-                Number of Users Subscribed
-            </button>
-    </div>
 
-  
 
   <div className="chart-section_1">
-    {showChart === 0 ?
+
       <div className="chart">
-      <h3>Number of Users Subscribed to Each Package (Stacked Bar Chart)</h3>
-      <Bar data={barData} options={barOptions} />
+        <h3>Number of Users Subscribed to Each Package (Stacked Bar Chart)</h3>
+        <br />
+        <Bar data={barData} options={barOptions}   />
       </div>
-      :
-      <div className="chart">
-        <h3>Most Used Packages (Pie Chart)</h3>
-        <Pie data={pieData} />
-      </div>
-    }
+
   </div>
+  {/* <div className="chart-section_1">
+
+      <div className="chart">
+    <h3>Most Used Packages (Pie Chart)</h3>
+    <Pie data={pieData} />
+    </div>
+
+  </div> */}
+
+  <div className="hr_line"></div>
 
   <div className="chart-section_1">
     <div className="chart">
     <h3>Monthly User Growth (Line Chart)</h3>
+    <br /> 
     <Line data={lineData} />
 
     </div>
@@ -129,3 +129,5 @@ const PackageUsageCharts = () => {
 };
 
 export default PackageUsageCharts;
+
+

@@ -9,19 +9,66 @@ import Dashboard from "./Components/Owener/Dashboard.js";
 import HomePage from "./Components/Client/HomePage.js";
 import PageNotFound from'./PageNotFound.js'
 
-import {localstorage_key_for_client,localstorage_key_for_jwt_user_side_key,Server_url} from './redux/AllData.js'
+import {localstorage_key_for_client,localstorage_key_for_jwt_user_side_key,Server_url,localstorage_key_for_admin_login} from './redux/AllData.js'
 // import Admin from "./Components/Admin/Admin.js";
 import BeforeLogin from "./Components/BeforeLogin/BeforeLogin.js";
 import Admin2 from "./Components/Admin_2/Admin.js";
 import BottomRightMenu from "./BottomRightMenu.js";
+// import Admin from "./Components/Admin/Admin.js";
 // import Calendar from "./Components/Admin_2/sub_part/Calendar.js";
 
+import { io } from 'socket.io-client';
+
+const socket = io('http://localhost:4000'); // Ensure the URL matches your server's URL and port
 
 
 
 function App() {
-  const [authStatus, setAuthStatus] = useState({ owner: null, client: null });
+  useEffect(() => {
+    // Listen for messages from the server
+    socket.on('message', (msg) => {
+        console.log(msg);
+        
+    });
+
+    // Cleanup on unmount
+    return () => {
+      socket.off('message');
+    };
+  }, []);
+
+
+  const [authStatus, setAuthStatus] = useState({ Admin:null,owner: null, client: null });
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const checkAdminToken = async () => {
+      const jwtToken = localStorage.getItem(localstorage_key_for_admin_login);
+      if (!jwtToken) return;
+
+      try {
+        const response = await fetch(`${Server_url}/Admin/check-jwt`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: jwtToken }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          result.message === "Token is valid" && setAuthStatus((prev) => ({ ...prev, admin: true }));
+        } else {
+          setAuthStatus((prev) => ({ ...prev, admin: false }));
+        }
+      } catch (err) {
+        console.error("Admin token check error:", err);
+        setAuthStatus((prev) => ({ ...prev, admin: false }));
+      }
+    };
+
+    checkAdminToken();
+  }, []);
 
   useEffect(() => {
     const authenticateUser = async () => {
@@ -38,6 +85,7 @@ function App() {
           });
 
           const data = await response.json();
+          
           if (data.user) {
             dispatch({ type: "SET_USER_Owner", payload: {
               client_id: 1,
@@ -92,10 +140,11 @@ function App() {
         setAuthStatus({ owner: false, client: false });
       }
     };
+
     authenticateUser();
   }, [dispatch]);
 
-  if (authStatus.owner === null || authStatus.client === null) {
+  if (authStatus.owner === null || authStatus.client === null || authStatus.admin === null) {
     return <ShowLoder />;
   }
 
@@ -104,12 +153,21 @@ function App() {
       <Routes>
         {/* testing part */}
         <Route path="/Admin2" element={<Admin2/> } />
+        {/* <Route path="/Admin1" element={<Admin/> } /> */}
         <Route path="/BeforeLogin" element={<BeforeLogin/> } />
 
         
         {/* Default route */}
 
-        <Route path="/" element={ authStatus.client ? <HomePage /> : authStatus.owner ? <Dashboard /> : <BeforeLogin /> } />
+        {/* <Route path="/" element={ authStatus.client ? <HomePage /> : authStatus.owner ? <Dashboard /> : <BeforeLogin /> } /> */}
+                {/* Default route */}
+                <Route path="/" element={ authStatus.client ? (<HomePage />) :
+                 authStatus.owner ? ( <Dashboard />) : 
+                 authStatus.admin ? ( <Admin2 />) : (
+                      <BeforeLogin />
+            )
+          }
+        />
 
         {/* Client routes */}
         <Route path="/Client" element={authStatus.client ? <HomePage /> : <LoginRegisterClient />} />

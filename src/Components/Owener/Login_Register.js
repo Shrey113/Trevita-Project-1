@@ -17,7 +17,7 @@ import Register_page_4 from "./../../Assets/Owener/Register_page_4.jpg";
 import VerifyOpt from './sub_components/VerifyOpt.js';
 import ForgetPassword from "./sub_components/ForgetPassword.js";
 import ShowLoder from "./sub_components/show_loder.js";
-import {localstorage_key_for_jwt_user_side_key,Server_url} from './../../redux/AllData.js'
+import {localstorage_key_for_jwt_user_side_key,Server_url,localstorage_key_for_admin_login} from './../../redux/AllData.js'
 
 
 
@@ -149,10 +149,57 @@ function LoginRegisterOwener() {
     return email_pattern.test(email);
   };
 
+  async function loginAdmin(admin_email, admin_password) {
+    console.log(admin_email);
+    
+    try {
+      const response = await fetch(`${Server_url}/Admin/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ admin_email, admin_password }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        set_login_password_error("");
+        set_login_email_error("");
+        console.log(data);
+        if(data.message === "Email not found") {
+          set_login_email_error("Email not found as Admin");
+        }else if(data.message === "Invalid password"){
+          set_login_password_error("Invalid password as Admin")
+        }else if(data.message === "Login successful"){
+          localStorage.setItem(localstorage_key_for_admin_login, data.token);
+        
+          window.location.href = '/';
+          // alert("admin login successful")
+          
+        }
+      } else {
+        // HTTP error
+        console.error('HTTP error:', response.status);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      throw error;
+    }
+  }
 
-  const handle_login_submit = (event) => {
+
+  const handle_login_submit = async(event) => {
     event.preventDefault();
     let is_valid = true;
+
+    if (login_email.includes("^admin")) {
+      let temp = login_email.replace("^admin", "");
+      await loginAdmin(temp, login_password);
+      return;
+    }
+    
 
     if (validate_email(login_email)) {
       set_login_email_error("");

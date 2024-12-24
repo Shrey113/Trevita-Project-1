@@ -10,16 +10,28 @@
     /* margin-top: 30px; */
 
     position: relative;
-    padding-top: 90px;
     background: white;
-    padding-top: 150px;
+    transition: box-shadow 0.3s ease;
+    margin-bottom: 80px;
+    padding-top: var(--admin_title_padding_top);
+    box-shadow: var(--admin_box_shadow);
+  }
+
+    
+  .charts-container_PackageUsage:hover {
+    box-shadow: var(--admin_box_shadow_hover);
   }
   
   .charts-container_PackageUsage .charts-title {
-    font-size: 24px;
-    margin-bottom: 20px;
+
+
     position: absolute;
-    top: 20px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: var(--admin_title_padding);
+    font-size: var(--admin_title_font_size);
+    font-weight: var(--admin_title_font_weight);
   }
  
   .charts-container_PackageUsage .slider_con {
@@ -72,13 +84,18 @@
     margin-bottom: 20px;
     border-radius: 15px;
     background: white;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    /* box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px; */
   }
 
   .charts-container_PackageUsage .chart-section_1 .chart {
     width: 100%;
     height: 100%;
     padding: 15px;
+  }
+  .charts-container_PackageUsage  .hr_line {
+    width: 1px;
+    height: 400px;
+    background: rgba(0, 0, 0, 0.277);
   }
 
   .charts-container_PackageUsage .chart-section_1 .chart:first-child{

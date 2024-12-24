@@ -1,12 +1,4 @@
 
-:root{
-  --ui_color:#6e6af0;
-  --ui_color:#0084da;
-  --admin_bg_coloer:#e8f1f8;
-  --admin_ui_coloer:#ffffff;
-  --admin_box_shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  --admin_box_radius:20px;
-}
 .user_table_date{
     height: fit-content;
     background: white;
@@ -15,37 +7,36 @@
     width: 540px;
     /* margin-top: -70px; */
     transition: box-shadow 0.3s ease;
-
     /* background: rebeccapurple; */
     height: 550px;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--admin_box_shadow);
+
   }
   
   /* Add hover effect to chart box */
   .user_table_date:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--admin_box_shadow_hover);
   }
 
 
 .user_table_date .title_bar_sub{
-    display: flex;
-    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--admin_title_padding);
+    font-size: var(--admin_title_font_size);
+    font-weight: var(--admin_title_font_weight);
 }
-.user_table_date .title_bar_sub img{
-    height: 30px;
-    padding: 6px;
-    border-radius: 10px;
-    cursor: pointer;
-    &:hover{
-        background: rgba(212, 212, 212, 0.421);
-    }
-}
+
 .user_table_date .title_hr{
     
     height: 1px;
     width: 100%;
     background: rgb(0, 0, 0);
+   
  }
  
 
@@ -58,9 +49,16 @@
 
   .user_table_date  .user_table th,
   .user_table_date  .user_table td {
-    padding: 10px;
+    padding: 12px 15px;
     text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid #eee;
+    max-width: 150px;
   }
+
   
   .user_table_date  .user_table thead th {
     font-weight: bold;

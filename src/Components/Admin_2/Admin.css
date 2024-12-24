@@ -11,7 +11,16 @@
     --admin_bg_coloer:#e8f1f8;
     --admin_ui_coloer:#ffffff;
     --admin_box_shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    --admin_box_shadow_hover:0 10px 20px rgba(0, 0, 0, 0.2);;
     --admin_box_radius:20px;
+    --chart_1_width:400px;
+    --chart_2_width:940px;
+
+    --admin_title_padding:25px;
+    --admin_title_font_size:1.5rem;
+    --admin_title_font_weight:500;
+    --admin_title_padding_top:80px;
+    --admin_title_padding_top_for_2:55px;
 }
 .admin_body{
     height: 100vh;
@@ -173,6 +182,18 @@
     border-radius:var(--admin_box_radius) ;
     box-shadow: var(--admin_box_shadow);
     position: relative;
+    transition: box-shadow 0.3s ease;
+}
+.admin_body .admin_body_main .title_bar:hover{
+    box-shadow: var(--admin_box_shadow_hover);
+}
+.admin_body .admin_body_main .title_bar.fixed_navbar{
+    position: sticky;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    z-index: 500;
+    /* background: rebeccapurple; */
 }
 
 
@@ -186,7 +207,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: var(--admin_box_shadow);
+    border: 1px solid #ccc;
 }
 .admin_body .admin_body_main .title_bar .custom_input .icon{
     height: 20px;
@@ -265,105 +286,6 @@
     font-size: 0.9rem;
     margin-top: 3px;
 }
-.admin_body .admin_body_main .title_bar .profile_con_full {
-    background: var(--admin_ui_coloer);
-    position: absolute;
-    right: 0;
-    bottom: -495px;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    border-radius: var(--admin_box_radius);
-    box-shadow: var(--admin_box_shadow);
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    padding: 0px 20px;
-    z-index: 10;
-}
-
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con{
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .data{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .data .user_profile{
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 1px solid rgba(255, 0, 0, 0.268);
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .data .user_profile img{
-    height: 100%;
-    width: 100%;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .data .profile_data{
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .data .profile_data .name{
-    font-size: 1.3rem;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .data .profile_data .type{
-    font-size: 0.9rem;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .data .profile_data .email{
-    font-size: 0.95rem;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .more_option{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: 20px 0px;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .more_option .more_data{
-    display: flex;
-    /* flex-direction: column; */
-    gap: 20px;
-    align-items: center;
-    padding: 15px 10px;
-    cursor: pointer;
-    border-radius: 15px;
-    &:hover{
-        background: #0000001e;
-    }
-    
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .more_option .more_data .icon{
-    height: 50px;
-    width: 50px;
-    padding: 12px;
-    border-radius: 15px;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .more_option .more_data .icon img{
-    height: 100%;
-    width: 100%;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .more_option .more_data .info .name{
-    font-size: 1.1rem;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .more_option .more_data .info .name_info{
-    font-size: 0.9rem;
-    margin-top: 2px;
-}
-.admin_body .admin_body_main .title_bar .profile_con_full .user_con .more_option button{
-    padding: 7px 15px;
-    border-radius: 20px;
-    outline: 0;
-    border: 0;
-    cursor: pointer;
-    background: #0b8bdc;
-    color: white;
-    margin-top: 10px;
-}
-
 
 
 
@@ -395,36 +317,7 @@
     opacity: 0.85;
     /* filter: brightness(105%); */
 }
-.admin_body .admin_body_main .section_1_con .section_1_data{ 
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 90%;
-    width: 95%;
-    border-radius: 10px;
-    padding: 15px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    background: rgba(255, 255, 255, 0.034);
-    backdrop-filter: blur(1.5px);
-    box-shadow: var(--admin_box_shadow);
-}
-
-.admin_body .admin_body_main .section_1_con .section_1_data .title{
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
- }
-
- .admin_body .admin_body_main .section_1_con .section_1_data .title .info_1{
-    font-size: 1.6rem;
-    font-weight: 600;
- }
- .admin_body .admin_body_main .section_1_con .section_1_data .title .info_2{
-    font-size: 0.9rem;
- }
  .admin_body .admin_body_main .section_1_con .list_of_data{
     width: 100%;
     display: flex;
@@ -462,7 +355,7 @@
 
  .section_1_admin{
     display: flex;
-    gap: 50px;
+    justify-content: space-between;
 
  }
 
@@ -480,6 +373,11 @@
     overflow: hidden;
     cursor: pointer;
     box-shadow: var(--admin_box_shadow);
+    transition: box-shadow 0.3s ease;
+}
+
+.admin_first_page_box:hover{
+    box-shadow: var(--admin_box_shadow_hover);
 }
 
 .admin_first_page_box .fix_img{
@@ -514,10 +412,13 @@
 
 .section_2_admin{
     display: flex;
-    gap: 30px;
+    gap: 2vw;
+    gap: 40px;
     /* justify-content: space-between; */
     height: fit-content;
     margin-top: -350px;
+    width: calc(98% - 400px);
+    
  }
 .section_3_admin{
     /* background: rebeccapurple; */
@@ -528,5 +429,5 @@
     width: fit-content;
     /* background: rebeccapurple; */
     /* margin-top: -150px; */
-    margin-top: 30px;
+    /* margin-top: 30px; */
  }

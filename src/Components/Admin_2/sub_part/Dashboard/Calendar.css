@@ -1,11 +1,4 @@
-:root{
-    --ui_color:#6e6af0;
-    --ui_color:#0084da;
-    --admin_bg_coloer:#e8f1f8;
-    --admin_ui_coloer:#ffffff;
-    --admin_box_shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    --admin_box_radius:20px;
-}
+
 .Calendar_con{
     background: var(--admin_ui_coloer);
     height: fit-content;
@@ -27,7 +20,7 @@
 
   .Calendar_con:hover {
 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--admin_box_shadow_hover);
   }
   
 

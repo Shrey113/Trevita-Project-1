@@ -1,12 +1,6 @@
 import React, { useState ,useEffect} from 'react';
 import './UserDateList.css';
 
-import more_icon from './sub_img/more.png';
-
-// import user1_icon from './profile_pic/user1.jpg';
-// import user2_icon from './profile_pic/user2.jpg';
-// import user3_icon from './profile_pic/user3.jpg';
-// import user4_icon from './profile_pic/user4.jpg';
 
 import accept from './sub_img/correct.png';
 import reject from './sub_img/remove.png';
@@ -154,8 +148,7 @@ function get_admin_data(){
     <div className="user_table_date">
       {/* Title Bar */}
       <div className="title_bar_sub">
-        <h2>Owner Table</h2>
-        <img src={more_icon} alt="Icon" />
+        Owner Table
       </div>
 
       {/* Table */}

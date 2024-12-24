@@ -131,10 +131,10 @@ function LoginRegisterClient() {
           setIsShowLoader(true);
           setTimeout(() => {
             setIsShowLoader(false);
-          }, 1500);
+          }, 15000);
           setTimeout(() => {
             window.location.reload();
-          }, 1600);
+          }, 16000);
 
           // Redirect to another page or store token/user info
         } else if (response.status === 401) {
