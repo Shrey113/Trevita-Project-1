@@ -26,8 +26,6 @@ import Photographer from "./sub_component/Photographer.js";
 
 import menu from "./../../Assets/Client/AfterLogin/menu.png";
 import close from "./../../Assets/Client/AfterLogin/close.png";
-import { Title } from "chart.js";
-import { Cursor } from "mongoose";
 
 function HomePage() {
   const [userName, setUserName] = useState("");
@@ -40,6 +38,8 @@ function HomePage() {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const dropdownRef = useRef(null);
 
   const menuItems = [
     {
@@ -168,7 +168,15 @@ function HomePage() {
         profileContainerRef.current &&
         !profileContainerRef.current.contains(event.target)
       ) {
-        setShowProfileBox(false); // Close the profile box if clicked outside
+        setShowProfileBox(false);
+      }
+
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        !event.target.closest(".dropdown")
+      ) {
+        setShowDropdown(false);
       }
     };
     document.addEventListener("click", handleClickOutside);
@@ -223,7 +231,7 @@ function HomePage() {
               <li className="dropdown" onClick={toggleDropdown}>
                 <p style={{ cursor: "pointer" }}>Find Artist</p>{" "}
                 {showDropdown && (
-                  <div className="dropdown-menu">
+                  <div className="dropdown-menu" ref={dropdownRef}>
                     <div className="categories">
                       {categories.map((title, index) => (
                         <div className="wrapper_category" key={index}>
