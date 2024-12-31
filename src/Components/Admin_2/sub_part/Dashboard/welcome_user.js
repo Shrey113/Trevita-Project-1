@@ -7,15 +7,14 @@ import user_icon_1 from './profile_pic/user1.jpg';
 // import user_icon_3 from './profile_pic/user3.jpg';
 // import user_icon_4 from './profile_pic/user4.jpg';
 
-import { io } from 'socket.io-client';
+import socket from './../../../../redux/socket.js'
+// import { io } from 'socket.io-client';
 
 // const socket = io('http://localhost:4000');
 
 function WelcomeUser({ setActiveRow }) {
   const [notifications, setNotifications] = useState([]); 
-  const [loading, setLoading] = useState(true);  
-  const [error, setError] = useState(null); 
-  const socket = io('http://localhost:4000');
+
 
 
   const fetchNotifications = async () => {
@@ -27,10 +26,7 @@ function WelcomeUser({ setActiveRow }) {
       const data = await response.json();
       setNotifications(data);  // Set the notifications data
     } catch (err) {
-      setError(err.message);  // Handle errors
       console.log(err);
-    } finally {
-      setLoading(false);  // Stop loading after the request completes
     }
   };
 
@@ -57,13 +53,20 @@ function WelcomeUser({ setActiveRow }) {
   }, []);
 
   useEffect(()=>{
-    socket.on('new_notification',(data)=>{
-      fetchNotifications(); 
-    })
-    return(()=>{
-        socket.off('new_notification')
-    })
-},[socket]);
+    if(socket){
+      console.log("Ok socket connected");
+      
+      socket.on('new_notification',(data)=>{
+        fetchNotifications(); 
+      })
+      return(()=>{
+          socket.off('new_notification')
+      })
+    }else{
+      console.log("no socket");
+    }
+
+},[]);
 
   useEffect(() => {
   
@@ -87,13 +90,7 @@ function WelcomeUser({ setActiveRow }) {
     (notification) => notification.notification_type === 'padding_owner'
   );
 
-  if (loading) {
-    return <div>Loading...</div>;  // Show loading message while fetching data
-  }
 
-  if (error) {
-    return <div>Error: {error}</div>;  // Show error if something goes wrong
-  }
 
   return (
     <div className='welcome_message_con'>

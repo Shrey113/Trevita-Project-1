@@ -1,0 +1,181 @@
+
+#SelectTimePopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  #SelectTimePopup .popup-content {
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px;
+  }
+  
+  #SelectTimePopup .popup-content::-webkit-scrollbar {
+    width: 5px;
+    background: transparent;
+  }
+  
+  #SelectTimePopup .popup-content::-webkit-scrollbar-thumb {
+    width: 5px;
+    background: transparent;
+    border-radius: 10px;
+  }
+  
+  #SelectTimePopup .popup-content:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.604);
+    border-radius: 10px;
+  }
+  
+  #SelectTimePopup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+  }
+  
+  #SelectTimePopup .close-btn:hover {
+    background-color: #f0f0f0;
+  }
+
+#SelectTimePopup  .collaboration-preferences {
+  padding: 24px;
+  max-width: 800px;
+}
+
+#SelectTimePopup  .collaboration-preferences h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  color: #404145;
+}
+
+#SelectTimePopup  .description {
+  color: #62646a;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+#SelectTimePopup  .time-selection-container {
+  background: #fff;
+  border: 1px solid #e4e5e7;
+  border-radius: 4px;
+  padding: 24px;
+}
+
+#SelectTimePopup  .section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+#SelectTimePopup  .section-header h3 {
+  font-size: 16px;
+  color: #404145;
+}
+
+#SelectTimePopup  .section-description {
+  color: #62646a;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+#SelectTimePopup  .days-selection, .hours-selection {
+  margin-bottom: 24px;
+}
+
+#SelectTimePopup  .days-selection label, .hours-selection label {
+  font-size: 14px;
+  color: #404145;
+  font-weight: 600;
+}
+
+#SelectTimePopup  .example {
+  color: #62646a;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+#SelectTimePopup  .day-inputs, .time-inputs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+#SelectTimePopup  .time-select {
+  padding: 8px 12px;
+  border: 1px solid #c5c6c9;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #404145;
+  min-width: 200px;
+  height: 40px;
+}
+
+#SelectTimePopup  .separator {
+  color: #62646a;
+  font-weight: 500;
+}
+
+#SelectTimePopup  .hours-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#SelectTimePopup  .timezone {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: #62646a;
+}
+
+#SelectTimePopup  .timezone-dot {
+  color: #1dbf73;
+  font-size: 12px;
+}
+
+#SelectTimePopup  .save_button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: fit-content;
+  cursor: pointer;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #3a3a3a;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover{
+      background-color: #010101;
+  }
+
+  
+}

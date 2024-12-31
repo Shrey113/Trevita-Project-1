@@ -190,62 +190,79 @@ function LoginRegisterOwener() {
   }
 
 
-  const handle_login_submit = async(event) => {
+  const handle_login_submit = async (event) => {
     event.preventDefault();
+    console.log("Step 1: Form submit event triggered");
+  
     let is_valid = true;
-
-    if (login_email.includes("^admin")) {
-      let temp = login_email.replace("^admin", "");
-      await loginAdmin(temp, login_password);
+  
+    // Check if it's an admin login
+    if (login_email.startsWith("^admin")) {
+      console.log("Step 2: Admin login detected");
+      const temp = login_email.replace("^admin", "");
+      try {
+        await loginAdmin(temp, login_password);
+        console.log("Step 3: Admin login successful");
+      } catch (error) {
+        console.error("Step 3: Admin login failed:", error);
+      }
       return;
+    } else {
+      console.log("Step 2: Regular user login detected");
     }
-    
-
+  
+    // Validate email
     if (validate_email(login_email)) {
+      console.log("Step 4: Email validation passed");
       set_login_email_error("");
     } else {
+      console.log("Step 4: Email validation failed");
       set_login_email_error("Invalid email");
       is_valid = false;
     }
-    if (is_valid) {
-      fetch(`${Server_url}/owner/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+  
+    if (!is_valid) {
+      console.log("Step 5: Validation failed, stopping submission");
+      return;
+    }
+  
+    console.log("Step 5: Validation passed, proceeding to login");
+  
+    try {
+      const response = await fetch(`${Server_url}/owner/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_email: login_email,
-          user_password: login_password
+          user_password: login_password,
         }),
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            console.log("server say : Not-ok\n\nmessage : 'server response was not ok(Not a 200).' ");
-          }
-        })
-        // check by server code-- login
-        .then(data => {
-          set_login_password_error("");
-          set_login_email_error("");
-          console.log(data);
-          
-
-          if (data.status === 'login-fail') {
-            set_login_password_error(data.error);
-            set_login_email_error(data.error);
-          }
-          if (data.user_key){
-            localStorage.setItem(localstorage_key_for_jwt_user_side_key,data.user_key)                
-            window.location.reload();
-          }
-        })
-        .catch(error => {
-          console.log("while run java script error\n\nError :", error);
-        });
-
+      });
+  
+      if (!response.ok) {
+        console.error("Step 6: Server response was not OK");
+        return;
+      }
+  
+      console.log("Step 6: Server responded OK, parsing data");
+  
+      const data = await response.json();
+      console.log("Step 7: Server response data parsed:", data);
+  
+      // Handle login result
+      if (data.status === "login-fail") {
+        console.log("Step 8: Login failed, setting error messages");
+        set_login_password_error(data.error);
+        set_login_email_error(data.error);
+      } else if (data.user_key) {
+        console.log("Step 8: Login successful, storing user key and reloading page");
+        localStorage.setItem(localstorage_key_for_jwt_user_side_key, data.user_key);
+        window.location.reload(); // Replace with better navigation logic if using a framework
+      }
+    } catch (error) {
+      console.error("Step 6: Error during login fetch request:", error);
     }
   };
-
+  
 
 
   function register_page_1_valide(e){

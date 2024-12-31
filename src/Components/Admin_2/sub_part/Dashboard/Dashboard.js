@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import { gsap } from "gsap";
 
 
@@ -37,7 +37,8 @@ const MainBox = ({fix_img,main_img,amount,other_amount,title})=>{
   }
   
 
-function Dashboard({adminSettings,activeRow,setActiveRow}) {
+function Dashboard({adminSettings,activeRow,setActiveRow,socket}) {
+  const [data, setData] = useState(null);
 
     useEffect(() => {
       if(adminSettings?.show_animation){
@@ -78,15 +79,65 @@ function Dashboard({adminSettings,activeRow,setActiveRow}) {
       }
     
       }, [activeRow,adminSettings?.show_animation]);
+
+
+      useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:4000/owner_v2/all-data');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                setData(result);
+            } catch (error) {
+                console.log
+                (error.message);
+            } 
+        };
+
+        fetchData();
+    }, []);
+
   return (
     <>
         <div className="section_1_admin">
-          <MainBox fix_img={shape_1} main_img={p_set} amount={"2358"} other_amount={"+26%"} title={"Sales"} />
-          <MainBox fix_img={shape_2} main_img={dollar_set} amount={"356"} other_amount={"+8%"} title={"Refunds"} />
-          <MainBox fix_img={shape_3} main_img={dollar_set} amount={"235.8"} other_amount={"-3%"} title={"Earnings"} />
-          <MainBox fix_img={shape_1} main_img={p_set} amount={"2358"} other_amount={"+26%"} title={"Sales"} />
-          <MainBox fix_img={shape_3} main_img={dollar_set} amount={"235.8"} other_amount={"-3%"} title={"Earnings"} />
-          <WelcomeUser setActiveRow={setActiveRow} />
+        <MainBox 
+                    fix_img={shape_1} 
+                    main_img={p_set} 
+                    amount={data?.totalAdmins || "0"} 
+                    other_amount={"+0%"} 
+                    title={"Admins"} 
+                />
+                <MainBox 
+                    fix_img={shape_2} 
+                    main_img={dollar_set} 
+                    amount={data?.totalOwners || "0"} 
+                    other_amount={"+0%"} 
+                    title={"Owners"} 
+                />
+                <MainBox 
+                    fix_img={shape_3} 
+                    main_img={dollar_set} 
+                    amount={data?.totalClients || "0"} 
+                    other_amount={"-0%"} 
+                    title={"Clients"} 
+                />
+                <MainBox 
+                    fix_img={shape_1} 
+                    main_img={p_set} 
+                    amount={data?.totalPackages || "0"} 
+                    other_amount={"+0%"} 
+                    title={"Packages"} 
+                />
+                <MainBox 
+                    fix_img={shape_3} 
+                    main_img={dollar_set} 
+                    amount={data?.totalExpenses || "0"} 
+                    other_amount={"-0%"} 
+                    title={"Expenses"} 
+                />
+          <WelcomeUser setActiveRow={setActiveRow} socket={socket} />
         </div>
     
         <div className="section_2_admin">

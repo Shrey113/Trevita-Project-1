@@ -90,7 +90,7 @@
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  height: 180px;
+  height: 200px;
   width: 280px;
   display: flex;
   align-items: flex-start;
@@ -106,13 +106,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 26px;
 }
 .Register_Page .otp-modal .input_and_submit_button input {
   font-size: 16px;
   padding: 5px;
   border: 0;
   outline: 0;
+  width: 230px;
   border-bottom: 3px solid rgb(91, 91, 238);
 }
 .Register_Page .otp-modal .input_and_submit_button input:focus {
@@ -123,16 +124,18 @@
 .Register_Page .otp-modal .input_and_submit_button button {
   border: 0;
   outline: 0;
-  font-size: 14px;
+  font-size: 15px;
   padding: 6px 10px;
   border-radius: 5px;
-  background-color: rgb(116, 171, 252);
+  font-weight: 600;
+  background-color: rgb(126, 175, 249);
 }
 .Register_Page .otp-modal .input_and_submit_button button:hover {
   cursor: pointer;
 }
 .Register_Page .otp-modal .error {
   color: red;
+  margin-top: -20px;
 }
 
 .Main_Container .Register_Page .register_form {

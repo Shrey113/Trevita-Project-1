@@ -1,0 +1,241 @@
+#AddProfileDataPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+  }
+  
+  #AddProfileDataPopup  .popup-content {
+    background: white;
+
+    border-radius: 8px;
+    position: relative;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px;
+
+  }
+  #AddProfileDataPopup  .popup-content::-webkit-scrollbar{
+    width: 5px;
+    background: transparent;
+  }
+  #AddProfileDataPopup  .popup-content::-webkit-scrollbar-thumb{
+    width: 5px;
+    background:transparent;
+    border-radius: 10px;
+  }
+  #AddProfileDataPopup  .popup-content:hover::-webkit-scrollbar-thumb{
+    background:rgba(0, 0, 0, 0.604);
+    border-radius: 10px;
+  }
+  
+  #AddProfileDataPopup  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+  }
+  
+  #AddProfileDataPopup   .close-btn:hover {
+    background-color: #f0f0f0;
+  }
+
+  
+#AddProfileDataPopup .profile-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#AddProfileDataPopup .profile-header {
+    margin-bottom: 24px;
+}
+
+#AddProfileDataPopup .profile-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+
+}
+
+
+#AddProfileDataPopup .profile-avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+#AddProfileDataPopup .profile-avatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    margin-bottom: 1rem;
+    padding: 0px;
+}
+
+#AddProfileDataPopup .profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* border-radius: 50%; */
+    display: block;
+}
+
+#AddProfileDataPopup .profile-avatar span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 3rem;
+    color: #ffffff;
+    background: #9747FF;
+
+}
+
+#AddProfileDataPopup .profile-avatar-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#AddProfileDataPopup .profile-avatar:hover .profile-avatar-overlay {
+    opacity: 1;
+}
+
+#AddProfileDataPopup .profile-avatar-overlay label {
+    cursor: pointer;
+}
+
+#AddProfileDataPopup .profile-avatar-overlay img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+#AddProfileDataPopup form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 24px;
+}
+#AddProfileDataPopup .form-group {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+#AddProfileDataPopup .form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-group input, 
+#AddProfileDataPopup .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#AddProfileDataPopup .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#AddProfileDataPopup .form-group .ok-button{
+    /* width: 80px; */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #3a3a3a;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover{
+        background-color: #010101;
+    }
+}
+
+#AddProfileDataPopup .character-count {
+    text-align: right;
+    color: #666;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+#AddProfileDataPopup .form-hint {
+    color: #666;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+#AddProfileDataPopup .profile-image-input {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+#AddProfileDataPopup .profile-image-input img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease;
+}
+
+#AddProfileDataPopup .profile-image-input img:hover {
+    transform: scale(1.1);
+}
+
+#AddProfileDataPopup .profile-avatar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#AddProfileDataPopup .profile-avatar:hover .profile-avatar-overlay {
+    opacity: 1;
+}

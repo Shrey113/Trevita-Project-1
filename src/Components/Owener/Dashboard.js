@@ -8,6 +8,7 @@ import { localstorage_key_for_client } from './../../redux/AllData';
 
 
 import './css/Dashboard.css';
+import HomePage from './HomePage.js'
 
 function Dashboard() {
     const user = useSelector((state) => state.user);
@@ -60,6 +61,7 @@ function Dashboard() {
     };
 
     return (
+        user_Status === 'Accept' ? <HomePage/> :
         <div className="Dashboard_main_con">
             <div className="status-container">
                 <img src={set_img} alt={set_text} className="status-icon" />

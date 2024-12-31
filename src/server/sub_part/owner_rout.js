@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2'); 
+
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
@@ -230,6 +231,51 @@ db.query(query, [notification_type, notification_message, notification_title], (
       });
     });
   });
+  router.put('/update-owner', (req, res) => {
+    const email = req.body.user_email; // Find by this email
+  
+    if (!email) {
+      return res.status(400).json({ error: 'Email is required to update the record.' });
+    }
+  
+    // Initialize an empty object for the data to be updated
+    const updateData = {};
+  
+    // Only add fields to updateData if they are provided in the request body
+    if (req.body.client_id) updateData.client_id = req.body.client_id;
+    if (req.body.user_name) updateData.user_name = req.body.user_name;
+    if (req.body.user_email) updateData.user_email = req.body.user_email;
+    if (req.body.user_password) updateData.user_password = req.body.user_password;
+    if (req.body.business_name) updateData.business_name = req.body.business_name;
+    if (req.body.business_address) updateData.business_address = req.body.business_address;
+    if (req.body.mobile_number) updateData.mobile_number = req.body.mobile_number;
+    if (req.body.gst_number) updateData.gst_number = req.body.gst_number;
+    if (req.body.user_Status) updateData.user_Status = req.body.user_Status;
+    if (req.body.admin_message) updateData.admin_message = req.body.admin_message;
+    if (req.body.set_status_by_admin) updateData.set_status_by_admin = req.body.set_status_by_admin;
+  
+    // Check if there is any data to update
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({ error: 'No data provided to update.' });
+    }
+  
+    const query = 'UPDATE owner SET ? WHERE user_email = ?';
+  
+    db.query(query, [updateData, email], (err, result) => {
+      if (err) {
+        console.error('Error updating data:', err);
+        return res.status(500).json({ error: 'An error occurred while updating the record.' });
+      }
+  
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: 'No user found with the provided email.' });
+      }
+  
+      res.status(200).json({ message: 'Record updated successfully.', result });
+    });
+  });
+  
+  
   
 
 module.exports = router;

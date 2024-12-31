@@ -31,7 +31,7 @@ import {localstorage_key_for_admin_settings,localstorage_key_for_admin_login,Ser
 
 
 
-function Admin2() {
+function Admin2({socket}) {
   const [activeRow, setActiveRow] = useState(0);
   const [adminSettings, setAdminSettings] = useState(null);
   const [admin_email, set_admin_email] = useState('gfapk63@gmail.com');
@@ -160,7 +160,7 @@ function Admin2() {
     <TitleBar adminSettings={adminSettings}  setActiveRow={setActiveRow}/>
 
     {
-      activeRow === 0 &&  <Dashboard  adminSettings={adminSettings} activeRow={activeRow} setActiveRow={setActiveRow}/>
+      activeRow === 0 &&  <Dashboard socket={socket}  adminSettings={adminSettings} activeRow={activeRow} setActiveRow={setActiveRow}/>
     }
     {
       activeRow === 1 &&  <ProfileManager activeRow={activeRow} admin_email={admin_email}/>

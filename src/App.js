@@ -17,9 +17,7 @@ import BottomRightMenu from "./BottomRightMenu.js";
 // import Admin from "./Components/Admin/Admin.js";
 // import Calendar from "./Components/Admin_2/sub_part/Calendar.js";
 
-import { io } from 'socket.io-client';
-
-const socket = io('http://localhost:4000'); // Ensure the URL matches your server's URL and port
+import socket from './redux/socket.js'
 
 
 
@@ -152,7 +150,7 @@ function App() {
     <Router>
       <Routes>
         {/* testing part */}
-        <Route path="/Admin2" element={<Admin2/> } />
+        <Route path="/Admin2" element={<Admin2 socket={socket}/> } />
         {/* <Route path="/Admin1" element={<Admin/> } /> */}
         <Route path="/BeforeLogin" element={<BeforeLogin/> } />
 

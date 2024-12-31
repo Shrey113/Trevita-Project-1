@@ -5,6 +5,7 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const adminRoutes = require('./sub_part/Admin_rout');
 const ownerRoutes = require('./sub_part/owner_rout');
+const ownerRoutes_v2 = require('./sub_part/owner_rout_v2');
 const chartRoutes = require('./sub_part/chart_rout');
 app.use(express.json()); 
 app.use(cors());
@@ -184,6 +185,9 @@ app.post('/notifications_admin', (req, res) => {
       if (err) {
           return res.status(500).json({ error: 'Failed to fetch notifications' });
       }
+      
+      console.log("sednotification received notification");
+      
       io.emit('new_notification',"all ok");
 
       res.json({message:"all ok", notifications: results });
@@ -207,11 +211,71 @@ app.use('/Admin', adminRoutes);
 
 // owner routes
 app.use('/owner', ownerRoutes);
+app.use('/owner_v2', ownerRoutes_v2);
 
 // owner routes
 app.use('/chart', chartRoutes);
 
 
+app.post('/update-status', (req, res) => {
+  const { user_email, user_Status, message, set_status_by_admin } = req.body;
+
+  // Validate required fields
+  if (!user_email || !user_Status) {
+    return res.status(400).json({ message: 'Missing required fields: user_email or user_Status' });
+  }
+
+  // Set default values for optional fields if they're undefined
+  const safeMessage = message || null; // If message is undefined, set it as null
+  const safeAdminEmail = set_status_by_admin || null; // If admin email is undefined, set it as null
+
+  // Retrieve admin information if an admin email is provided
+  if (safeAdminEmail) {
+    const getAdminIdQuery = 'SELECT admin_id FROM admins WHERE admin_email = ?';
+    db.execute(getAdminIdQuery, [safeAdminEmail], (err, adminResult) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'Database error when fetching admin' });
+      }
+
+      if (adminResult.length === 0) {
+        return res.status(400).json({ message: 'Admin not found' });
+      }
+
+      const admin_id = adminResult[0].admin_id;
+
+      // Update the user's status in the 'users' table
+      const updateStatusQuery = `
+        UPDATE owner
+        SET user_Status = ?, admin_message = ?, set_status_by_admin = ?
+        WHERE user_email = ?
+      `;
+      db.execute(updateStatusQuery, [user_Status, safeMessage, admin_id, user_email], (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ message: 'Database error while updating user status' });
+        }
+
+        return res.json({ message: 'Status updated' });
+      });
+    });
+  } else {
+    // If no admin email is provided, update the status without an admin_id
+    const updateStatusQuery = `
+      UPDATE owner
+      SET user_Status = ?, admin_message = ?, set_status_by_admin = NULL
+      WHERE user_email = ?
+    `;
+    db.execute(updateStatusQuery, [user_Status, safeMessage, user_email], (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'Database error while updating user status' });
+      }
+
+      return res.json({ message: 'Status updated' });
+    });
+  }
+});
 
 // @shrey11_  End ---- 
 // @shrey11_  End ---- 
@@ -224,6 +288,28 @@ app.use('/chart', chartRoutes);
 // praharsh  start ----
 // praharsh  start ----
 // client paths
+
+
+
+
+app.post("/check-user-jwt", (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(200).json({ message: "Token is required" });
+  }
+
+  const data = check_jwt_token(token);
+
+  if (!data) {
+    return res.status(200).json({ message: "Invalid or expired token" });
+  }
+
+  return res.status(200).json({
+    message: "Token is valid",
+    data: data,
+  });
+});
 
 app.post("/verify_forget_otp_client", async (req, res) => {
   const { email, type, otp } = req.body;
@@ -442,8 +528,68 @@ app.post("/client/login", (req, res) => {
     }
   });
 });
+app.post("/api/get-user-data", (req, res) => {
+  const { email } = req.body;
 
-// praharsh  End ----
+  if (!email) {
+    return res.status(400).json({ message: "Email is required." });
+  }
+
+  const query = `
+    SELECT phone, address, gender
+    FROM trevita_project_1.clients
+    WHERE user_email = ?
+  `;
+
+  db.query(query, [email], (err, results) => {
+    if (err) {
+      console.error("Error fetching user data:", err);
+      return res.status(500).json({ message: "Failed to fetch user data." });
+    }
+
+    if (results.length > 0) {
+      res.status(200).json(results[0]); // Send the first matching result
+    } else {
+      res.status(404).json({ message: "User data not found." });
+    }
+  });
+});
+
+app.post("/api/update-profile", (req, res) => {
+  const { user_email, user_name, phone, address, gender } = req.body;
+
+  if (!user_email) {
+    return res.status(400).json({ message: "Email is required." });
+  }
+
+  try {
+    const query = `
+    UPDATE trevita_project_1.clients
+    SET user_name = ?, phone = ?, address = ?, gender = ?
+    WHERE user_email = ?
+  `;
+
+    db.query(
+      query,
+      [user_name, phone, address, gender, user_email],
+      (err, results) => {
+        if (err) {
+          console.error("Error updating profile:", err);
+          return res.status(500).json({ message: "Failed to update profile." });
+        }
+        res
+          .status(200)
+          .json({ message: "Profile updated successfully!", results });
+        console.log(results);
+      }
+    );
+  } catch (err) {
+    console.log("error updating data");
+    res.status(500).json({ message: "Failed to update data" });
+  }
+});
+
+
 // praharsh  End ----
 // praharsh  End ----
 // praharsh  End ----

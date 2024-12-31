@@ -1,0 +1,252 @@
+:root{
+    --owner_ui_color_background:white;
+}
+
+.OwnerProfile_con{
+    height: fit-content;
+    min-height: fit-content;
+    width: 100%;
+}
+.OwnerProfile_con .section_1{
+    display: flex;
+}
+
+.OwnerProfile_con .Owner_data_section_con{
+    height: 500px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+}
+.OwnerProfile_con .Owner_data_section_con .data_con{
+    height: 500px;
+     /* set for width */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--owner_home_page_ui_box_shadow);
+}
+.OwnerProfile_con .Owner_data_section_con .top_section_img{
+    /* set for height */
+    flex: 1; 
+    position: relative;
+}
+.OwnerProfile_con .Owner_data_section_con .top_section_img .back_img{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.OwnerProfile_con .Owner_data_section_con .top_section_img .back_img img{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.OwnerProfile_con .Owner_data_section_con .top_section_img .back_img img .user_profile{
+    height: 80px;
+    width: 80px;
+    position: absolute;
+}
+.OwnerProfile_con .Owner_data_section_con .top_section_img  .user_profile_i{
+    height: 180px;
+    width: 180px;
+    position: absolute;
+    bottom: -90px;
+    left: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.OwnerProfile_con .Owner_data_section_con .top_section_img  .user_profile_i img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+.OwnerProfile_con .Owner_data_section_con .bottom_section_info{
+   
+    /* set for width */
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    
+}
+.OwnerProfile_con .Owner_data_section_con .bottom_section_info .user_data{
+    width: 100%;
+    padding-bottom: 70px;
+    padding-left: 20px;
+    background: var(--owner_ui_color_background);
+    display: flex;
+    align-items: flex-end;
+    gap: 80px;
+}   
+.OwnerProfile_con .Owner_data_section_con .bottom_section_info .user_info{
+   padding-left: 50px;
+}   
+.OwnerProfile_con .Owner_data_section_con .bottom_section_info .user_name{
+   font-size: 1.7rem;
+}   
+.OwnerProfile_con .Owner_data_section_con .bottom_section_info .small_about_user{
+   font-size: 0.95rem;
+   color: gray;
+}   
+.OwnerProfile_con .Owner_data_section_con .bottom_section_info .user_data .user_other_icon{
+   /* background: rebeccapurple; */
+   display: flex;
+   gap: 20px;
+}   
+.OwnerProfile_con .Owner_data_section_con .bottom_section_info .user_data .user_other_icon .icon_img{
+   height: 40px;
+   width: 40px;
+   cursor: pointer;
+}   
+.OwnerProfile_con .Owner_data_section_con .bottom_section_info .user_data .user_other_icon .icon_img img{
+   height: 100%;
+   width: 100%;
+}   
+
+
+
+
+
+
+
+.OwnerProfile_con .intro_section_con{
+    height: 500px;
+    flex: 0.4;
+    padding: 15px;
+}
+.OwnerProfile_con  .intro_section_con .intro_section{
+    height: 100%;
+    background: var(--owner_ui_color_background);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    box-shadow: var(--owner_home_page_ui_box_shadow);
+}   
+.OwnerProfile_con  .intro_section_con .intro_section .title{
+    padding: 15px;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.OwnerProfile_con  .intro_section_con .intro_section .title .edite_button_container{
+    height: 45px;
+    width: 45px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    &:hover{
+        background: var(--owner_home_page_hover_coloer);
+    }
+}
+.OwnerProfile_con  .intro_section_con .intro_section .title img{
+    height: 100%;
+    width: 100%;
+ 
+}
+.OwnerProfile_con  .intro_section_con .intro_section .data_con{
+ 
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-left: 8px;
+    cursor: pointer;
+    /* background: rebeccapurple; */
+
+    &:hover{
+        background: var(--owner_home_page_hover_coloer);
+    }
+
+}   
+.OwnerProfile_con  .intro_section_con .intro_section .data_con .icon{
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+}   
+.OwnerProfile_con  .intro_section_con .intro_section .data_con .icon img{
+    height: 100%;
+    width: 100%;
+}   
+.OwnerProfile_con  .intro_section_con .intro_section .data_con .icon img{
+    height: 100%;
+    width: 100%;
+}   
+.OwnerProfile_con  .intro_section_con .intro_section .data_con .text{
+    flex: 1;
+    padding-right: 20px;
+    /* background: rebeccapurple; */
+ }  
+.OwnerProfile_con  .intro_section_con .intro_section .data_con .text.editable input{
+   outline: 0;
+   border: 0;
+   background: transparent;
+   padding: 10px;
+   border: 1px solid rgba(0, 0, 0, 0.19);
+   border-radius: 5px;
+   min-width: 100%;
+   /* background: rebeccapurple; */
+}   
+.OwnerProfile_con  .intro_section_con .intro_section .data_con .text.read-only  input{
+   outline: 0;
+   border: 0;
+   background: transparent;
+   padding: 10px;
+   cursor: pointer;
+   min-width: 100%;
+}   
+
+
+
+.OwnerProfile_con .about_section_con{
+    padding: 20px;
+    
+}
+.OwnerProfile_con .about_section_con .about_section{
+    background: var(--owner_ui_color_background);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: var(--owner_home_page_ui_box_shadow);
+}
+.OwnerProfile_con .about_section_con .about_section .about_section_title{
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 10px;
+}
+.OwnerProfile_con .about_section_con .about_section .about_section_text{
+    padding-left: 10px;
+}
+.OwnerProfile_con .about_section_con .about_section .about_section_text {
+    max-height: fit-content;
+    height: fit-content;
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Show '...' at the end */
+    display: -webkit-box;
+    line-clamp: auto; 
+    -webkit-line-clamp: auto; 
+    -webkit-box-orient: vertical;
+  }
+  
+  .OwnerProfile_con .about_section_con .about_section  .show-more {
+    color: blue;
+    cursor: pointer;
+    font-size: 14px;
+    padding-left: 10px;
+  }
+  

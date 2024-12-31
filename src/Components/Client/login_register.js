@@ -127,14 +127,20 @@ function LoginRegisterClient() {
           // Perform actions after successful login
           set_login_password_error("");
           set_login_email_error("");
+
+          if (!data.jwt_token) {
+            alert("jwt not available");
+          }
           localStorage.setItem(localstorage_key_for_client, data.jwt_token);
           setIsShowLoader(true);
+
           setTimeout(() => {
             setIsShowLoader(false);
-          }, 15000);
+          }, 3000);
+
           setTimeout(() => {
             window.location.reload();
-          }, 16000);
+          }, 4000);
 
           // Redirect to another page or store token/user info
         } else if (response.status === 401) {
@@ -217,6 +223,7 @@ function LoginRegisterClient() {
 
         if (response.ok) {
           console.log("Client added successfully", data);
+          setOtp("");
           setShowOtpModal(true);
           // Send OTP email to the user
           await fetch(`${Server_url}/send_otp_email`, {
@@ -267,10 +274,12 @@ function LoginRegisterClient() {
 
       if (response.ok) {
         console.log("OTP verified successfully");
-
         setShowOtpModal(false);
-        // Proceed to register user in the database
-        // Additional user registration logic here
+
+        // process of going to home page
+
+        localStorage.setItem(localstorage_key_for_client, data.user_key);
+        window.location.reload();
       } else {
         setOtpError(data.error || "Invalid OTP");
       }
@@ -294,11 +303,11 @@ function LoginRegisterClient() {
               src={close}
               alt=""
               style={{
-                height: "18px",
-                width: "18px",
+                height: "17px",
+                width: "17px",
                 position: "absolute",
-                top: "4px",
-                right: "5px",
+                top: "10px",
+                right: "10px",
               }}
               onClick={() => {
                 setShowOtpModal(false);

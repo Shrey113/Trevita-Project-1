@@ -1,0 +1,755 @@
+.user_profile_page_main {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.user_profile_page_main .back_button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 40px;
+  width: 40px;
+  background-color: black;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: rgb(100, 100, 111) 0px 7px 29px 0px;
+}
+.user_profile_page_main .back_button img {
+  height: 100%;
+}
+.user_profile_page_main .back_button img:hover {
+  cursor: pointer;
+}
+.user_profile_page_main .save_image_message {
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background-color: lightgreen;
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  border-radius: 2px;
+  color: rgb(43, 43, 43);
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  animation: popup 0.5s ease-in-out;
+}
+.user_profile_page_main .save_user_data_message {
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background-color: lightgreen;
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  border-radius: 2px;
+  color: rgb(43, 43, 43);
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  animation: popup 0.5s ease-in-out;
+}
+@keyframes popup {
+  0% {
+    bottom: 0;
+    opacity: 0;
+  }
+  50% {
+    bottom: 3%;
+    opacity: 0.5;
+  }
+  100% {
+    bottom: 2%;
+    opacity: 1;
+  }
+}
+.user_profile_page_main .image_container {
+  height: 50vh;
+  width: 100%;
+  position: relative;
+}
+.user_profile_page_main .image_container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.user_profile_page_main .image_container .user_information_card {
+  height: 95%;
+  width: 1000px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_profile_and_location {
+  height: 90%;
+  width: 40%;
+  background-color: #333;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_profile_and_location
+  input {
+  display: none;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_profile_and_location
+  .upload_button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 2px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_profile_and_location
+  .save_button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 2px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_profile_and_location
+  .upload_button:hover,
+.save_button:hover {
+  cursor: pointer;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_profile_and_location
+  .image_preview {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_profile_and_location
+  .image_preview:hover {
+  cursor: pointer;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_profile_and_location
+  .image_preview
+  img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information {
+  height: 90%;
+  width: 55%;
+  border-radius: 5px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px 40px;
+  position: relative;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information
+  .update_button {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 50%;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information
+  .update_button
+  img {
+  height: 100%;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information
+  .cancel_button {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information
+  .cancel_button
+  img {
+  height: 100%;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information
+  .update_button:hover,
+.cancel_button:hover {
+  cursor: pointer;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information
+  .save_button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgb(232, 232, 232);
+  padding: 5px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 16px;
+  border: none;
+  border-radius: 2px;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information
+  .userInfo {
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information
+  .userInfo
+  label {
+  width: 180px;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information
+  .userInfo
+  input {
+  width: fit-content;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+.user_profile_page_main
+  .image_container
+  .user_information_card
+  .user_information
+  .userInfo
+  select {
+  width: fit-content;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.user_profile_page_main .order_information_container {
+  height: 50%;
+  width: 70%;
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.user_profile_page_main .order_information_container h1 {
+  color: rgb(29, 29, 29);
+  font-size: 20px;
+  border-bottom: 4px solid grey;
+  width: fit-content;
+  padding: 5px 10px;
+}
+.user_profile_page_main .order_information_container .all_bookings {
+  height: 100%;
+  overflow-y: scroll;
+  font-size: 20px;
+  padding: 5px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user_profile_page_main
+  .order_information_container
+  .all_bookings::-webkit-scrollbar {
+  background-color: transparent;
+  width: 10px;
+}
+.user_profile_page_main
+  .order_information_container
+  .all_bookings::-webkit-scrollbar-thumb {
+  background-color: rgb(96, 96, 96);
+  width: 10px;
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .user_profile_page_main .image_container .user_information_card {
+    width: 900px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .update_button {
+    top: 0px;
+    right: 0px;
+    height: 25px;
+    width: 25px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .cancel_button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 25px;
+    width: 25px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .save_button {
+    bottom: 0px;
+    right: 0px;
+    font-size: 15px;
+  }
+
+  .user_profile_page_main .back_button {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 35px;
+    width: 35px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo
+    label {
+    width: 150px;
+  }
+
+  .user_profile_page_main .order_information_container {
+    width: 100%;
+    padding: 10px 50px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .user_profile_page_main .image_container .user_information_card {
+    width: 750px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information {
+    height: 90%;
+    width: 55%;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0px 15px;
+    position: relative;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .update_button {
+    top: 0px;
+    right: 0px;
+    height: 25px;
+    width: 25px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .cancel_button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 25px;
+    width: 25px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .save_button {
+    bottom: 0px;
+    right: 0px;
+    font-size: 15px;
+  }
+
+  .user_profile_page_main .back_button {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 25px;
+    width: 25px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo
+    label {
+    width: 100px;
+    font-size: 16px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo
+    input {
+    width: 200px;
+    padding: 5px 8px;
+    font-size: 15px;
+  }
+
+  .user_profile_page_main .order_information_container {
+    width: 100%;
+    padding: 10px 20px;
+  }
+  .user_profile_page_main .order_information_container h1 {
+    font-size: 18px;
+    border-bottom: 3px solid grey;
+  }
+}
+@media only screen and (max-width: 426px) {
+  .user_profile_page_main .image_container {
+    height: 55%;
+    width: 100%;
+  }
+  .user_profile_page_main .image_container .user_information_card {
+    width: 400px;
+    height: 340px;
+    flex-direction: column;
+    top: 49%;
+    gap: 5px;
+  }
+
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_profile_and_location {
+    height: 100px;
+    width: 100px;
+    background-color: #333;
+    border-radius: 5px;
+    gap: 5px;
+    padding: 3px 0px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_profile_and_location
+    .upload_button {
+    padding: 2px 2px;
+    font-size: 8px;
+    font-weight: bold;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_profile_and_location
+    .save_button {
+    padding: 2px 2px;
+    font-size: 8px;
+  }
+
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_profile_and_location
+    .image_preview {
+    height: 70px;
+    width: 70px;
+  }
+
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information {
+    height: 230px;
+    width: 100%;
+    gap: 5px;
+    padding: 0px 15px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .update_button {
+    top: 0px;
+    right: 5px;
+    height: 20px;
+    width: 20px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .cancel_button {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    height: 20px;
+    width: 20px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .save_button {
+    bottom: 3px;
+    right: 5px;
+    font-size: 12px;
+  }
+
+  .user_profile_page_main .back_button {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 25px;
+    width: 25px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo {
+    padding: 5px;
+    margin-left: 30px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo
+    label {
+    padding: 0px;
+    width: 70px;
+    font-size: 12px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo
+    input {
+    width: 200px;
+    padding: 3px 5px;
+    font-size: 12px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo
+    select {
+    font-size: 12px;
+  }
+  .user_profile_page_main .order_information_container h1 {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 376px) {
+  .user_profile_page_main .image_container {
+    height: 55%;
+    width: 100%;
+  }
+  .user_profile_page_main .image_container .user_information_card {
+    width: 350px;
+    height: 340px;
+    flex-direction: column;
+    top: 49%;
+    gap: 5px;
+  }
+
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_profile_and_location {
+    height: 110px;
+    width: 110px;
+    background-color: #333;
+    border-radius: 5px;
+    gap: 5px;
+    padding: 3px 0px;
+  }
+  /* .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_profile_and_location
+    .upload_button {
+    padding: 2px 2px;
+    font-size: 8px;
+    font-weight: bold;
+  } */
+  /* .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_profile_and_location
+    .save_button {
+    padding: 2px 2px;
+    font-size: 8px;
+  } */
+
+  /* .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_profile_and_location
+    .image_preview {
+    height: 70px;
+    width: 70px;
+  } */
+
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information {
+    height: 230px;
+    width: 100%;
+    gap: 5px;
+    padding: 0px 0px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .update_button {
+    top: 0px;
+    right: 5px;
+    height: 20px;
+    width: 20px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .cancel_button {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    height: 20px;
+    width: 20px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .save_button {
+    bottom: 3px;
+    right: 5px;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .user_profile_page_main .back_button {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 25px;
+    width: 25px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo {
+    padding: 5px;
+    margin-left: 20px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo
+    label {
+    padding: 0px;
+    width: 70px;
+    font-size: 12px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo
+    input {
+    width: 200px;
+    padding: 3px 5px;
+    font-size: 12px;
+  }
+  .user_profile_page_main
+    .image_container
+    .user_information_card
+    .user_information
+    .userInfo
+    select {
+    font-size: 11px;
+  }
+  .user_profile_page_main .order_information_container h1 {
+    font-size: 16px;
+  }
+}
